@@ -1,0 +1,91 @@
+.table {
+    width: 90%;
+    margin: 0 auto;
+    .table-title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+        h1 {
+            font-size: 35px;
+        }
+        button {
+            margin: 20px 0px;
+        }
+    }
+    table {
+        table-layout: fixed;
+        margin: 0 auto;
+        white-space: nowrap;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        @media (max-width: 800px) {
+            margin-bottom: 20px;
+            width: 90%;
+        }
+        tr {
+            background-color: $background2;
+            @media (max-width: 800px) {
+                display: flex;
+                flex-direction: column;
+                margin: 10px 0;
+                border-radius: 4px;
+            }
+            &:hover:first-child {
+                color: $foreground1;
+            }
+            &:hover {
+                background-color: $secondary;
+                color: $foreground2;
+            }
+            th {
+                padding: 15px 20px;
+                text-align: center;
+                background-color: $background1;
+                color: $foreground3;
+                text-align: center;
+                vertical-align: middle;
+                @media (max-width: 800px) {
+                    display: none;
+                }
+            }
+            td {
+                padding: 15px 20px;
+                text-align: center;
+                vertical-align: middle;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 300px;
+                &:first-child {
+                    border-radius: 4px 0 0 4px;
+                }
+                &:last-child {
+                    border-radius: 0 4px 4px 0;
+                }
+                @media (max-width: 800px) {
+                    display: flex;
+                    justify-content: row;
+                }
+            }
+            .image {
+                text-decoration: underline;
+                text-underline-offset: 2px;
+                cursor: pointer;
+            }
+            button {
+                margin-right: 10px;
+                width: 80px;
+            }
+            img {
+                height: 25px;
+                width: 25px;
+            }
+        }
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}

@@ -1,0 +1,88 @@
+form {
+    input {
+        background-color: $background1;
+        border: 1px solid $border;
+        color: $foreground1;
+        border-radius: 4px;
+        margin: 15px 0 5px 0;
+        padding: 10px;
+        &:focus {
+            // border: 1px solid blue;
+            outline: none;
+        }
+    }
+    .error {
+        border: 1px solid $error;
+    }
+    .input-validation {
+        color: $error;
+    }
+    button {
+        width: 100%;
+        margin: 15px 0;
+    }
+}
+
+.input-container {
+    background-color: rgba(128, 128, 128, 0.596);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    .input {
+        display: block;
+        overflow: auto;
+        width: 40%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        padding: 25px;
+        background-color: $background1;
+        border: 1px solid $border;
+        border-radius: 4px;
+        overflow: hidden;
+        @media (max-width: 680px) {
+            width: 80%;
+        }
+        .input-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            h1 {
+                font-size: 20px;
+                font-weight: 600;
+            }
+            button {
+                width: 60px;
+                background-color: $secondary;
+            }
+        }
+        .input-input {
+            display: flex;
+            flex-direction: column;
+            input {
+                margin: 15px 0 5px 0;
+                width: 95%;
+            }
+            .error {
+                border: 1px solid $error;
+            }
+            .input-validation {
+                color: $error;
+            }
+            margin-bottom: 15px;
+        }
+        .input-button {
+            float: right;
+            button {
+                width: 60px;
+            }
+        }
+    }
+}
