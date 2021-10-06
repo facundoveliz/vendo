@@ -84,6 +84,9 @@ router.post("/add", upload.single("image"), auth, admin, async (req, res) => {
     } else {
       const result = await uploadFile(req.file);
       if (!result) return res.status(404).json({ error: "Image not found." });
+
+      console.log(result);
+
       const product = new Product({
         name: req.body.name,
         price: req.body.price,
@@ -91,6 +94,9 @@ router.post("/add", upload.single("image"), auth, admin, async (req, res) => {
         imageKey: result.key,
         description: req.body.description,
       });
+
+      console.log("---------------");
+      console.log(product);
 
       await product
         .save()
