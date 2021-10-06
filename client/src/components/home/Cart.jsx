@@ -31,14 +31,28 @@ const Cart = ({ cart, removeFromCart }) => {
             return (
               <div key={product._id} className="cart-container">
                 <div className="cart-info">
-                  <img src={product.image} alt={product.name} />
+                  <img
+                    src={
+                      product.imageUrl.length > 15
+                        ? product.imageUrl
+                        : "/uploads/products/default.jpg"
+                    }
+                    alt={product.name}
+                  />
                 </div>
                 <div>
                   <p>{product.name}</p>
                   <p>${product.price}</p>
                 </div>
                 <div className="cart-buttons">
-                  <button onClick={() => removeFromCart(product)}>X</button>
+                  <button
+                    onClick={() => {
+                      removeFromCart(product);
+                      console.log(product);
+                    }}
+                  >
+                    X
+                  </button>
                 </div>
               </div>
             );
