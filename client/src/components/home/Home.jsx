@@ -36,10 +36,7 @@ const Home = () => {
           {products.map((product) => {
             return (
               <div key={product._id} className="card">
-                <img
-                  src={`/uploads/products/${product.image}`}
-                  alt={product.name}
-                />
+                <img src={product.imageUrl} alt={product.name} />
                 <p>{product.name}</p>
                 <p>${product.price}</p>
                 {isInCart(product) ? (

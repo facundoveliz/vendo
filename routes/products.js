@@ -2,10 +2,40 @@ const express = require("express");
 const router = express.Router();
 const { Product, validate } = require("../models/product");
 const multer = require("multer");
+const S3 = require("aws-sdk/clients/s3");
 const fs = require("fs");
 
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
+
+const bucketName = process.env.AWS_BUCKET_NAME;
+const region = process.env.AWS_BUCKET_REGION;
+const accessKeyId = process.env.AWS_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_KEY;
+
+const s3 = new S3({ region, accessKeyId, secretAccessKey });
+
+// uploads a file to s3
+function uploadFile(file) {
+  const fileStream = fs.createReadStream(file.path);
+
+  const params = {
+    Bucket: bucketName,
+    Body: fileStream,
+    Key: file.filename,
+  };
+
+  return s3.upload(params).promise();
+}
+
+// deletes a file from s3
+function deleteFile(key) {
+  const params = {
+    Bucket: bucketName,
+    Key: key,
+  };
+  s3.deleteObject(params).promise();
+}
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -52,10 +82,13 @@ router.post("/add", upload.single("image"), auth, admin, async (req, res) => {
           res.status(400).json({ error: "The product could not be saved" })
         );
     } else {
+      const result = await uploadFile(req.file);
+      if (!result) return res.status(404).json({ error: "Image not found." });
       const product = new Product({
         name: req.body.name,
         price: req.body.price,
-        image: req.file.filename,
+        imageUrl: result.Location,
+        imageKey: result.key,
         description: req.body.description,
       });
 
@@ -93,25 +126,25 @@ router.put(
         if (!product)
           return res.status(404).json({ error: "Product not found" });
       } else {
-        // deletes the image from the public folder if it was changed but if the image was the default, it will do nothing
+        // gets the product to get the imageKey so it can delete it
         const image = await Product.findById(req.params.id);
-        if (image.image !== "default.jpg") {
-          const path = `client/public/uploads/products/${image.image}`;
-          fs.unlink(path, (err) => {
-            if (err) {
-              return res.status(400).json({ error: "Image not found" });
-            }
-          });
+        // deletes the image if it exists
+        if (image.key) {
+          await deleteFile(image.imageKey);
         }
+        if (!image) return res.status(404).json({ error: "Image not found." });
 
+        const result = await uploadFile(req.file);
         const product = await Product.findByIdAndUpdate(req.params.id, {
           name: req.body.name,
           price: req.body.price,
-          image: req.file.filename,
+          imageUrl: result.Location,
+          imageKey: result.key,
           description: req.body.description,
         });
-        if (!product)
+        if (!product) {
           return res.status(404).json({ error: "Product not found" });
+        }
       }
     } catch (err) {
       console.log(err);
@@ -124,15 +157,8 @@ router.delete("/delete/:id", auth, admin, async (req, res) => {
     const product = await Product.findByIdAndDelete(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found." });
 
-    // deletes the image from the public folder but if the image was the default, it will do nothing
-    if (product.image !== "default.jpg") {
-      const path = `client/public/uploads/products/${product.image}`;
-      fs.unlink(path, (err) => {
-        if (err) {
-          return res.status(400).json({ error: "Image not found" });
-        }
-      });
-    }
+    const image = await deleteFile(product.imageKey);
+    if (!image) return res.status(404).json({ error: "Image not found." });
   } catch (err) {
     console.log(err);
   }

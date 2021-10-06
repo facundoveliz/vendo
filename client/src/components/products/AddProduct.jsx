@@ -27,9 +27,6 @@ const schema = yup.object().shape({
 const AddProduct = ({ setOpenNew, getProductsRequest }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
-
-    console.log(data.image);
-
     formData.append("name", data.name);
     formData.append("price", data.price);
     formData.append("image", data.image[0]);
@@ -38,8 +35,8 @@ const AddProduct = ({ setOpenNew, getProductsRequest }) => {
     addProduct(formData);
 
     // closes the window and get the request for the updated list
-    getProductsRequest();
     setOpenNew(false);
+    getProductsRequest();
   };
 
   // validation with react-hook-form

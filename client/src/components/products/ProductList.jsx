@@ -58,7 +58,7 @@ const Dashboard = () => {
           {imageViewer ? (
             <div className="image-viewer">
               <img
-                src={`/uploads/products/${image}`}
+                src={image ? image : "/uploads/products/default.jpg"}
                 alt={image}
                 onClick={() => {
                   setImageViewer(false);
@@ -80,12 +80,12 @@ const Dashboard = () => {
                 <td>${product.price}</td>
                 <td
                   onClick={() => {
-                    setImage(product.image);
+                    setImage(product.imageUrl);
                     setImageViewer(true);
                   }}
                   className="image"
                 >
-                  {product.image}
+                  {product.imageKey ? product.imageKey : "default.jpg"}
                 </td>
                 <td>{product.description}</td>
                 <td>

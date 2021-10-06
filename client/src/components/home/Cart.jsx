@@ -31,10 +31,7 @@ const Cart = ({ cart, removeFromCart }) => {
             return (
               <div key={product._id} className="cart-container">
                 <div className="cart-info">
-                  <img
-                    src={`/uploads/products/${product.image}`}
-                    alt={product.name}
-                  />
+                  <img src={product.image} alt={product.name} />
                 </div>
                 <div>
                   <p>{product.name}</p>
