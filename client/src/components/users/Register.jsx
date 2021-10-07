@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { registerUser } from "./fetchActions";
+import Cookies from "js-cookie";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,6 +29,14 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
+  useEffect(() => {
+    if (token) {
+      history.push("/");
+    }
+  }, []);
+
+  const token = Cookies.get("jwtToken");
+
   const history = useHistory();
 
   const onSubmit = (data) => {

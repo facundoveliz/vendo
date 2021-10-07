@@ -1,34 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { logoutUser } from "../users/fetchActions";
 
 const Navbar = () => {
+  const token = Cookies.get("jwtToken");
+
   return (
     <div className="navbar">
       <ul>
-        <div className="navbar-left">
+        <Link to="/">
           <li>
-            <Link to="/">
-              <a href="">Home</a>
-            </Link>
+            <img src="/icons/home.svg" alt="" />
           </li>
+        </Link>
+        <Link to="/user-list">
           <li>
-            <Link to="/profile">
-              <a href="">Profile</a>
-            </Link>
+            <img src="/icons/users.svg" alt="" />
           </li>
-        </div>
-        <div className="navbar-right">
+        </Link>
+        <Link to="/product-list">
           <li>
+            <img src="/icons/product.svg" alt="" />
+          </li>
+        </Link>
+        <Link to="/order-list">
+          <li>
+            <img src="/icons/order.svg" alt="" />
+          </li>
+        </Link>
+        <Link to="/profile">
+          <li>
+            <img src="/icons/settings.svg" alt="" />
+          </li>
+        </Link>
+        {!token ? (
+          <>
             <Link to="/login">
-              <a href="">Log in</a>
+              <li>
+                <img src="/icons/login.svg" alt="" />
+              </li>
             </Link>
-          </li>
-          <li>
-            <Link to="/register">
-              <a href="">Sign Up</a>
+          </>
+        ) : (
+          <>
+            <Link to="/">
+              <li>
+                <img
+                  src="/icons/logout.svg"
+                  alt=""
+                  onClick={() => logoutUser()}
+                />
+              </li>
             </Link>
-          </li>
-        </div>
+          </>
+        )}
       </ul>
     </div>
   );

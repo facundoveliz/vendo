@@ -6,12 +6,13 @@ export const getProducts = async () => {
 };
 
 export const addProduct = async (productData) => {
-  await axios
+  let res = await axios
     .post(`/api/products/add`, productData)
-    .then((res) => console.log(res))
+    .then((res) => alert(res))
     .catch((err) => {
       console.log(err);
     });
+  console.log(res);
 };
 
 export const editProduct = async (id, productData) => {

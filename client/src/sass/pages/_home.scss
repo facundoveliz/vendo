@@ -9,10 +9,17 @@
     }
     div {
         display: flex;
+        justify-content: center;
         .card-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
             margin: 0 auto;
+            grid-template-columns: repeat(3, 1fr);
+            @media (max-width: 1125px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            @media (max-width: 750px) {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
     }
 }

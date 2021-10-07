@@ -37,6 +37,7 @@ export const loginUser = async (userData, history) => {
 
       // if the user registered successfully, it redirects it to main page
       history.push("/");
+      window.location.reload();
     })
     .catch((err) => {
       console.log(err);
@@ -61,6 +62,7 @@ export const logoutUser = () => {
 
   // removes the token from header
   setAuthToken(false);
+  window.location.reload();
 };
 
 // this function is for checking if user is loged to make private routes, the comprobation is also done in the back-end
@@ -74,10 +76,14 @@ export const isLogged = () => {
 
 // this function is for checking if user is admin to access admin routes, the comprobation is also done in the back-end
 export const isAdmin = () => {
-  const token = Cookies.get("jwtToken");
-  const decoded = jwt_decode(token);
-  if (decoded.isAdmin) {
-    return true;
+  if (Cookies.get("jwtToken")) {
+    const token = Cookies.get("jwtToken");
+    const decoded = jwt_decode(token);
+    if (decoded.isAdmin) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }

@@ -32,11 +32,12 @@ const AddProduct = ({ setOpenNew, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    addProduct(formData);
-
-    // closes the window and get the request for the updated list
-    setOpenNew(false);
-    getProductsRequest();
+    addProduct(formData).then((res) => {
+      // closes the window and get the request for the updated list
+      alert("done!");
+      setOpenNew(false);
+      getProductsRequest();
+    });
   };
 
   // validation with react-hook-form

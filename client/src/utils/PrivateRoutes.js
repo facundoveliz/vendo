@@ -18,7 +18,7 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isAdmin() ? <Component {...props} /> : <Redirect to="/" />
+        isAdmin() ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
