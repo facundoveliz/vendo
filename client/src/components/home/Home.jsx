@@ -36,14 +36,16 @@ const Home = () => {
           {products.map((product) => {
             return (
               <div key={product._id} className="card">
-                <img
-                  src={
-                    product.imageUrl.length > 15
-                      ? product.imageUrl
-                      : "/uploads/products/default.jpg"
-                  }
-                  alt={product.name}
-                />
+                <div className="card-image-container">
+                  <img
+                    src={
+                      product.imageUrl.length > 15
+                        ? product.imageUrl
+                        : "/uploads/products/default.jpg"
+                    }
+                    alt={product.name}
+                  />
+                </div>
                 <p>{product.name}</p>
                 <p>${product.price}</p>
                 {isInCart(product) ? (
@@ -59,7 +61,7 @@ const Home = () => {
             );
           })}
         </div>
-        {/* <Cart cart={cart} removeFromCart={removeFromCart} /> */}
+        <Cart cart={cart} removeFromCart={removeFromCart} />
       </div>
     </div>
   );

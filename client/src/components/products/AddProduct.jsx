@@ -34,7 +34,6 @@ const AddProduct = ({ setOpenNew, getProductsRequest }) => {
 
     addProduct(formData).then((res) => {
       // closes the window and get the request for the updated list
-      alert("done!");
       setOpenNew(false);
       getProductsRequest();
     });

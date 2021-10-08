@@ -8,7 +8,7 @@ export const getProducts = async () => {
 export const addProduct = async (productData) => {
   let res = await axios
     .post(`/api/products/add`, productData)
-    .then((res) => alert(res))
+    // .then((res) => alert("test"))
     .catch((err) => {
       console.log(err);
     });
@@ -16,9 +16,12 @@ export const addProduct = async (productData) => {
 };
 
 export const editProduct = async (id, productData) => {
-  await axios.put(`/api/products/edit/${id}`, productData).catch((err) => {
-    console.log(err);
-  });
+  await axios
+    .put(`/api/products/edit/${id}`, productData)
+    .then((res) => alert("test"))
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const deleteProduct = async (id) => {

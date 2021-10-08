@@ -25,12 +25,13 @@ const Cart = ({ cart, removeFromCart }) => {
 
   return (
     <div className="cart">
+      <p className="cart-separator">Cart</p>
       {cart.length > 0 ? (
         <>
           {cart.map((product) => {
             return (
               <div key={product._id} className="cart-container">
-                <div className="cart-info">
+                <div className="cart-image">
                   <img
                     src={
                       product.imageUrl.length > 15
@@ -41,8 +42,10 @@ const Cart = ({ cart, removeFromCart }) => {
                   />
                 </div>
                 <div>
-                  <p>{product.name}</p>
-                  <p>${product.price}</p>
+                  <p>
+                    {product.name} ${product.price}
+                  </p>
+                  <p></p>
                 </div>
                 <div className="cart-buttons">
                   <button
@@ -62,7 +65,7 @@ const Cart = ({ cart, removeFromCart }) => {
           </div>
         </>
       ) : (
-        <div>The cart is empty</div>
+        <p className="cart-empty">The cart is empty</p>
       )}
     </div>
   );

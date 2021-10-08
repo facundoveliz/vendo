@@ -36,7 +36,6 @@ const Dashboard = () => {
   const getOrdersRequest = async () => {
     let res = await getOrders();
     setOrders(res);
-    console.log(res);
   };
 
   const handleReturn = () => {

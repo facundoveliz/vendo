@@ -1,23 +1,30 @@
 .home {
     display: flex;
     flex-direction: column;
-    margin: 25px auto;
-    width: 90%;
+    margin: 25px 0;
+    width: 100%;
+    @media (max-width: 1160px) {
+        width: 100vw;
+    }
     h1 {
         font-size: 28px;
         margin: 0 auto;
+        text-align: center;
     }
     div {
         display: flex;
-        justify-content: center;
+        @media (max-width: 1160px) {
+            flex-direction: column;
+        }
         .card-container {
             display: grid;
             margin: 0 auto;
+
             grid-template-columns: repeat(3, 1fr);
-            @media (max-width: 1125px) {
+            @media (max-width: 1540px) {
                 grid-template-columns: repeat(2, 1fr);
             }
-            @media (max-width: 750px) {
+            @media (max-width: 785px) {
                 grid-template-columns: repeat(1, 1fr);
             }
         }

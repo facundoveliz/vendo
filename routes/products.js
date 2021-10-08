@@ -85,8 +85,6 @@ router.post("/add", upload.single("image"), auth, admin, async (req, res) => {
       const result = await uploadFile(req.file);
       if (!result) return res.status(404).json({ error: "Image not found." });
 
-      console.log(result);
-
       const product = new Product({
         name: req.body.name,
         price: req.body.price,
@@ -95,11 +93,9 @@ router.post("/add", upload.single("image"), auth, admin, async (req, res) => {
         description: req.body.description,
       });
 
-      console.log("---------------");
-      console.log(product);
-
       await product
         .save()
+        .then((product) => res.status(200).json({ message: "Done!" }))
         .catch((err) =>
           res.status(400).json({ error: "The product could not be saved" })
         );
@@ -120,6 +116,9 @@ router.put(
     if (err) return res.status(400).json(err.details[0].message);
 
     const file = req.file;
+
+    // if (!file) return res.status(400).json();
+
     try {
       if (!file) {
         // if a file is not uploaded, it only updates all except the image
@@ -129,8 +128,11 @@ router.put(
           description: req.body.description,
         });
 
-        if (!product)
+        if (!product) {
           return res.status(404).json({ error: "Product not found" });
+        } else {
+          return res.status(200).json({ message: "Done!" });
+        }
       } else {
         // gets the product to get the imageKey so it can delete it
         const image = await Product.findById(req.params.id);
@@ -150,6 +152,8 @@ router.put(
         });
         if (!product) {
           return res.status(404).json({ error: "Product not found" });
+        } else {
+          return res.status(200).json({ message: "Done!" });
         }
       }
     } catch (err) {
@@ -161,7 +165,11 @@ router.put(
 router.delete("/delete/:id", auth, admin, async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
-    if (!product) return res.status(404).json({ error: "Product not found." });
+    if (!product) {
+      return res.status(404).json({ error: "Product not found." });
+    } else {
+      return res.status(200).json({ message: "Done!" });
+    }
 
     const image = await deleteFile(product.imageKey);
     if (!image) return res.status(404).json({ error: "Image not found." });

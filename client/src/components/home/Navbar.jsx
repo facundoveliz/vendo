@@ -9,34 +9,34 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <ul>
-        <Link to="/">
+        <Link to="/" title="Home">
           <li>
             <img src="/icons/home.svg" alt="" />
           </li>
         </Link>
-        <Link to="/user-list">
+        <Link to="/user-list" title="Users">
           <li>
             <img src="/icons/users.svg" alt="" />
           </li>
         </Link>
-        <Link to="/product-list">
+        <Link to="/product-list" title="Products">
           <li>
             <img src="/icons/product.svg" alt="" />
           </li>
         </Link>
-        <Link to="/order-list">
+        <Link to="/order-list" title="Orders">
           <li>
             <img src="/icons/order.svg" alt="" />
           </li>
         </Link>
-        <Link to="/profile">
+        <Link to="/profile" title="Profile Settings">
           <li>
             <img src="/icons/settings.svg" alt="" />
           </li>
         </Link>
         {!token ? (
           <>
-            <Link to="/login">
+            <Link to="/login" title="Login">
               <li>
                 <img src="/icons/login.svg" alt="" />
               </li>
@@ -44,7 +44,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/">
+            <Link to="/" title="Logout">
               <li>
                 <img
                   src="/icons/logout.svg"

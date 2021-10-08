@@ -13,7 +13,7 @@ export const addOrder = async (orderData) => {
   try {
     await axios
       .post(`/api/orders/add`, orderData)
-      .then((res) => console.log(res))
+      .then(console.log("done"))
       .catch((err) => {
         console.log(err);
       });
