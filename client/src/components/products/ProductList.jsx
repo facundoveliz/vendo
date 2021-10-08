@@ -58,7 +58,9 @@ const Dashboard = () => {
           {imageViewer ? (
             <div className="image-viewer">
               <img
-                src={image.length > 15 ? image : "/uploads/products/default.jpg"}
+                src={
+                  image.length > 15 ? image : "/uploads/products/default.jpg"
+                }
                 alt={image}
                 onClick={() => {
                   setImageViewer(false);

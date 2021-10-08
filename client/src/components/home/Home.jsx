@@ -11,6 +11,10 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
+  // this allows to show to image
+  const [image, setImage] = useState("");
+  const [imageViewer, setImageViewer] = useState(false);
+
   const getProductsRequest = async () => {
     let res = await getProducts();
     setProducts(res);
@@ -33,6 +37,19 @@ const Home = () => {
       <h1>Welcome to Vendo.</h1>
       <div>
         <div className="card-container">
+          {imageViewer ? (
+            <div className="image-viewer">
+              <img
+                src={
+                  image.length > 15 ? image : "/uploads/products/default.jpg"
+                }
+                alt={image}
+                onClick={() => {
+                  setImageViewer(false);
+                }}
+              />
+            </div>
+          ) : null}
           {products.map((product) => {
             return (
               <div key={product._id} className="card">
@@ -44,6 +61,10 @@ const Home = () => {
                         : "/uploads/products/default.jpg"
                     }
                     alt={product.name}
+                    onClick={() => {
+                      setImage(product.imageUrl);
+                      setImageViewer(true);
+                    }}
                   />
                 </div>
                 <p>{product.name}</p>
