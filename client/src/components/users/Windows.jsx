@@ -20,11 +20,11 @@ const schema = yup.object().shape({
 
 export const Edit = ({ setOpenEdit, selectedEdit, getRequest }) => {
   const onSubmit = (data) => {
-    editUser(selectedEdit._id, data);
-
-    // closes the window and get the request for the updated list
-    getRequest();
-    setOpenEdit(false);
+    editUser(selectedEdit._id, data).then((res) => {
+      // closes the window and get the request for the updated list
+      getRequest();
+      setOpenEdit(false);
+    });
   };
 
   // validation with react-hook-form
@@ -76,11 +76,11 @@ export const Edit = ({ setOpenEdit, selectedEdit, getRequest }) => {
 
 export const Delete = ({ setOpenDelete, selectedDelete, getRequest }) => {
   const handleDelete = (id) => {
-    deleteUser(id);
-
-    // closes the window and get the request for the updated list
-    getRequest();
-    setOpenDelete(false);
+    deleteUser(id).then((res) => {
+      // closes the window and get the request for the updated list
+      getRequest();
+      setOpenDelete(false);
+    });
   };
 
   return (

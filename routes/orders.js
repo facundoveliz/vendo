@@ -39,7 +39,7 @@ router.post("/add", auth, admin, async (req, res) => {
           $push: {
             orders: order._id,
           },
-        })
+        }).then(() => res.status(200).json({ message: "Done!" }))
       )
       .catch((err) => res.status(400).json({ error: err }));
   } catch (err) {
@@ -59,7 +59,11 @@ router.put("/edit/:id", auth, admin, async (req, res) => {
       description: req.body.description,
     });
 
-    if (!order) return res.status(404).json({ error: "Order not found" });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    } else {
+      return res.status(200).json({ message: "Done!" });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -68,7 +72,11 @@ router.put("/edit/:id", auth, admin, async (req, res) => {
 router.delete("/delete/:id", auth, admin, async (req, res) => {
   try {
     const order = await Order.findByIdAndDelete(req.params.id);
-    if (!order) return res.status(404).json({ error: "Order not found." });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found." });
+    } else {
+      return res.status(200).json({ message: "Done!" });
+    }
   } catch (err) {
     console.log(err);
   }

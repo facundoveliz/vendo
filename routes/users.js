@@ -71,7 +71,7 @@ router.post("/register", async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
 
     // saves the user to the database
-    await user.save().then((user) => res.json(user));
+    await user.save().then(() => res.json({ message: "Done!" }));
   } catch (err) {
     console.log(err);
   }
@@ -120,8 +120,11 @@ router.put("/edit/:id", auth, admin, async (req, res) => {
       email: req.body.email,
     });
 
-    if (!user)
+    if (!user) {
       return res.status(404).json({ message: "The user was not found." });
+    } else {
+      return res.status(200).json({ message: "Done!" });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -131,8 +134,11 @@ router.delete("/delete/:id", auth, admin, async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
 
-    if (!user)
+    if (!user) {
       return res.status(404).json({ message: "The user was not found." });
+    } else {
+      return res.status(200).json({ message: "Done!" });
+    }
   } catch (err) {
     console.log(err);
   }

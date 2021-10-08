@@ -3,7 +3,7 @@ import { addOrder } from "./fetchActions";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 
-const Cart = ({ cart, removeFromCart }) => {
+const Cart = ({ cart, setCart, removeFromCart }) => {
   const checkout = () => {
     // decodes tde token and use it to take tde id of tde current user
     const token = Cookies.get("jwtToken");
@@ -20,7 +20,10 @@ const Cart = ({ cart, removeFromCart }) => {
       total: cart.map((product) => product.price).reduce((a, b) => a + b, 0),
     };
     // console.log(orderData);
-    addOrder(orderData);
+    addOrder(orderData).then((res) => {
+      alert("Thanks for shopping! Order sended");
+      setCart([]);
+    });
   };
 
   return (

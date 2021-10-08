@@ -95,7 +95,7 @@ router.post("/add", upload.single("image"), auth, admin, async (req, res) => {
 
       await product
         .save()
-        .then((product) => res.status(200).json({ message: "Done!" }))
+        .then(() => res.status(200).json({ message: "Done!" }))
         .catch((err) =>
           res.status(400).json({ error: "The product could not be saved" })
         );
@@ -116,9 +116,7 @@ router.put(
     if (err) return res.status(400).json(err.details[0].message);
 
     const file = req.file;
-
-    // if (!file) return res.status(400).json();
-
+    
     try {
       if (!file) {
         // if a file is not uploaded, it only updates all except the image

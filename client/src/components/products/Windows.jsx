@@ -33,11 +33,11 @@ export const Edit = ({ setOpenEdit, selectedEdit, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    editProduct(selectedEdit._id, formData);
-
-    // closes the window and get the request for the updated list
-    setOpenEdit(false);
-    getProductsRequest();
+    editProduct(selectedEdit._id, formData).then((res) => {
+      // closes the window and get the request for the updated list
+      setOpenEdit(false);
+      getProductsRequest();
+    });
   };
 
   const {
@@ -107,10 +107,11 @@ export const Delete = ({
 }) => {
   const handleDelete = (id) => {
     // setLoading(true);
-    deleteProduct(id);
-    // setLoading(false);
-    setOpenDelete(false);
-    getProductsRequest();
+    deleteProduct(id).then((res) => {
+      // setLoading(false);
+      setOpenDelete(false);
+      getProductsRequest();
+    });
   };
 
   return (

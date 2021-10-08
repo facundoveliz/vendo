@@ -9,9 +9,11 @@ export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {
 
 export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
   const handleDelete = (id) => {
-    deleteOrder(id);
-    getOrdersRequest();
-    setOpenDelete(false);
+    deleteOrder(id).then((res) => {
+      alert("done");
+      getOrdersRequest();
+      setOpenDelete(false);
+    });
   };
 
   return (

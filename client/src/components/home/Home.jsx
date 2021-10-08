@@ -61,7 +61,7 @@ const Home = () => {
             );
           })}
         </div>
-        <Cart cart={cart} removeFromCart={removeFromCart} />
+        <Cart cart={cart} setCart={setCart} removeFromCart={removeFromCart} />
       </div>
     </div>
   );

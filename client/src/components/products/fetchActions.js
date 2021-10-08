@@ -6,22 +6,15 @@ export const getProducts = async () => {
 };
 
 export const addProduct = async (productData) => {
-  let res = await axios
-    .post(`/api/products/add`, productData)
-    // .then((res) => alert("test"))
-    .catch((err) => {
-      console.log(err);
-    });
-  console.log(res);
+  let res = await axios.post(`/api/products/add`, productData).catch((err) => {
+    console.log(err);
+  });
 };
 
 export const editProduct = async (id, productData) => {
-  await axios
-    .put(`/api/products/edit/${id}`, productData)
-    .then((res) => alert("test"))
-    .catch((err) => {
-      console.log(err);
-    });
+  await axios.put(`/api/products/edit/${id}`, productData).catch((err) => {
+    console.log(err);
+  });
 };
 
 export const deleteProduct = async (id) => {

@@ -3,8 +3,7 @@ import { getUsers } from "./fetchActions";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import dateFormat from "dateformat";
-import { Edit } from "./Windows";
-import { Delete } from "./Windows";
+import { Edit, Delete } from "./Windows";
 
 const UserList = () => {
   useEffect(() => {
