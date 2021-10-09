@@ -48,7 +48,6 @@ const Register = () => {
     registerUser(userData, history);
   };
 
-  // validation with react-hook-form
   const {
     register,
     handleSubmit,
@@ -82,6 +81,7 @@ const Register = () => {
         <input
           name="password1"
           placeholder="Password"
+          type="password"
           className={errors.password1 ? "error" : ""}
           {...register("password1")}
         />
@@ -90,6 +90,7 @@ const Register = () => {
         <input
           name="password2"
           placeholder="Confirm Password"
+          type="password"
           className={errors.password2 ? "error" : ""}
           {...register("password2")}
         />

@@ -8,7 +8,6 @@ import UserList from "./components/users/UserList";
 import AddProduct from "./components/products/AddProduct";
 import ProductList from "./components/products/ProductList";
 import OrderList from "./components/orders/OrderList";
-import Dashboard from "./components/admin/Dashboard";
 import Home from "./components/home/Home";
 import Navbar from "./components/home/Navbar";
 import "./sass/main.scss";
@@ -20,7 +19,6 @@ function App() {
         <Navbar />
         <Switch>
           <LoggedRoute component={Profile} path="/profile" exact />
-          <AdminRoute component={Dashboard} path="/dashboard" exact />
           <AdminRoute component={UserList} path="/user-list" exact />
           <AdminRoute component={AddProduct} path="/add-product" exact />
           <AdminRoute component={ProductList} path="/product-list" exact />

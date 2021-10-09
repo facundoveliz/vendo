@@ -44,7 +44,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/" title="Logout">
+            <Link to="/login" title="Logout">
               <li>
                 <img
                   src="/icons/logout.svg"

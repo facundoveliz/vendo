@@ -36,7 +36,7 @@ const UserList = () => {
   };
 
   const handleReturn = () => {
-    window.location.href = "/dashboard";
+    window.location.href = "/";
   };
 
   return (

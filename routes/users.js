@@ -115,15 +115,33 @@ router.put("/edit/:id", auth, admin, async (req, res) => {
   if (error) return res.status(400).json(error.details[0].message);
 
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, {
-      name: req.body.name,
-      email: req.body.email,
-    });
+    if (req.body.password) {
+      // hash the password
+      const salt = await bcrypt.genSalt(10);
+      const password = await bcrypt.hash(req.body.password, salt);
 
-    if (!user) {
-      return res.status(404).json({ message: "The user was not found." });
+      const user = await User.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body.email,
+        password: password,
+      });
+
+      if (!user) {
+        return res.status(404).json({ message: "The user was not found." });
+      } else {
+        return res.status(200).json({ message: "Done!" });
+      }
     } else {
-      return res.status(200).json({ message: "Done!" });
+      const user = await User.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body.email,
+      });
+
+      if (!user) {
+        return res.status(404).json({ message: "The user was not found." });
+      } else {
+        return res.status(200).json({ message: "Done!" });
+      }
     }
   } catch (err) {
     console.log(err);

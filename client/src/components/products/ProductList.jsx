@@ -3,7 +3,7 @@ import { getProducts } from "./fetchActions";
 import AddProduct from "./AddProduct";
 import { Edit, Delete } from "./Windows";
 
-const Dashboard = () => {
+const ProductList = () => {
   useEffect(() => {
     getProductsRequest();
   }, []);
@@ -37,7 +37,7 @@ const Dashboard = () => {
   };
 
   const handleReturn = () => {
-    window.location.href = "/dashboard";
+    window.location.href = "/";
   };
 
   return (
@@ -135,4 +135,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ProductList;

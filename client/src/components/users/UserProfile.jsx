@@ -2,85 +2,141 @@ import React, { useState, useEffect } from "react";
 import { logoutUser } from "./fetchActions";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
-import { getUser } from "./fetchActions";
+import { getUser, editUser } from "./fetchActions";
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
 
-const handleLogout = () => {
-  logoutUser();
-  window.location.href = "/login";
-};
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .required("The name is a required field.")
+    .min(3, "The name should be at least 3 characters.")
+    .max(128, "The name should not have more than 128 characters."),
+  email: yup
+    .string()
+    .email("Email must be a valid email.")
+    .required("The email is a required field."),
+  password1: yup
+    .string()
+    .required("The password is a required field.")
+    .min(8, "The password should be at least 8 characters.")
+    .max(128, "The password not have more than 128 characters."),
+  password2: yup
+    .string()
+    .required("The password confirmation is a required field.")
+    .oneOf([yup.ref("password1"), null], "Passwords must match"),
+});
 
 const Profile = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [admin, setAdmin] = useState("");
-  const [date, setDate] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    date: "",
+  });
+
+  const handleLogout = () => {
+    logoutUser();
+    window.location.href = "/login";
+  };
 
   useEffect(() => {
-    getUserRequest(decoded._id);
+    getUserRequest();
   }, []);
 
   // decodes the token and use it to take the id of the current user
   const token = Cookies.get("jwtToken");
   const decoded = jwt_decode(token);
 
-  const getUserRequest = async (id) => {
-    let res = await getUser(id);
-    setName(res.name);
-    setEmail(res.email);
-    setAdmin(res.isAdmin);
-    setDate(res.created);
+  const getUserRequest = async () => {
+    let res = await getUser(decoded._id);
+    setUser({
+      name: res.name,
+      email: res.email,
+      date: res.date,
+    });
   };
+
+  const onSubmit = (data) => {
+    const userData = {
+      name: data.name,
+      email: data.email,
+      password: data.password1,
+    };
+    editUser(decoded._id, userData).then((res) => {
+      window.location.reload();
+      getUserRequest();
+    });
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    reValidateMode: "onBlur",
+  });
 
   return (
     <div className="profile">
-      <form className="profile-container">
+      <form onSubmit={handleSubmit(onSubmit)} className="profile-container">
         <h1>My Profile</h1>
         <div className="profile-data-container">
           <div className="profile-data">
-            <p>Name</p>
-            <input value={name}></input>
+            <p className="profile-title">Name</p>
+            <input
+              name="name"
+              placeholder={user.name}
+              className={errors.name ? "error" : ""}
+              {...register("name")}
+            />
+            <p className="input-validation">{errors.name?.message}</p>
           </div>
 
           <div className="profile-data">
-            <p>Email</p>
-            <input value={email}></input>
+            <p className="profile-title">Email</p>
+            <input
+              name="email"
+              placeholder={user.email}
+              className={errors.email ? "error" : ""}
+              {...register("email")}
+            />
+            <p className="input-validation">{errors.email?.message}</p>
           </div>
 
           <div className="profile-data">
-            <p>Password</p>
-            <input placeholder="New password" />
-            <input placeholder="Confirm password" />
-          </div>
+            <p className="profile-title">Password</p>
+            <input
+              placeholder="New password"
+              name="password1"
+              type="password"
+              className={errors.password1 ? "error" : ""}
+              {...register("password1")}
+            />
+            <p className="input-validation">{errors.password1?.message}</p>
 
-          <div className="profile-data">
-            <p>Adress</p>
-            <input placeholder="Add an adress"></input>
+            <input
+              placeholder="Confirm password"
+              name="password2"
+              type="password"
+              className={errors.password2 ? "error" : ""}
+              {...register("password2")}
+            />
+            <p className="input-validation">{errors.password2?.message}</p>
           </div>
-
-          <div className="profile-data">
-            <p>Phone Number</p>
-            <input placeholder="Add a phone number"></input>
-          </div>
-
-          {admin ? (
-            <div className="profile-data-admin">
-              <p>Admin</p>
-              <Link to="/dashboard">
-                <button>Dashboard</button>
-              </Link>
-            </div>
-          ) : null}
 
           <div className="profile-data">
             <p>Date created</p>
-            <p>{dateFormat(date, "dddd, mmmm dS, yyyy")}</p>
+            <p>{dateFormat(user.date, "dddd, mmmm dS, yyyy")}</p>
           </div>
-        </div>
-        <div className="profile-buttons">
-          <button>Save</button>
-          <button onClick={handleLogout}>Logout</button>
+          <div className="profile-buttons">
+            <button type="submit">Save</button>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       </form>
     </div>

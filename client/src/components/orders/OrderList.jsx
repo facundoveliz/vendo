@@ -3,7 +3,7 @@ import dateFormat from "dateformat";
 import { getOrders } from "../home/fetchActions";
 import { Edit, Delete, Products } from "./Windows";
 
-const Dashboard = () => {
+const OrderList = () => {
   useEffect(() => {
     getOrdersRequest();
   }, []);
@@ -39,7 +39,7 @@ const Dashboard = () => {
   };
 
   const handleReturn = () => {
-    window.location.href = "/dashboard";
+    window.location.href = "/";
   };
 
   return (
@@ -144,4 +144,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default OrderList;

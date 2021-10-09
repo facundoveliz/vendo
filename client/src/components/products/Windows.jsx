@@ -35,8 +35,9 @@ export const Edit = ({ setOpenEdit, selectedEdit, getProductsRequest }) => {
 
     editProduct(selectedEdit._id, formData).then((res) => {
       // closes the window and get the request for the updated list
-      setOpenEdit(false);
       getProductsRequest();
+      window.location.reload();
+      // setOpenEdit(false);
     });
   };
 

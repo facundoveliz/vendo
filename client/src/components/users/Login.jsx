@@ -11,7 +11,7 @@ const Login = () => {
   }, []);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
 
   const history = useHistory();
 
@@ -36,10 +36,13 @@ const Login = () => {
 
         <input
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Pasword"
+          type="password"
+          placeholder="Password"
         />
 
-        {error ? <p className="input-error">{error}</p> : null}
+        {error ? (
+          <p className="input-error">Invalid email or password</p>
+        ) : null}
 
         <button type="submit" className="button-primary">
           Log in
@@ -48,15 +51,15 @@ const Login = () => {
 
       <div className="auth-redirect">
         <Link to="/">
-          <p>Forgot your password?</p>
-          <p className="separator">-</p>
+          {/* <p>Forgot your password?</p>
+          <p className="separator">-</p> */}
           <Link to="/register">
             <p>Sign up to Vendo</p>
           </Link>
         </Link>
       </div>
 
-      <p className="or">OR</p>
+      {/* <p className="or">OR</p>
 
       <div className="auth-redirect">
         <Link to="/register">
@@ -68,7 +71,7 @@ const Login = () => {
         <Link to="/register">
           <button className="button-optional">Continue with Github</button>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

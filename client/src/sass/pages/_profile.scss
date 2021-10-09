@@ -15,12 +15,10 @@
         }
         .profile-data-container {
             .profile-data {
-                p {
-                    margin: 10px 0;
+                margin-top: 20px;
+                .profile-title {
+                    margin: 20px 0 0 0;
                     font-weight: 600;
-                    &:last-child {
-                        font-weight: 400;
-                    }
                 }
                 input {
                     box-sizing: border-box;

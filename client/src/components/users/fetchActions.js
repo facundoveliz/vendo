@@ -25,7 +25,7 @@ export const registerUser = async (userData, history) => {
     });
 };
 
-export const loginUser = async (userData, history) => {
+export const loginUser = async (userData, history, setError) => {
   await axios
     .post(`/api/users/login`, userData)
     .then((res) => {
@@ -41,6 +41,7 @@ export const loginUser = async (userData, history) => {
     })
     .catch((err) => {
       console.log(err);
+      setError(true);
     });
 };
 
