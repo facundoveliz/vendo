@@ -70,7 +70,10 @@ const Home = () => {
                 <p>{product.name}</p>
                 <p>${product.price}</p>
                 {isInCart(product) ? (
-                  <button onClick={(e) => removeFromCart(product)}>
+                  <button
+                    className="card-added-button"
+                    onClick={(e) => removeFromCart(product)}
+                  >
                     Remove from cart
                   </button>
                 ) : (

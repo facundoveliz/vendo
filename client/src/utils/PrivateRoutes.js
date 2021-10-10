@@ -7,7 +7,11 @@ export const LoggedRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isLogged() ? <Component {...props} /> : <Redirect to="/login" />
+        isLogged() ? (
+          <Component {...props} />
+        ) : (
+          (alert("You need to be logged!"), (<Redirect to="/login" />))
+        )
       }
     />
   );
@@ -18,7 +22,11 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isAdmin() ? <Component {...props} /> : <Redirect to="/login" />
+        isAdmin() ? (
+          <Component {...props} />
+        ) : (
+          (alert("You need to be admin!"), (<Redirect to="/login" />))
+        )
       }
     />
   );
