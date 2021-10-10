@@ -3,11 +3,11 @@ A Full Stack Ecommerce made with MERN Stack.
 
 # Demo
 
-The website is deployed to Heroku, so you can see it clicking on [this link](https://vendo-ecommerce.herokuapp.com/).
+The website is deployed to Heroku, so you can see it by clicking on [this link](https://vendo-ecommerce.herokuapp.com/).
 
 # Description
 
-This is an application that I made for practicing purposes. Is made with React and Sass in the front-end, Node and Express for the back-end using MongoDB as the database.
+This is an application that I made for practicing purposes. Is made with React and Sass in the front-end, Node and Express using MongoDB as database for the back-end.
 
 ## Features
 
