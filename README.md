@@ -3,7 +3,7 @@ A Full Stack Ecommerce made with MERN Stack.
 
 # Demo
 
-The website is deployed to a Heroku, so you can see it clicking on [this link](https://vendo-ecommerce.herokuapp.com/).
+The website is deployed to Heroku, so you can see it clicking on [this link](https://vendo-ecommerce.herokuapp.com/).
 
 # Description
 
