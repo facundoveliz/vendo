@@ -15,6 +15,7 @@ This is an application that I made for practicing purposes. Is made with React a
 - Ecommerce system for adding products to a cart and purchasing them.
 - Admin panel for visualizing, adding, editing and removing users, products and orders.
 - User and admin roles, with they respective protected routes.
+- Image uploading with AWS.
 - 100% Responsive.
 
 # To do
