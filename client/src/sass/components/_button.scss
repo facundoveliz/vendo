@@ -16,6 +16,9 @@ button,
         background-color: #cccccc;
         color: #838383;
     }
+    &:focus {
+        outline: 0;
+    }
 }
 
 .button-primary {

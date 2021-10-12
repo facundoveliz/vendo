@@ -5,7 +5,6 @@ import { getProducts } from "../products/fetchActions";
 const Home = () => {
   useEffect(() => {
     getProductsRequest();
-    console.log(process.env.REACT_APP_API_URL);
   }, []);
 
   const [products, setProducts] = useState([]);

@@ -10,7 +10,6 @@ export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {
 export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
   const handleDelete = (id) => {
     deleteOrder(id).then((res) => {
-      alert("done");
       getOrdersRequest();
       setOpenDelete(false);
     });

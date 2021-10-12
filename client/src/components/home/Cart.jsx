@@ -19,7 +19,6 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
       // map through all the cart products and with reduce sums all into one number
       total: cart.map((product) => product.price).reduce((a, b) => a + b, 0),
     };
-    // console.log(orderData);
     addOrder(orderData).then((res) => {
       alert("Thanks for shopping! Order sended");
       setCart([]);
@@ -54,7 +53,6 @@ const Cart = ({ cart, setCart, removeFromCart }) => {
                   <button
                     onClick={() => {
                       removeFromCart(product);
-                      console.log(product);
                     }}
                   >
                     X
