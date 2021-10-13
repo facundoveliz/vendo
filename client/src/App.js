@@ -9,6 +9,7 @@ import AddProduct from "./components/products/AddProduct";
 import ProductList from "./components/products/ProductList";
 import OrderList from "./components/orders/OrderList";
 import Home from "./components/home/Home";
+import Cart from "./components/home/Cart";
 import Navbar from "./components/home/Navbar";
 import NotFound from "./components/home/NotFound";
 import "./sass/main.scss";
@@ -25,8 +26,9 @@ function App() {
           <AdminRoute component={AddProduct} path="/add-product" exact />
           <AdminRoute component={ProductList} path="/product-list" exact />
           <AdminRoute component={OrderList} path="/order-list" exact />
-          
+
           <Route path="/" component={Home} exact />
+          <Route path="/cart" component={Cart} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
           <Route component={NotFound} />

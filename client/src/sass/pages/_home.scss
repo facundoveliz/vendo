@@ -1,14 +1,14 @@
 .home {
     display: flex;
     flex-direction: column;
-    width: 100%;
     @media (max-width: 1160px) {
         width: 100vw;
     }
     h1 {
-        font-size: 28px;
-        margin: 25px 0;
         text-align: center;
+        margin: 25px auto;
+        font-size: 35px;
+        width: 60%;
     }
     div {
         display: flex;
@@ -19,11 +19,14 @@
             display: grid;
             margin: 0 auto;
 
-            grid-template-columns: repeat(3, 1fr);
-            @media (max-width: 1540px) {
+            grid-template-columns: repeat(4, 1fr);
+            @media (max-width: 1460px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            @media (max-width: 1080px) {
                 grid-template-columns: repeat(2, 1fr);
             }
-            @media (max-width: 785px) {
+            @media (max-width: 720px) {
                 grid-template-columns: repeat(1, 1fr);
             }
         }

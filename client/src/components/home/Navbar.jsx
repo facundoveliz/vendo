@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { logoutUser } from "../users/fetchActions";
 
+import { useSelector } from "react-redux";
+
 const Navbar = () => {
   const token = Cookies.get("jwtToken");
+  const cart = useSelector((state) => state.cart.cartItems);
 
   return (
     <div className="navbar">
@@ -12,6 +15,16 @@ const Navbar = () => {
         <Link to="/" title="Home">
           <li>
             <img src="/icons/home.svg" alt="" />
+          </li>
+        </Link>
+        <Link to="/cart" title="Cart">
+          <li>
+            <img src="/icons/cart.svg" alt="" />
+            {cart.length > 0 ? (
+              <div>
+                <p>{cart.length}</p>
+              </div>
+            ) : null}
           </li>
         </Link>
         <Link to="/user-list" title="Users">

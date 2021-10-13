@@ -27,9 +27,13 @@ router.post("/add", auth, admin, async (req, res) => {
     // creates the new order
     const order = new Order({
       products: req.body.products,
-      user: req.body.user,
+      user: req.body._id,
       total: req.body.total,
     });
+
+    console.log(req.body.user);
+
+    console.log(order);
 
     await order
       .save()

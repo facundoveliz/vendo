@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Cart from "./Cart";
 import { getProducts } from "../products/fetchActions";
+import { useSelector, useDispatch } from "react-redux";
+
+// actions
+import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 
 const Home = () => {
   useEffect(() => {
     getProductsRequest();
   }, []);
 
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cartItems);
+
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
 
   // this allows to show to image
   const [image, setImage] = useState("");
@@ -19,12 +24,12 @@ const Home = () => {
     setProducts(res);
   };
 
-  const addToCart = (product) => {
-    setCart([...cart, product]);
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
   };
 
-  const removeFromCart = (product) => {
-    setCart(cart.filter((item) => item !== product));
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
   };
 
   const isInCart = (product) => {
@@ -71,12 +76,12 @@ const Home = () => {
                 {isInCart(product) ? (
                   <button
                     className="card-added-button"
-                    onClick={(e) => removeFromCart(product)}
+                    onClick={() => handleRemoveFromCart(product)}
                   >
                     Remove from cart
                   </button>
                 ) : (
-                  <button onClick={(e) => addToCart(product)}>
+                  <button onClick={() => handleAddToCart(product)}>
                     Add to cart
                   </button>
                 )}
@@ -84,7 +89,6 @@ const Home = () => {
             );
           })}
         </div>
-        <Cart cart={cart} setCart={setCart} removeFromCart={removeFromCart} />
       </div>
     </div>
   );

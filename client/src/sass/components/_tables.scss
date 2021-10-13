@@ -1,5 +1,5 @@
 .table {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     .table-title {
         display: flex;
@@ -16,6 +16,7 @@
     }
     table {
         table-layout: fixed;
+        width: 90%;
         margin: 0 auto;
         white-space: nowrap;
         border-collapse: separate;
@@ -46,6 +47,7 @@
                 color: $foreground3;
                 text-align: center;
                 vertical-align: middle;
+                width: 100%;
                 @media (max-width: 800px) {
                     display: none;
                 }
@@ -53,16 +55,25 @@
             td {
                 padding: 15px 20px;
                 text-align: center;
-                vertical-align: middle;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 300px;
+                p {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-bottom: 3px;
+                    border-bottom: 1px solid $foreground1;
+                }
                 &:first-child {
                     border-radius: 4px 0 0 4px;
                 }
                 &:last-child {
                     border-radius: 0 4px 4px 0;
+                    word-wrap: break-word;
+                    text-overflow: inherit;
+                    @media (max-width: 1180px) {
+                    }
                 }
                 @media (max-width: 800px) {
                     display: flex;
