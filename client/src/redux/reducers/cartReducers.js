@@ -26,13 +26,6 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
           ),
         };
       }
-    case actionTypes.REMOVE_ALL_FROM_CART:
-      return {
-        ...state,
-        cartItems: state.cartItems.filter(
-          (product) => product._id !== action.payload._id
-        ),
-      };
     default:
       return state;
   }

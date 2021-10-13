@@ -9,8 +9,8 @@ const Login = () => {
       history.push("/");
     }
   }, []);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("test@gmail.com");
+  const [password, setPassword] = useState("test1234");
   const [error, setError] = useState(false);
 
   const history = useHistory();
@@ -32,11 +32,16 @@ const Login = () => {
       <h1>Vendo.</h1>
 
       <form onSubmit={onSubmit} className="login-form">
-        <input onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          defaultValue="test@gmail.com"
+          placeholder="Email"
+        />
 
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
+          defaultValue="test1234"
           placeholder="Password"
         />
 
