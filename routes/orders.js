@@ -31,10 +31,6 @@ router.post("/add", auth, admin, async (req, res) => {
       total: req.body.total,
     });
 
-    console.log(req.body.user);
-
-    console.log(order);
-
     await order
       .save()
       .then(

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { addOrder } from "./fetchActions";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
+import { useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -9,10 +10,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../../redux/actions/cartActions";
 
 const Cart = () => {
-  const [total, setTotal] = useState("0");
-
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cartItems);
+
+  const history = useHistory();
 
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
@@ -35,7 +36,8 @@ const Cart = () => {
     };
     addOrder(orderData).then((res) => {
       alert("Thanks for shopping! Order sended.");
-      // dispatch(removeFromCart(product));
+      dispatch(removeFromCart(cart));
+      history.push("/");
     });
   };
 
