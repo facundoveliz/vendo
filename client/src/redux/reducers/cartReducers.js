@@ -12,12 +12,13 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
         cartItems: [...state.cartItems, action.payload],
       };
     case actionTypes.REMOVE_FROM_CART:
+      // if the payload is an array, it will remove all
+      // objects, this happens for deleting on checkout
+      // if not, it will remove only one item, this
+      // happens when deleting only one item from cart
       if (action.payload.length >= 1) {
-        console.log("borra todo");
-        // console.log(action.payload.map((product) => product._id));
         return CART_INITIAL_STATE;
       } else {
-        console.log("borra uno");
         return {
           ...state,
           cartItems: state.cartItems.filter(
