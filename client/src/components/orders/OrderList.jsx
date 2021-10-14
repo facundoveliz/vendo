@@ -66,7 +66,6 @@ const OrderList = () => {
             <th>Purchased</th>
             <th>Customer</th>
             <th>Email</th>
-            <th>Status</th>
             <th>Total</th>
             <th>Date</th>
             <th>Actions</th>
@@ -105,7 +104,6 @@ const OrderList = () => {
                     <td>User deleted</td>
                   </>
                 )}
-                <td>Pending</td>
                 <td>${order.total}</td>
                 <td>{dateFormat(order.created, "d mmm, HH:MM")}</td>
                 <td>
