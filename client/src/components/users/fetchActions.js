@@ -15,13 +15,13 @@ export const getUsers = async () => {
   return res.data;
 };
 
-export const registerUser = async (userData, history) => {
+export const registerUser = async (userData, history, setError) => {
   await axios
     .post(`/api/users/register`, userData)
     // if the user register successfully, it redirects it to login page
     .then((res) => history.push("/login"))
     .catch((err) => {
-      console.log(err);
+      setError(err);
     });
 };
 
