@@ -39,7 +39,7 @@ const Cart = () => {
       history.push("/");
     });
     toast.promise(addOrder, {
-      pending: "Sending order...",
+      pending: "Sending order, please wait...",
       success: "Thanks for shopping! Order sended.",
       error: "There was an error 😞",
     });
