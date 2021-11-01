@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import dateFormat from "dateformat";
 import { Edit, Delete } from "./Windows";
+import { toast } from "react-toastify";
 
 const UserList = () => {
   useEffect(() => {
@@ -71,7 +72,9 @@ const UserList = () => {
                     </button>
                     {user._id === decoded._id ? (
                       <button
-                        onClick={() => alert("You can't delete yourself.")}
+                        onClick={() =>
+                          toast.error("You can't delete yourself.")
+                        }
                       >
                         Delete
                       </button>

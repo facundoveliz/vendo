@@ -14,10 +14,14 @@ import Navbar from "./components/home/Navbar";
 import NotFound from "./components/home/NotFound";
 import "./sass/main.scss";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <Router>
       <div>
+        <ToastContainer />
         <Navbar />
         <Switch>
           <LoggedRoute component={Profile} path="/profile" exact />

@@ -1,9 +1,9 @@
-import * as actionTypes from "../constants/cartConstants";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants/cartConstants";
 
 export const addToCart = (product) => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.ADD_TO_CART,
+      type: ADD_TO_CART,
       payload: product,
     });
 
@@ -14,7 +14,7 @@ export const addToCart = (product) => {
 export const removeFromCart = (product) => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.REMOVE_FROM_CART,
+      type: REMOVE_FROM_CART,
       payload: product,
     });
 

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { addOrder } from "./fetchActions";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
-
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 // actions
 import { removeFromCart } from "../../redux/actions/cartActions";
@@ -22,7 +22,7 @@ const Cart = () => {
   const checkout = () => {
     // decodes tde token and use it to take tde id of tde current cart
     const token = Cookies.get("jwtToken");
-    if (!token) return alert("You need to be loged!");
+    if (!token) return toast.warn("You need to be logged!");
     const decoded = jwt_decode(token);
 
     const orderData = {
@@ -35,9 +35,13 @@ const Cart = () => {
       total: cart.map((product) => product.price).reduce((a, b) => a + b, 0),
     };
     addOrder(orderData).then((res) => {
-      alert("Thanks for shopping! Order sended.");
       dispatch(removeFromCart(cart));
       history.push("/");
+    });
+    toast.promise(addOrder, {
+      pending: "Sending order...",
+      success: "Thanks for shopping! Order sended.",
+      error: "There was an error 😞",
     });
   };
 

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { logoutUser } from "../users/fetchActions";
-
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
