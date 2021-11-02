@@ -37,7 +37,7 @@
                 }
             }
             &:hover {
-                background-color: $primary;
+                background-color: $secondary;
             }
         }
     }
@@ -45,6 +45,6 @@
 
 .navbar-selected {
     li {
-        background-color: $secondary;
+        background-color: $primary;
     }
 }
