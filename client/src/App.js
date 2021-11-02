@@ -28,12 +28,10 @@ function App() {
         <Navbar />
         <Switch>
           <LoggedRoute component={Profile} path="/profile" exact />
-
           <AdminRoute component={UserList} path="/user-list" exact />
           <AdminRoute component={AddProduct} path="/add-product" exact />
           <AdminRoute component={ProductList} path="/product-list" exact />
           <AdminRoute component={OrderList} path="/order-list" exact />
-
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} exact />
           <Route path="/login" component={Login} exact />

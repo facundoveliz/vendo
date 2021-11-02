@@ -37,9 +37,14 @@
                 }
             }
             &:hover {
-                background-color: $secondary;
-                // filter: invert(35%) sepia(55%) saturate(526%) hue-rotate(323deg) brightness(95%) contrast(89%);
+                background-color: $primary;
             }
         }
+    }
+}
+
+.navbar-selected {
+    li {
+        background-color: $secondary;
     }
 }

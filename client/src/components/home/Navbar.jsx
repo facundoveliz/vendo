@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { logoutUser } from "../users/fetchActions";
 import { useSelector } from "react-redux";
@@ -11,12 +11,17 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <ul>
-        <Link to="/" title="Home">
+        <NavLink
+          to="/"
+          exact={true}
+          title="Home"
+          activeClassName="navbar-selected"
+        >
           <li>
             <img src="/icons/home.svg" alt="" />
           </li>
-        </Link>
-        <Link to="/cart" title="Cart">
+        </NavLink>
+        <NavLink to="/cart" title="Cart" activeClassName="navbar-selected">
           <li>
             <img src="/icons/cart.svg" alt="" />
             {cart.length > 0 ? (
@@ -25,38 +30,62 @@ const Navbar = () => {
               </div>
             ) : null}
           </li>
-        </Link>
-        <Link to="/user-list" title="Users">
+        </NavLink>
+        <NavLink
+          to="/user-list"
+          title="Users"
+          activeClassName="navbar-selected"
+        >
           <li>
             <img src="/icons/users.svg" alt="" />
           </li>
-        </Link>
-        <Link to="/product-list" title="Products">
+        </NavLink>
+        <NavLink
+          to="/product-list"
+          title="Products"
+          activeClassName="navbar-selected"
+        >
           <li>
             <img src="/icons/product.svg" alt="" />
           </li>
-        </Link>
-        <Link to="/order-list" title="Orders">
+        </NavLink>
+        <NavLink
+          to="/order-list"
+          title="Orders"
+          activeClassName="navbar-selected"
+        >
           <li>
             <img src="/icons/order.svg" alt="" />
           </li>
-        </Link>
-        <Link to="/profile" title="Profile Settings">
+        </NavLink>
+        <NavLink
+          to="/profile"
+          title="Profile Settings"
+          activeClassName="navbar-selected"
+        >
           <li>
             <img src="/icons/settings.svg" alt="" />
           </li>
-        </Link>
+        </NavLink>
         {!token ? (
           <>
-            <Link to="/login" title="Login">
+            <NavLink
+              to="/login"
+              title="Login"
+              activeClassName="navbar-selected"
+            >
               <li>
                 <img src="/icons/login.svg" alt="" />
               </li>
-            </Link>
+            </NavLink>
           </>
         ) : (
           <>
-            <Link to="/login" title="Logout">
+            <NavLink
+              to="/login"
+              title="Logout"
+              activeClassName="navbar-selected"
+            >
               <li>
                 <img
                   src="/icons/logout.svg"
@@ -64,7 +93,7 @@ const Navbar = () => {
                   onClick={() => logoutUser()}
                 />
               </li>
-            </Link>
+            </NavLink>
           </>
         )}
       </ul>
