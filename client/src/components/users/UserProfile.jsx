@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import { getUser, editUser } from "./fetchActions";
 import dateFormat from "dateformat";
-import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -38,6 +38,8 @@ const Profile = () => {
     date: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleLogout = () => {
     logoutUser();
     window.location.href = "/login";
@@ -52,12 +54,14 @@ const Profile = () => {
   const decoded = jwt_decode(token);
 
   const getUserRequest = async () => {
+    setLoading(true);
     let res = await getUser(decoded._id);
     setUser({
       name: res.name,
       email: res.email,
       date: res.date,
     });
+    setLoading(false);
   };
 
   const onSubmit = (data) => {
@@ -85,59 +89,69 @@ const Profile = () => {
     <div className="profile">
       <form onSubmit={handleSubmit(onSubmit)} className="profile-container">
         <h1>My Profile</h1>
-        <div className="profile-data-container">
-          <div className="profile-data">
-            <p className="profile-title">Name</p>
-            <input
-              name="name"
-              placeholder={user.name}
-              className={errors.name ? "error" : ""}
-              {...register("name")}
-            />
-            <p className="input-validation">{errors.name?.message}</p>
-          </div>
+        {loading ? (
+          <Loader
+            type="Oval"
+            color="#e79e4f"
+            height={200}
+            width={200}
+            className="loading"
+          />
+        ) : (
+          <div className="profile-data-container">
+            <div className="profile-data">
+              <p className="profile-title">Name</p>
+              <input
+                name="name"
+                placeholder={user.name}
+                className={errors.name ? "error" : ""}
+                {...register("name")}
+              />
+              <p className="input-validation">{errors.name?.message}</p>
+            </div>
 
-          <div className="profile-data">
-            <p className="profile-title">Email</p>
-            <input
-              name="email"
-              placeholder={user.email}
-              className={errors.email ? "error" : ""}
-              {...register("email")}
-            />
-            <p className="input-validation">{errors.email?.message}</p>
-          </div>
+            <div className="profile-data">
+              <p className="profile-title">Email</p>
+              <input
+                name="email"
+                placeholder={user.email}
+                className={errors.email ? "error" : ""}
+                {...register("email")}
+              />
+              <p className="input-validation">{errors.email?.message}</p>
+            </div>
 
-          <div className="profile-data">
-            <p className="profile-title">Password</p>
-            <input
-              placeholder="New password"
-              name="password1"
-              type="password"
-              className={errors.password1 ? "error" : ""}
-              {...register("password1")}
-            />
-            <p className="input-validation">{errors.password1?.message}</p>
+            <div className="profile-data">
+              <p className="profile-title">Password</p>
+              <input
+                placeholder="New password"
+                name="password1"
+                type="password"
+                className={errors.password1 ? "error" : ""}
+                {...register("password1")}
+              />
+              <p className="input-validation">{errors.password1?.message}</p>
 
-            <input
-              placeholder="Confirm password"
-              name="password2"
-              type="password"
-              className={errors.password2 ? "error" : ""}
-              {...register("password2")}
-            />
-            <p className="input-validation">{errors.password2?.message}</p>
-          </div>
+              <input
+                placeholder="Confirm password"
+                name="password2"
+                type="password"
+                className={errors.password2 ? "error" : ""}
+                {...register("password2")}
+              />
+              <p className="input-validation">{errors.password2?.message}</p>
+            </div>
 
-          <div className="profile-data">
-            <p>Date created</p>
-            <p>{dateFormat(user.date, "dddd, mmmm dS, yyyy")}</p>
+            <div className="profile-data">
+              <p>Date created</p>
+              <p>{dateFormat(user.date, "dddd, mmmm dS, yyyy")}</p>
+            </div>
+            <div className="profile-buttons">
+              <button type="submit">Save</button>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
           </div>
-          <div className="profile-buttons">
-            <button type="submit">Save</button>
-            <button onClick={handleLogout}>Logout</button>
-          </div>
-        </div>
+        )}
       </form>
     </div>
   );

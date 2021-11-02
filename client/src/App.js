@@ -21,7 +21,10 @@ function App() {
   return (
     <Router>
       <div>
-        <ToastContainer />
+        <ToastContainer
+        closeOnClick
+        newestOnTop={true}
+        />
         <Navbar />
         <Switch>
           <LoggedRoute component={Profile} path="/profile" exact />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getProducts } from "./fetchActions";
 import AddProduct from "./AddProduct";
 import { Edit, Delete } from "./Windows";
+import Loader from "react-loader-spinner";
 
 const ProductList = () => {
   useEffect(() => {
@@ -31,9 +32,13 @@ const ProductList = () => {
   // this passes the id of the selected product to delete
   const [selectedDelete, setSelectedDelete] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const getProductsRequest = async () => {
+    setLoading(true);
     let res = await getProducts();
     setProducts(res);
+    setLoading(false);
   };
 
   const handleReturn = () => {
@@ -52,69 +57,79 @@ const ProductList = () => {
         <h1>Products</h1>
         <button onClick={handleReturn}>Back</button>
       </div>
-      <table>
-        <button onClick={() => setOpenNew(true)}>Add New</button>
-        <tbody>
-          {imageViewer ? (
-            <div className="image-viewer">
-              <img
-                src={
-                  image.length > 15 ? image : "/uploads/products/default.jpg"
-                }
-                alt={image}
-                onClick={() => {
-                  setImageViewer(false);
-                }}
-              />
-            </div>
-          ) : null}
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-          {products.map((product) => {
-            return (
-              <tr key={product._id}>
-                <td>{product.name}</td>
-                <td>${product.price}</td>
-                <td
+      {loading ? (
+        <Loader
+          type="Oval"
+          color="#e79e4f"
+          height={200}
+          width={200}
+          className="loading"
+        />
+      ) : (
+        <table>
+          <button onClick={() => setOpenNew(true)}>Add New</button>
+          <tbody>
+            {imageViewer ? (
+              <div className="image-viewer">
+                <img
+                  src={
+                    image.length > 15 ? image : "/uploads/products/default.jpg"
+                  }
+                  alt={image}
                   onClick={() => {
-                    setImage(product.imageUrl);
-                    setImageViewer(true);
+                    setImageViewer(false);
                   }}
-                  className="image"
-                >
-                  {product.imageKey ? product.imageKey : "default.jpg"}
-                </td>
-                <td>{product.description}</td>
-                <td>
-                  <button
+                />
+              </div>
+            ) : null}
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Image</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+            {products.map((product) => {
+              return (
+                <tr key={product._id}>
+                  <td>{product.name}</td>
+                  <td>${product.price}</td>
+                  <td
                     onClick={() => {
-                      setOpenEdit(true);
-                      setSelectedEdit({ ...selectedEdit, ...product });
+                      setImage(product.imageUrl);
+                      setImageViewer(true);
                     }}
+                    className="image"
                   >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      {
-                        setOpenDelete(true);
-                        setSelectedDelete(product._id);
-                      }
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                    {product.imageKey ? product.imageKey : "default.jpg"}
+                  </td>
+                  <td>{product.description}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        setOpenEdit(true);
+                        setSelectedEdit({ ...selectedEdit, ...product });
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        {
+                          setOpenDelete(true);
+                          setSelectedDelete(product._id);
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
       <div>
         {openEdit ? (
           <Edit
