@@ -43,7 +43,7 @@ export const Products = ({ setOpenProducts, selectedProducts }) => {
           {selectedProducts.map((product) => {
             return (
               <p>
-                {product.name} ${product.price}
+                {product.name} ${product.price.toLocaleString()}
               </p>
             );
           })}
