@@ -31,7 +31,7 @@ export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
   );
 };
 
-export const Products = ({ setOpenProducts, selectedProducts }) => {
+export const Products = ({ setOpenProducts,selectedProducts }) => {
   return (
     <div className="input-container">
       <div className="input">
