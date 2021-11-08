@@ -41,10 +41,6 @@ const ProductList = () => {
     setLoading(false);
   };
 
-  const handleReturn = () => {
-    window.location.href = "/";
-  };
-
   return (
     <div className="table product-list">
       {openNew ? (
@@ -55,12 +51,11 @@ const ProductList = () => {
       ) : null}
       <div className="table-title">
         <h1>Products</h1>
-        <button onClick={handleReturn}>Back</button>
       </div>
       {loading ? (
         <Loader
           type="Oval"
-          color="#e79e4f"
+          color="#627884"
           height={200}
           width={200}
           className="loading"
@@ -93,7 +88,7 @@ const ProductList = () => {
               return (
                 <tr key={product._id}>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>${product.price.toLocaleString()}</td>
                   <td
                     onClick={() => {
                       setImage(product.imageUrl);

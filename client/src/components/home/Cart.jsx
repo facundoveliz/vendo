@@ -66,7 +66,7 @@ const Cart = () => {
                   </div>
                   <p>{product.name}</p>
                 </div>
-                <p> ${product.price}</p>
+                <p> ${product.price.toLocaleString()}</p>
                 <button onClick={() => handleRemoveFromCart(product)}>X</button>
               </div>
             );
@@ -74,7 +74,7 @@ const Cart = () => {
           <div className="cart-checkout">
             <p>
               Total:
-              {cart.map((product) => product.price).reduce((a, b) => a + b, 0)}
+              {cart.map((product) => product.price).reduce((a, b) => a + b, 0).toLocaleString()}
             </p>
             <button onClick={() => checkout()}>Checkout</button>
           </div>

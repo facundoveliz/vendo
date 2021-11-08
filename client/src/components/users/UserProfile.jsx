@@ -92,7 +92,7 @@ const Profile = () => {
         {loading ? (
           <Loader
             type="Oval"
-            color="#e79e4f"
+            color="#627884"
             height={200}
             width={200}
             className="loading"

@@ -3,6 +3,7 @@ import dateFormat from "dateformat";
 import { getOrders } from "../home/fetchActions";
 import { Edit, Delete, Products } from "./Windows";
 import Loader from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 const OrderList = () => {
   useEffect(() => {
@@ -43,27 +44,24 @@ const OrderList = () => {
     setLoading(false);
   };
 
-  const handleReturn = () => {
-    window.location.href = "/";
-  };
-
   return (
     <div className="table order-list">
       <div className="table-title">
         <h1>Orders</h1>
-        <button onClick={handleReturn}>Back</button>
       </div>
       {loading ? (
         <Loader
           type="Oval"
-          color="#e79e4f"
+          color="#627884"
           height={200}
           width={200}
           className="loading"
         />
       ) : (
         <table>
-          <button onClick={() => setOpenNew(true)}>Add New</button>
+          <button onClick={() => toast.warn("Feature not available yet.")}>
+            Add New
+          </button>
           <tbody>
             {imageViewer ? (
               <div className="image-viewer">
@@ -118,14 +116,11 @@ const OrderList = () => {
                       <td>User deleted</td>
                     </>
                   )}
-                  <td>${order.total}</td>
+                  <td>${order.total.toLocaleString()}</td>
                   <td>{dateFormat(order.created, "d mmm, HH:MM")}</td>
                   <td>
                     <button
-                    // onClick={() => {
-                    //   setOpenEdit(true);
-                    //   setSelectedEdit({ ...selectedEdit, ...order });
-                    // }}
+                      onClick={() => toast.warn("Feature not available yet.")}
                     >
                       Edit
                     </button>

@@ -47,7 +47,7 @@ const Home = () => {
       {loading ? (
         <Loader
           type="Oval"
-          color="#e79e4f"
+          color="#627884"
           height={200}
           width={200}
           className="loading"
@@ -86,7 +86,7 @@ const Home = () => {
                     />
                   </div>
                   <p>{product.name}</p>
-                  <p>${product.price}</p>
+                  <p>${product.price.toLocaleString()}</p>
                   {isInCart(product) ? (
                     <button
                       className="card-added-button"

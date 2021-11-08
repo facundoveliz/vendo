@@ -20,11 +20,8 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <Router>
-      <div>
-        <ToastContainer
-        closeOnClick
-        newestOnTop={true}
-        />
+      <div className="light-theme">
+        <ToastContainer closeOnClick newestOnTop={true} />
         <Navbar />
         <Switch>
           <LoggedRoute component={Profile} path="/profile" exact />

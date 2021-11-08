@@ -41,20 +41,15 @@ const UserList = () => {
     setLoading(false);
   };
 
-  const handleReturn = () => {
-    window.location.href = "/";
-  };
-
   return (
     <div className="table">
       <div className="table-title">
         <h1>Users</h1>
-        <button onClick={handleReturn}>Back</button>
       </div>
       {loading ? (
         <Loader
           type="Oval"
-          color="#e79e4f"
+          color="#627884"
           height={200}
           width={200}
           className="loading"
