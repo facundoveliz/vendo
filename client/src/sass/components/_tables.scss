@@ -15,23 +15,22 @@
         }
     }
     table {
+        .table-new-button {
+            margin: 0 0 0 30px;
+        }
         table-layout: fixed;
         width: 90%;
         margin: 0 auto;
         white-space: nowrap;
         border-collapse: separate;
         border-spacing: 0 10px;
-        @media (max-width: 800px) {
-            margin-bottom: 20px;
-            margin-right: 20px;
-            width: 80%;
-        }
         tr {
             background-color: $background2;
             @media (max-width: 800px) {
                 display: flex;
                 flex-direction: column;
-                margin: 0px 0;
+                justify-content: center;
+                margin: 0 0 0 30px;
                 border-radius: 4px;
             }
             &:hover:first-child {
@@ -73,8 +72,6 @@
                     border-radius: 0 4px 4px 0;
                     word-wrap: break-word;
                     text-overflow: inherit;
-                    @media (max-width: 1180px) {
-                    }
                 }
                 @media (max-width: 800px) {
                     display: flex;

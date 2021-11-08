@@ -59,7 +59,7 @@ const OrderList = () => {
         />
       ) : (
         <table>
-          <button onClick={() => toast.warn("Feature not available yet.")}>
+          <button className="table-new-button" onClick={() => toast.warn("Feature not available yet.")}>
             Add New
           </button>
           <tbody>

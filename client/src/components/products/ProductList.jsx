@@ -62,7 +62,9 @@ const ProductList = () => {
         />
       ) : (
         <table>
-          <button onClick={() => setOpenNew(true)}>Add New</button>
+          <button className="table-new-button" onClick={() => setOpenNew(true)}>
+            Add New
+          </button>
           <tbody>
             {imageViewer ? (
               <div className="image-viewer">
