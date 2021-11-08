@@ -4,7 +4,7 @@ form {
         border: 1px solid $border;
         color: $foreground1;
         border-radius: 4px;
-        margin: 15px 0 5px 0;
+        margin: 15px 0 5px 30px;
         padding: 10px;
         &:focus {
             // border: 1px solid blue;
@@ -18,8 +18,7 @@ form {
         color: $error;
     }
     button {
-        width: 100%;
-        margin: 15px 0;
+        margin: 15px 0 15px 30px;
     }
 }
 
