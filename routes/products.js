@@ -115,9 +115,8 @@ router.put(
     const { err } = validate(req.body);
     if (err) return res.status(400).json(err.details[0].message);
 
-    const file = req.file;
-    
     try {
+      const file = req.file;
       if (!file) {
         // if a file is not uploaded, it only updates all except the image
         const product = await Product.findByIdAndUpdate(req.params.id, {

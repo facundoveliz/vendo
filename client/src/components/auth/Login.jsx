@@ -9,8 +9,8 @@ const Login = () => {
       history.push("/");
     }
   }, []);
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("test1234");
+  const [email, setEmail] = useState("johndoe@gmail.com");
+  const [password, setPassword] = useState("johndoepassword");
   const [error, setError] = useState(false);
 
   const history = useHistory();
@@ -34,14 +34,14 @@ const Login = () => {
       <form onSubmit={onSubmit} className="login-form">
         <input
           onChange={(e) => setEmail(e.target.value)}
-          defaultValue="test@gmail.com"
+          defaultValue="johndoe@gmail.com"
           placeholder="Email"
         />
 
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
-          defaultValue="test1234"
+          defaultValue="johndoepassword"
           placeholder="Password"
         />
 
@@ -56,8 +56,6 @@ const Login = () => {
 
       <div className="auth-redirect">
         <Link to="/">
-          {/* <p>Forgot your password?</p>
-          <p className="separator">-</p> */}
           <Link to="/register">
             <p>Sign up to Vendo</p>
           </Link>

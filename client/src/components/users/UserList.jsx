@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getUsers } from "./fetchActions";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
-import dateFormat from "dateformat";
 import { Edit, Delete } from "./Windows";
-import { toast } from "react-toastify";
 import Loader from "react-loader-spinner";
+
+import UserTable from "./UserTable";
 
 const UserList = () => {
   useEffect(() => {
@@ -30,14 +28,9 @@ const UserList = () => {
 
   const [loading, setLoading] = useState(false);
 
-  // decodes tde token and use it to take tde id of tde current user
-  const token = Cookies.get("jwtToken");
-  const decoded = jwt_decode(token);
-
   const getUsersRequest = async () => {
     setLoading(true);
-    let res = await getUsers();
-    setUsers(res);
+    setUsers(await getUsers());
     setLoading(false);
   };
 
@@ -55,57 +48,14 @@ const UserList = () => {
           className="loading"
         />
       ) : (
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>User since</th>
-              <th>Actions</th>
-            </tr>
-            {users.map((user) => {
-              return (
-                <tr key={user._id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{dateFormat(user.created, "d mmm, HH:MM")}</td>
-                  <td>
-                    <div>
-                      <button
-                        onClick={() => {
-                          setOpenEdit(true);
-                          setSelectedEdit({ ...selectedEdit, ...user });
-                        }}
-                      >
-                        Edit
-                      </button>
-                      {user._id === decoded._id ? (
-                        <button
-                          onClick={() =>
-                            toast.error("You can't delete yourself.")
-                          }
-                        >
-                          Delete
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => {
-                            {
-                              setOpenDelete(true);
-                              setSelectedDelete(user._id);
-                            }
-                          }}
-                        >
-                          Delete
-                        </button>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <UserTable
+          users={users}
+          setSelectedDelete={setSelectedDelete}
+          setSelectedEdit={setSelectedEdit}
+          selectedEdit={selectedEdit}
+          setOpenDelete={setOpenDelete}
+          setOpenEdit={setOpenEdit}
+        />
       )}
       <div>
         {openEdit ? (

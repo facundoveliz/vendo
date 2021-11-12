@@ -1,6 +1,5 @@
 .table {
     width: 100%;
-    margin: 0 auto;
     .table-title {
         display: flex;
         flex-direction: column;
@@ -15,9 +14,6 @@
         }
     }
     table {
-        .table-new-button {
-            margin: 0 0 0 30px;
-        }
         table-layout: fixed;
         width: 90%;
         margin: 0 auto;
@@ -62,7 +58,7 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    padding-bottom: 3px;
+                    padding-bottom: 8px;
                     border-bottom: 1px solid $foreground1;
                 }
                 &:first-child {
@@ -76,6 +72,12 @@
                 @media (max-width: 800px) {
                     display: flex;
                     justify-content: row;
+                    margin-bottom: 10px;
+                }
+                img {
+                    margin: 0 15px;
+                    filter: invert(45%) sepia(31%) saturate(283%) hue-rotate(157deg) brightness(94%) contrast(84%);
+                    cursor: pointer;
                 }
             }
             .image {

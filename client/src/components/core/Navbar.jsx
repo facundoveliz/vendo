@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
-import { logoutUser } from "../users/fetchActions";
+import { logoutUser } from "../auth/fetchActions";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {

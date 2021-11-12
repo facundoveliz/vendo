@@ -1,11 +1,7 @@
 import React from "react";
-import { editOrder, deleteOrder } from "../home/fetchActions";
+import { deleteOrder } from "./fetchActions";
 
-export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {
-  const onSubmit = () => {};
-
-  return <div className="input-container"></div>;
-};
+export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {};
 
 export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
   const handleDelete = (id) => {
@@ -31,7 +27,7 @@ export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
   );
 };
 
-export const Products = ({ setOpenProducts,selectedProducts }) => {
+export const Products = ({ setOpenProducts, selectedProducts }) => {
   return (
     <div className="input-container">
       <div className="input">

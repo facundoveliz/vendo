@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import dateFormat from "dateformat";
-import { getOrders } from "../home/fetchActions";
+import { getOrders } from "./fetchActions";
 import { Edit, Delete, Products } from "./Windows";
 import Loader from "react-loader-spinner";
-import { toast } from "react-toastify";
+import OrderTable from "./OrderTable";
 
 const OrderList = () => {
   useEffect(() => {
@@ -12,12 +11,7 @@ const OrderList = () => {
 
   const [orders, setOrders] = useState([]);
 
-  // this allows to show to image
-  const [image, setImage] = useState("");
-  const [imageViewer, setImageViewer] = useState(false);
-
   // if the 'open...' state is true, it will show the new/edit/delete window
-  const [openNew, setOpenNew] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [openProducts, setOpenProducts] = useState(false);
@@ -58,88 +52,14 @@ const OrderList = () => {
           className="loading"
         />
       ) : (
-        <table>
-          <button className="table-new-button" onClick={() => toast.warn("Feature not available yet.")}>
-            Add New
-          </button>
-          <tbody>
-            {imageViewer ? (
-              <div className="image-viewer">
-                <img
-                  src={`/uploads/orders/${image}`}
-                  alt={image}
-                  onClick={() => {
-                    setImageViewer(false);
-                  }}
-                />
-              </div>
-            ) : null}
-            <tr>
-              <th>Purchased</th>
-              <th>Customer</th>
-              <th>Email</th>
-              <th>Total</th>
-              <th>Date</th>
-              <th>Actions</th>
-            </tr>
-            {orders.map((order) => {
-              return (
-                <tr key={order._id}>
-                  <td
-                    onClick={() => {
-                      setOpenProducts(true);
-                      setSelectedProducts(order.products);
-                    }}
-                    className="pointer"
-                  >
-                    {/* if all the products has been deleted, it will show a string informing that,
-                  and if the products are more than one, it will show only one and will inform
-                  the number of products left that are not appearing */}
-                    <p className="table-see-more">
-                      {order.products.length === 0
-                        ? "Products deleted"
-                        : order.products.length > 1
-                        ? `${order.products[0].name} and ${
-                            order.products.length - 1
-                          } more...`
-                        : `${order.products[0].name}`}
-                    </p>
-                  </td>
-                  {order.user ? (
-                    <>
-                      <td>{order.user.name}</td>
-                      <td>{order.user.email}</td>
-                    </>
-                  ) : (
-                    <>
-                      <td>User deleted</td>
-                      <td>User deleted</td>
-                    </>
-                  )}
-                  <td>${order.total.toLocaleString()}</td>
-                  <td>{dateFormat(order.created, "d mmm, HH:MM")}</td>
-                  <td>
-                    <button
-                      onClick={() => toast.warn("Feature not available yet.")}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => {
-                        {
-                          setOpenDelete(true);
-                          setSelectedDelete(order._id);
-                        }
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <OrderTable
+          orders={orders}
+          setSelectedDelete={setSelectedDelete}
+          setSelectedProducts={setSelectedProducts}
+          setSelectedEdit={setSelectedEdit}
+          setOpenDelete={setOpenDelete}
+          setOpenProducts={setOpenProducts}
+        />
       )}
       <div>
         {openEdit ? (

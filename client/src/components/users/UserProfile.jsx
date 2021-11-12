@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { logoutUser } from "./fetchActions";
+
+import { getUser, editUser } from "./fetchActions";
+import { logoutUser } from "../auth/fetchActions";
+
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
-import { getUser, editUser } from "./fetchActions";
 import dateFormat from "dateformat";
 import Loader from "react-loader-spinner";
 

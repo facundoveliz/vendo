@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isLogged, isAdmin } from "../components/users/fetchActions";
+import { isLogged, isAdmin } from "../components/auth/fetchActions";
 import { toast } from "react-toastify";
 
 export const LoggedRoute = ({ component: Component, ...rest }) => {

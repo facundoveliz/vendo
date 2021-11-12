@@ -1,13 +1,15 @@
 import React from "react";
-import { addOrder } from "./fetchActions";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 
-// actions
+import { addOrder } from "../orders/fetchActions";
 import { removeFromCart } from "../../redux/actions/cartActions";
+import CartProduct from "./CartProduct";
+
+
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -52,29 +54,19 @@ const Cart = () => {
         <div>
           {cart.map((product) => {
             return (
-              <div key={product._id} className="cart-container">
-                <div className="cart-product-info">
-                  <div className="cart-image">
-                    <img
-                      src={
-                        product.imageUrl.length > 15
-                          ? product.imageUrl
-                          : "/uploads/products/default.jpg"
-                      }
-                      alt={product.name}
-                    />
-                  </div>
-                  <p>{product.name}</p>
-                </div>
-                <p> ${product.price.toLocaleString()}</p>
-                <button onClick={() => handleRemoveFromCart(product)}>X</button>
-              </div>
+              <CartProduct
+                product={product}
+                handleRemoveFromCart={handleRemoveFromCart}
+              />
             );
           })}
           <div className="cart-checkout">
             <p>
               Total:
-              {cart.map((product) => product.price).reduce((a, b) => a + b, 0).toLocaleString()}
+              {cart
+                .map((product) => product.price)
+                .reduce((a, b) => a + b, 0)
+                .toLocaleString()}
             </p>
             <button onClick={() => checkout()}>Checkout</button>
           </div>
