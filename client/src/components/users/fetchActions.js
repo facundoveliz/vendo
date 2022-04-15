@@ -3,7 +3,7 @@ import axios from "axios";
 export const getUser = async (id) => {
   try {
     let res = await axios
-      .get(`/api/users/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/users/${id}`)
       .catch((err) => console.log(err));
     return res.data;
   } catch (err) {
@@ -13,7 +13,9 @@ export const getUser = async (id) => {
 
 export const getUsers = async () => {
   try {
-    let res = await axios.get(`/api/users/`).catch((err) => console.log(err));
+    let res = await axios
+      .get(`${process.env.REACT_APP_API_URL}/api/users/`)
+      .catch((err) => console.log(err));
     return res.data;
   } catch (err) {
     console.log(err);
@@ -22,9 +24,11 @@ export const getUsers = async () => {
 
 export const editUser = async (id, userData) => {
   try {
-    await axios.put(`/api/users/edit/${id}`, userData).catch((err) => {
-      console.log(err);
-    });
+    await axios
+      .put(`${process.env.REACT_APP_API_URL}/api/users/edit/${id}`, userData)
+      .catch((err) => {
+        console.log(err);
+      });
   } catch (err) {
     console.log(err);
   }
@@ -33,7 +37,7 @@ export const editUser = async (id, userData) => {
 export const deleteUser = async (id) => {
   try {
     await axios
-      .delete(`/api/users/delete/${id}`)
+      .delete(`${process.env.REACT_APP_API_URL}/api/users/delete/${id}`)
       .catch((err) => console.log(err));
   } catch (err) {
     console.log(err);
