@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 export const registerUser = async (userData, history, setError) => {
   await axios
-    .post(`/api/users/register`, userData)
+    .post(`${process.env.REACT_APP_API_URL}/api/users/register`, userData)
     // if the user register successfully, it redirects it to login page
     .then((res) => history.push("/login"))
     .catch((err) => {
@@ -15,7 +15,7 @@ export const registerUser = async (userData, history, setError) => {
 
 export const loginUser = async (userData, history, setError) => {
   await axios
-    .post(`/api/users/login`, userData)
+    .post(`${process.env.REACT_APP_API_URL}/api/users/login`, userData)
     .then((res) => {
       // save token to local storage
       const { token } = res.data;
