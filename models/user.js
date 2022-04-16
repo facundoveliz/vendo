@@ -1,5 +1,5 @@
-const Joi = require('joi')
-const mongoose = require('mongoose')
+import Joi from 'joi'
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -32,9 +32,9 @@ const userSchema = new mongoose.Schema({
   ],
 })
 
-const User = mongoose.model('User', userSchema)
+export const User = mongoose.model('User', userSchema)
 
-function validateUserRegister(user) {
+export function validateUserRegister(user) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(128).required(),
     email: Joi.string().max(128).required(),
@@ -44,7 +44,7 @@ function validateUserRegister(user) {
   return schema.validate(user)
 }
 
-function validateUserEdit(user) {
+export function validateUserEdit(user) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(8).required(),
     email: Joi.string().max(128).required(),
@@ -53,7 +53,3 @@ function validateUserEdit(user) {
 
   return schema.validate(user)
 }
-
-exports.User = User
-exports.validateRegister = validateUserRegister
-exports.validateEdit = validateUserEdit

@@ -1,11 +1,11 @@
-const express = require('express')
+import express from 'express'
+import Order from '../models/order'
+import { User } from '../models/user'
+
+import auth from '../middleware/auth'
+import admin from '../middleware/admin'
 
 const router = express.Router()
-const { Order } = require('../models/order')
-const { User } = require('../models/user')
-
-const auth = require('../middleware/auth')
-const admin = require('../middleware/admin')
 
 router.get('/', async (req, res) => {
   try {
@@ -78,4 +78,4 @@ router.delete('/delete/:id', auth, admin, async (req, res) => {
   }
 })
 
-module.exports = router
+export default router

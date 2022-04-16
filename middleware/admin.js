@@ -1,5 +1,6 @@
-module.exports = async function (req, res, next) {
+export default async function (req, res, next) {
   try {
+    console.log(req.user)
     if (!req.user.isAdmin) return res.status(403).send('Access denied')
     next()
   } catch (err) {

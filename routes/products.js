@@ -1,13 +1,13 @@
-const express = require('express')
+import express from 'express'
+import multer from 'multer'
+import S3 from 'aws-sdk/clients/s3'
+import fs from 'fs'
+import { Product, validateProduct } from '../models/product'
+
+import auth from '../middleware/auth'
+import admin from '../middleware/admin'
 
 const router = express.Router()
-const multer = require('multer')
-const S3 = require('aws-sdk/clients/s3')
-const fs = require('fs')
-const { Product, validate } = require('../models/product')
-
-const auth = require('../middleware/auth')
-const admin = require('../middleware/admin')
 
 const bucketName = process.env.AWS_BUCKET_NAME
 const region = process.env.AWS_BUCKET_REGION
@@ -64,7 +64,7 @@ router.get('/', async (req, res) => {
 
 router.post('/add', upload.single('image'), auth, admin, async (req, res) => {
   // checks for validation errs with joi
-  const { err } = validate(req.body)
+  const { err } = validateProduct(req.body)
   if (err) return res.status(400).json(err)
 
   const { file } = req
@@ -105,7 +105,7 @@ router.put(
   admin,
   async (req, res) => {
     // checks for validation errors with joi
-    const { err } = validate(req.body)
+    const { err } = validateProduct(req.body)
     if (err) return res.status(400).json(err.details[0].message)
 
     const { file } = req
@@ -160,4 +160,4 @@ router.delete('/delete/:id', auth, admin, async (req, res) => {
   }
 })
 
-module.exports = router
+export default router
