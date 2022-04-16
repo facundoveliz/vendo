@@ -14,7 +14,7 @@ export async function loginUser(userData) {
     `${process.env.REACT_APP_API_URL}/api/users/login`,
     userData
   );
-  localStorage.setItem("x-auth-token", res.data.token);
+  localStorage.setItem("x-auth-token", res.data.result);
   return (window.location.href = "/");
 }
 
@@ -39,7 +39,6 @@ export const isAdmin = () => {
   const token = localStorage.getItem("x-auth-token");
   if (token) {
     const decoded = jwt_decode(token);
-    console.log(decoded);
     if (decoded.isAdmin) {
       return true;
     } else {

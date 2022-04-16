@@ -28,7 +28,7 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "PORT=3001 && react-scripts --openssl-legacy-provider start",
+    "start": "export PORT=3001 && react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
