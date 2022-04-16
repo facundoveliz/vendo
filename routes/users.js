@@ -101,7 +101,6 @@ router.post("/login", async (req, res) => {
         expiresIn: "30d",
       }
     );
-    console.log(token);
 
     return res.status(200).json({
       ok: true,

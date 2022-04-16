@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/user";
 
 export default async (req, res, next) => {
-  console.log("auth!");
-  console.log(req.headers.authorization);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
