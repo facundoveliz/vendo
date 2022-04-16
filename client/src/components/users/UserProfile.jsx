@@ -4,7 +4,6 @@ import { getUser, editUser } from "./fetchActions";
 import { logoutUser } from "../auth/fetchActions";
 
 import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 import dateFormat from "dateformat";
 import Loader from "react-loader-spinner";
 
@@ -52,7 +51,7 @@ const Profile = () => {
   }, []);
 
   // decodes the token and use it to take the id of the current user
-  const token = Cookies.get("jwtToken");
+  const token = localStorage.getItem("x-auth-token");
   const decoded = jwt_decode(token);
 
   const getUserRequest = async () => {

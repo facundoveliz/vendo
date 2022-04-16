@@ -1,11 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Cookies from "js-cookie";
 import { logoutUser } from "../auth/fetchActions";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const token = Cookies.get("jwtToken");
+  const token = localStorage.getItem("x-auth-token");
   const cart = useSelector((state) => state.cart.cartItems);
 
   return (

@@ -1,50 +1,33 @@
-import setAuthToken from "../../utils/setAuthToken";
-import Cookies from "js-cookie";
-import axios from "axios";
+import axiosClient from "./axiosClient";
 import jwt_decode from "jwt-decode";
 
-export const registerUser = async (userData, history, setError) => {
-  await axios
-    .post(`${process.env.REACT_APP_API_URL}/api/users/register`, userData)
-    // if the user register successfully, it redirects it to login page
-    .then((res) => history.push("/login"))
-    .catch((err) => {
-      setError(err);
-    });
-};
+export async function registerUser(userData) {
+  await axiosClient.post(
+    `${process.env.REACT_APP_API_URL}/api/users/register`,
+    userData
+  );
+  return (window.location.href = "/login");
+}
 
-export const loginUser = async (userData, history, setError) => {
-  await axios
-    .post(`${process.env.REACT_APP_API_URL}/api/users/login`, userData)
-    .then((res) => {
-      // save token to local storage
-      const { token } = res.data;
-
-      // send it to the header
-      setAuthToken(token);
-
-      // if the user registered successfully, it redirects it to main page
-      history.push("/");
-      window.location.reload();
-    })
-    .catch((err) => {
-      console.log(err);
-      setError(true);
-    });
-};
+export async function loginUser(userData) {
+  const res = await axiosClient.post(
+    `${process.env.REACT_APP_API_URL}/api/users/login`,
+    userData
+  );
+  localStorage.setItem("x-auth-token", res.data.token);
+  return (window.location.href = "/");
+}
 
 export const logoutUser = () => {
   // removes the token from local storage
-  Cookies.remove("jwtToken");
-
-  // removes the token from header
-  setAuthToken(false);
-  window.location.reload();
+  localStorage.removeItem("x-auth-token");
+  window.location.href = "/login";
 };
 
 // this function is for checking if user is loged to make private routes, the comprobation is also done in the back-end
 export const isLogged = () => {
-  if (Cookies.get("jwtToken")) {
+  const token = localStorage.getItem("x-auth-token");
+  if (token) {
     return true;
   } else {
     return false;
@@ -53,9 +36,10 @@ export const isLogged = () => {
 
 // this function is for checking if user is admin to access admin routes, the comprobation is also done in the back-end
 export const isAdmin = () => {
-  if (Cookies.get("jwtToken")) {
-    const token = Cookies.get("jwtToken");
+  const token = localStorage.getItem("x-auth-token");
+  if (token) {
     const decoded = jwt_decode(token);
+    console.log(decoded);
     if (decoded.isAdmin) {
       return true;
     } else {

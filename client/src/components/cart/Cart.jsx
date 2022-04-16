@@ -6,9 +6,7 @@ import { addOrder } from "../orders/fetchActions";
 import { removeFromCart } from "../../redux/actions/cartActions";
 import CartProduct from "./CartProduct";
 
-
 import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
 const Cart = () => {
@@ -23,7 +21,7 @@ const Cart = () => {
 
   const checkout = () => {
     // decodes tde token and use it to take tde id of tde current cart
-    const token = Cookies.get("jwtToken");
+    const token = localStorage.getItem("x-auth-token");
     if (!token) return toast.warn("You need to be logged!");
     const decoded = jwt_decode(token);
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { loginUser } from "./fetchActions";
-import Cookies from "js-cookie";
 
 const Login = () => {
   useEffect(() => {
@@ -15,7 +14,7 @@ const Login = () => {
 
   const history = useHistory();
 
-  const token = Cookies.get("jwtToken");
+  const token = localStorage.getItem("x-auth-token");
 
   const userData = {
     email: email,

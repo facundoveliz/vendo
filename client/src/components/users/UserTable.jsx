@@ -1,7 +1,6 @@
 import React from "react";
 
 import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
 import dateFormat from "dateformat";
 import { toast } from "react-toastify";
 
@@ -15,7 +14,7 @@ const UserTable = ({
 }) => {
   // decodes the token and use it to take the id of the current user
   // and later use it to prevent the user delete him self
-  const token = Cookies.get("jwtToken");
+  const token = localStorage.getItem("x-auth-token");
   const decoded = jwt_decode(token);
 
   return (

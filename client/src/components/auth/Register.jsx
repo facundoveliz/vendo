@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { registerUser } from "./fetchActions";
-import Cookies from "js-cookie";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -35,7 +34,7 @@ const Register = () => {
     }
   }, []);
 
-  const token = Cookies.get("jwtToken");
+  const token = localStorage.getItem("x-auth-token");
 
   const history = useHistory();
 
