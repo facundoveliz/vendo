@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 module.exports = function () {
   mongoose
@@ -8,5 +8,5 @@ module.exports = function () {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => console.log("MongoDB successfully connected..."));
-};
+    .then(() => console.log('MongoDB successfully connected...'))
+}

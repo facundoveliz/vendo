@@ -1,17 +1,16 @@
-const Joi = require("joi");
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema({
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      ref: 'Product',
       required: true,
     },
   ],
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
   },
   total: {
@@ -22,8 +21,8 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+})
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model('Order', orderSchema)
 
-exports.Order = Order;
+exports.Order = Order

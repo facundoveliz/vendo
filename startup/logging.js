@@ -16,7 +16,7 @@
 
 //     rejectionHandlers: [new winston.transports.Console()],
 //   });
-  
+
 //   // logs errors, uncaught exceptions and promise rejections to the db
 //   const dbLogger = winston.createLogger({
 //     format: winston.format.combine(
