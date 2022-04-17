@@ -24,28 +24,25 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/add', auth, admin, async (req, res) => {
-  try {
-    // creates the new order
-    const order = new Order({
-      products: req.body.products,
-      user: req.body._id,
-      total: req.body.total,
-    })
+  // creates the new order
+  const order = new Order({
+    products: req.body.products,
+    user: req.user._id,
+    total: req.body.total,
+  })
 
-    await order
-      .save()
-      .then(
-        // push the order to the orders object of the user
-        await User.findByIdAndUpdate(req.body._id, {
-          $push: {
-            orders: order._id,
-          },
-        }).then(() => res.status(200).json({ message: 'Done!' })),
-      )
-      .catch((err) => res.status(400).json({ error: err }))
-  } catch (err) {
-    console.log(err)
-  }
+  await order.save().then(
+    // push the order to the orders object of the user
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: {
+        orders: order._id,
+      },
+    })
+      .then(() => res.status(200).json({ message: 'Done!' }))
+      .catch((err) => {
+        console.log(err)
+      }),
+  )
 })
 
 router.put('/edit/:id', auth, admin, async (req, res) => {

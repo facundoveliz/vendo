@@ -1,15 +1,17 @@
-import mongoose from "mongoose";
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import routes from "./routes/routes";
+import mongoose from 'mongoose'
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import morgan from 'morgan'
+import routes from './routes/routes'
 
-const app = express();
+const app = express()
 
-dotenv.config();
-app.use(express.json());
-app.use(cors({ credentials: true }));
-app.use(routes);
+dotenv.config()
+app.use(express.json())
+app.use(cors({ credentials: true }))
+app.use(morgan('dev'))
+app.use(routes)
 
 mongoose
   .connect(process.env.DATABASE_URI, {
@@ -18,7 +20,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB successfully connected..."));
+  .then(() => console.log('MongoDB successfully connected...'))
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Listening on port ${port}...`))
