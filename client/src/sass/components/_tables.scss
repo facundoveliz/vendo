@@ -1,102 +1,103 @@
 .table {
-    width: 100%;
-    .table-title {
+  width: 100%;
+  .table-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    h1 {
+      font-size: 35px;
+    }
+    button {
+      margin: 20px 0px;
+    }
+  }
+  table {
+    table-layout: fixed;
+    width: 90%;
+    margin: 0 auto;
+    white-space: nowrap;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    tr {
+      background-color: $background2;
+      @media (max-width: 800px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
-        margin-top: 25px;
-        h1 {
-            font-size: 35px;
+        margin: 0 0 0 30px;
+        border-radius: 4px;
+      }
+      &:hover:first-child {
+        color: $foreground1;
+      }
+      &:hover {
+        background-color: $secondary;
+        color: $foreground1;
+      }
+      th {
+        padding: 15px 20px;
+        text-align: center;
+        background-color: $background1;
+        color: $foreground2;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+        @media (max-width: 800px) {
+          display: none;
         }
-        button {
-            margin: 20px 0px;
-        }
-    }
-    table {
-        table-layout: fixed;
-        width: 90%;
-        margin: 0 auto;
+      }
+      td {
+        padding: 15px 20px;
+        text-align: center;
         white-space: nowrap;
-        border-collapse: separate;
-        border-spacing: 0 10px;
-        tr {
-            background-color: $background2;
-            @media (max-width: 800px) {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                margin: 0 0 0 30px;
-                border-radius: 4px;
-            }
-            &:hover:first-child {
-                color: $foreground1;
-            }
-            &:hover {
-                background-color: $secondary;
-                color: $foreground1;
-            }
-            th {
-                padding: 15px 20px;
-                text-align: center;
-                background-color: $background1;
-                color: $foreground2;
-                text-align: center;
-                vertical-align: middle;
-                width: 100%;
-                @media (max-width: 800px) {
-                    display: none;
-                }
-            }
-            td {
-                padding: 15px 20px;
-                text-align: center;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                p {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    padding-bottom: 8px;
-                    border-bottom: 1px solid $foreground1;
-                }
-                &:first-child {
-                    border-radius: 4px 0 0 4px;
-                }
-                &:last-child {
-                    border-radius: 0 4px 4px 0;
-                    word-wrap: break-word;
-                    text-overflow: inherit;
-                }
-                @media (max-width: 800px) {
-                    display: flex;
-                    justify-content: row;
-                    margin-bottom: 10px;
-                }
-                img {
-                    margin: 0 15px;
-                    filter: invert(45%) sepia(31%) saturate(283%) hue-rotate(157deg) brightness(94%) contrast(84%);
-                    cursor: pointer;
-                }
-            }
-            .image {
-                text-decoration: underline;
-                text-underline-offset: 2px;
-                cursor: pointer;
-            }
-            button {
-                margin-right: 10px;
-                width: 60px;
-            }
-            img {
-                height: 25px;
-                width: 25px;
-            }
+        overflow: hidden;
+        text-overflow: ellipsis;
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding-bottom: 8px;
+          border-bottom: 1px solid $foreground1;
         }
+        &:first-child {
+          border-radius: 4px 0 0 4px;
+        }
+        &:last-child {
+          border-radius: 0 4px 4px 0;
+          word-wrap: break-word;
+          text-overflow: inherit;
+        }
+        @media (max-width: 800px) {
+          display: flex;
+          justify-content: row;
+          margin-bottom: 10px;
+        }
+        img {
+          margin: 0 15px;
+          filter: invert(45%) sepia(31%) saturate(283%) hue-rotate(157deg)
+            brightness(94%) contrast(84%);
+          cursor: pointer;
+        }
+      }
+      .image {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        cursor: pointer;
+      }
+      button {
+        margin-right: 10px;
+        width: 60px;
+      }
+      img {
+        height: 25px;
+        width: 25px;
+      }
     }
+  }
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }

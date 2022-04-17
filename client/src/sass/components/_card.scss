@@ -1,34 +1,34 @@
 .card {
-    width: 220px;
-    height: auto;
-    background-color: $background2;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 40px 40px;
-    padding: 20px;
-    .card-image-container {
-        width: 100%;
-        height: 200px;
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+  width: 220px;
+  height: auto;
+  background-color: $background2;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 40px 40px;
+  padding: 20px;
+  .card-image-container {
+    width: 100%;
+    height: 200px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-    p {
-        margin: 10px 0 0 0;
-        text-align: center;
-        &:last-child {
-            color: $primary;
-        }
+  }
+  p {
+    margin: 10px 0 0 0;
+    text-align: center;
+    &:last-child {
+      color: $primary;
     }
-    button {
-        margin: 15px 0 0 0;
-    }
-    .card-added-button {
-        background-color: $background1;
-        color: $primary;
-        border: 1px solid $primary;
-    }
+  }
+  button {
+    margin: 15px 0 0 0;
+  }
+  .card-added-button {
+    background-color: $background1;
+    color: $primary;
+    border: 1px solid $primary;
+  }
 }

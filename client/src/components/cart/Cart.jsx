@@ -34,15 +34,18 @@ const Cart = () => {
       // map through all the cart products and with reduce sums all into one number
       total: cart.map((product) => product.price).reduce((a, b) => a + b, 0),
     };
-    addOrder(orderData).then((res) => {
-      dispatch(removeFromCart(cart));
-      history.push("/");
-    });
-    toast.promise(addOrder, {
-      pending: "Sending order, please wait...",
-      success: "Thanks for shopping! Order sended.",
-      error: "There was an error 😞",
-    });
+    // TODO: make all promises use toast
+    toast.promise(
+      addOrder(orderData).then((res) => {
+        dispatch(removeFromCart(cart));
+        history.push("/");
+      }),
+      {
+        pending: "Sending order, please wait...",
+        success: "Thanks for shopping! Order sended.",
+        error: "There was an error 😞",
+      }
+    );
   };
 
   return (

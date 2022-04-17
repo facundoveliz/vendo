@@ -1,20 +1,20 @@
 .not-found {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    h1 {
-        font-size: 94px;
-    }
-    h2 {
-        font-size: 48px;
-    }
-    p{
-        width: 40%;
-        margin: 20px 0;
-        text-align: center;
-    }
-    button {
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  h1 {
+    font-size: 94px;
+  }
+  h2 {
+    font-size: 48px;
+  }
+  p {
+    width: 40%;
+    margin: 20px 0;
+    text-align: center;
+  }
+  button {
+  }
 }
