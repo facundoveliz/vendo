@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_OPTIONS='--experimental-specifier-resolution=node' node server.js",
     "server": "NODE_OPTIONS='--experimental-specifier-resolution=node' nodemon server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"yarn server\" \"yarn --cwd ./client client\"",
     "lint": "eslint . --ext .js --fix --ignore-pattern client"
   },
   "author": "",
@@ -15,7 +15,6 @@
   "dependencies": {
     "aws-sdk": "^2.1000.0",
     "bcrypt": "^5.0.1",
-    "concurrently": "^6.2.1",
     "config": "^3.3.6",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -29,6 +28,7 @@
     "multer": "^1.4.3"
   },
   "devDependencies": {
+    "concurrently": "^6.2.1",
     "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0"

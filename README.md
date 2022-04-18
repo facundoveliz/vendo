@@ -23,10 +23,8 @@ But please, feel free to register and test the app.
 
 # 📦 Installation
 
-    yarn && cd client && yarn
+    yarn && yarn --cwd ./client
 
-    yarn server
+    yarn dev
 
-    cd client && yarn client
-
-Remember to make the .env file following .env.example
+Remember to make the .env file following .env.example. If you're in Windows, change **export** to **set** in ./client/package.json
