@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  timeout: 2000,
+  timeout: 60000,
 });
 
 axiosClient.interceptors.request.use(
