@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getUser, editUser } from "./fetchActions";
+import { getUser, putUser } from "./fetchActions";
 import { logoutUser } from "../auth/fetchActions";
 
 import jwt_decode from "jwt-decode";
@@ -71,7 +71,7 @@ const Profile = () => {
       email: data.email,
       password: data.password1,
     };
-    editUser(decoded._id, userData).then((res) => {
+    putUser(decoded._id, userData).then((res) => {
       window.location.reload();
       getUserRequest();
     });

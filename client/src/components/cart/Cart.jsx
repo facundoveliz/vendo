@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { addOrder } from "../orders/fetchActions";
+import { postOrder } from "../orders/fetchActions";
 import { removeFromCart } from "../../redux/actions/cartActions";
 import CartProduct from "./CartProduct";
 
@@ -36,7 +36,7 @@ const Cart = () => {
     };
     // TODO: make all promises use toast
     toast.promise(
-      addOrder(orderData).then((res) => {
+      postOrder(orderData).then((res) => {
         dispatch(removeFromCart(cart));
         history.push("/");
       }),

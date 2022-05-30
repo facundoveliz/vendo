@@ -1,19 +1,15 @@
 import axiosClient from "./axiosClient";
 import jwt_decode from "jwt-decode";
 
+const url = `${process.env.REACT_APP_API_URL}/api/users`;
+
 export async function registerUser(userData) {
-  await axiosClient.post(
-    `${process.env.REACT_APP_API_URL}/api/users/register`,
-    userData
-  );
+  await axiosClient.post(`${url}/register`, userData);
   return (window.location.href = "/login");
 }
 
 export async function loginUser(userData) {
-  const res = await axiosClient.post(
-    `${process.env.REACT_APP_API_URL}/api/users/login`,
-    userData
-  );
+  const res = await axiosClient.post(`${url}/login`, userData);
   localStorage.setItem("x-auth-token", res.data.result);
   return (window.location.href = "/");
 }
@@ -29,9 +25,8 @@ export const isLogged = () => {
   const token = localStorage.getItem("x-auth-token");
   if (token) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 };
 
 // this function is for checking if user is admin to access admin routes, the comprobation is also done in the back-end
@@ -41,10 +36,8 @@ export const isAdmin = () => {
     const decoded = jwt_decode(token);
     if (decoded.isAdmin) {
       return true;
-    } else {
-      return false;
     }
-  } else {
     return false;
   }
+  return false;
 };

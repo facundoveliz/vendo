@@ -1,5 +1,5 @@
 import React from "react";
-import { addProduct, editProduct, deleteProduct } from "./fetchActions";
+import { postProduct, putProduct, deleteProduct } from "./fetchActions";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,7 +32,7 @@ export const Add = ({ setOpenNew, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    addProduct(formData).then((res) => {
+    postProduct(formData).then((res) => {
       // closes the window and get the request for the updated list
       setOpenNew(false);
       getProductsRequest();
@@ -104,7 +104,7 @@ export const Edit = ({ setOpenEdit, selectedEdit, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    editProduct(selectedEdit._id, formData).then((res) => {
+    postProduct(selectedEdit._id, formData).then((res) => {
       // closes the window and get the request for the updated list
       getProductsRequest();
       window.location.reload();

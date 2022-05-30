@@ -1,5 +1,5 @@
 import React from "react";
-import { editUser, deleteUser } from "./fetchActions";
+import { putUser, deleteUser } from "./fetchActions";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 
 export const Edit = ({ setOpenEdit, selectedEdit, getRequest }) => {
   const onSubmit = (data) => {
-    editUser(selectedEdit._id, data).then((res) => {
+    putUser(selectedEdit._id, data).then((res) => {
       // closes the window and get the request for the updated list
       getRequest();
       setOpenEdit(false);
