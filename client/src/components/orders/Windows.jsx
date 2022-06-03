@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteOrder } from "./fetchActions";
+import { deleteOrder } from "../../api/orders";
 
 export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {};
 

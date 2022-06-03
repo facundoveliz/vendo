@@ -9,21 +9,20 @@ export const getOrders = async (req, res) => {
     .populate('products', 'name price image')
     .populate('user', 'name email')
     .exec()
-  if (orders) {
-    return res.status(200).json({
-      ok: true,
-      msg: 'Orders founded',
-      result: orders,
+  if (!orders) {
+    return res.status(404).json({
+      ok: false,
+      msg: 'Orders not founded',
     })
   }
-  return res.status(404).json({
-    ok: false,
-    msg: 'Orders not founded',
+  return res.status(200).json({
+    ok: true,
+    msg: 'Orders founded',
+    result: orders,
   })
 }
 
 export const postOrder = async (req, res) => {
-  // creates the new order
   const order = new Order({
     products: req.body.products,
     user: req.user._id,

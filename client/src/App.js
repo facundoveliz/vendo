@@ -17,15 +17,12 @@ import NotFound from "./components/core/NotFound";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { LoggedRoute, AdminRoute } from "./utils/PrivateRoutes";
-import { ToastContainer } from "react-toastify";
 
-import "react-toastify/dist/ReactToastify.css";
 import "./sass/main.scss";
 
 function App() {
   return (
     <Router>
-      <ToastContainer />
       <Navbar />
       <Switch>
         {/* logged routes */}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getOrders } from "./fetchActions";
+import { getOrders } from "../../api/orders";
 import { Edit, Delete, Products } from "./Windows";
 import Loader from "react-loader-spinner";
 import OrderTable from "./OrderTable";

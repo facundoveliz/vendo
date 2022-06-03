@@ -1,10 +1,11 @@
 import React from "react";
-import { postProduct, putProduct, deleteProduct } from "./fetchActions";
+import { postProduct, putProduct, deleteProduct } from "../../api/products";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+// TODO: match this with the backend and all the other ones
 const schema = yup.object().shape({
   name: yup
     .string()
@@ -32,7 +33,7 @@ export const Add = ({ setOpenNew, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    postProduct(formData).then((res) => {
+    postProduct(formData).then(() => {
       // closes the window and get the request for the updated list
       setOpenNew(false);
       getProductsRequest();
@@ -104,7 +105,7 @@ export const Edit = ({ setOpenEdit, selectedEdit, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    postProduct(selectedEdit._id, formData).then((res) => {
+    putProduct(selectedEdit._id, formData).then(() => {
       // closes the window and get the request for the updated list
       getProductsRequest();
       window.location.reload();
@@ -179,7 +180,7 @@ export const Delete = ({
 }) => {
   const handleDelete = (id) => {
     // setLoading(true);
-    deleteProduct(id).then((res) => {
+    deleteProduct(id).then(() => {
       // setLoading(false);
       setOpenDelete(false);
       getProductsRequest();

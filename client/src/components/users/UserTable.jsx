@@ -2,7 +2,6 @@ import React from "react";
 
 import jwt_decode from "jwt-decode";
 import dateFormat from "dateformat";
-import { toast } from "react-toastify";
 
 const UserTable = ({
   users,
@@ -46,7 +45,7 @@ const UserTable = ({
                     <img
                       src="/icons/trash.svg"
                       alt=""
-                      onClick={() => toast.error("You can't delete yourself.")}
+                      // onClick={() => toast.error("You can't delete yourself.")}
                     />
                   ) : (
                     <img

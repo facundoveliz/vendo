@@ -6,7 +6,6 @@ import { catchErrors } from '../middleware/error'
 
 const router = Router()
 
-// TODO: check if this needs to be auth/admin
 router.get('/', auth, admin, catchErrors(getOrders))
 router.post('/', auth, admin, catchErrors(postOrder))
 router.delete('/:id', auth, admin, catchErrors(deleteOrder))

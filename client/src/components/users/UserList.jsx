@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUsers } from "./fetchActions";
+import { getUsers } from "../../api/users";
 import { Edit, Delete } from "./Windows";
 import Loader from "react-loader-spinner";
 

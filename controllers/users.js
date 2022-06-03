@@ -5,6 +5,7 @@ import { User, schema } from '../models/user'
 
 const router = express.Router()
 
+// TODO: populate orders
 export const getUsers = async (req, res) => {
   const users = await User.find({})
     .select('-password')
@@ -17,37 +18,38 @@ export const getUsers = async (req, res) => {
     })
     // .populate("orders", "products total created")
     .exec()
-  if (users) {
-    return res.status(200).json({
-      ok: true,
-      msg: 'Users founded',
-      result: users,
+  if (!users) {
+    return res.status(404).json({
+      ok: false,
+      msg: 'Users not founded',
     })
   }
-  return res.status(404).json({
-    ok: false,
-    msg: 'Users not founded',
+  return res.status(200).json({
+    ok: true,
+    msg: 'Users founded',
+    result: users,
   })
 }
 
 export const getUser = async (req, res) => {
   const user = await User.findOne({
-    _id: req.params.id,
+    _id: req.user._id,
   }).select('-password')
-  if (user) {
-    return res.status(200).json({
-      ok: true,
-      msg: 'User founded',
-      result: user,
+  if (!user) {
+    return res.status(404).json({
+      ok: false,
+      msg: 'User not founded',
     })
   }
-  return res.status(404).json({
-    ok: false,
-    msg: 'User not founded',
+  return res.status(200).json({
+    ok: true,
+    msg: 'User founded',
+    result: user,
   })
 }
 
 export const registerUser = async (req, res) => {
+  // checks for validation errors
   schema
     .validate(req.body)
     .then(async () => {
@@ -128,7 +130,7 @@ export const loginUser = async (req, res) => {
 export const putUser = async (req, res) => {
   // finds the user and saves the body to newUser for
   // comparing them if they are the same or for email validation
-  const user = await User.findById(req.user?._id)
+  const user = await User.findById(req.user._id)
   const newUser = {
     name: user.name,
     email: user.email,
@@ -159,7 +161,7 @@ export const putUser = async (req, res) => {
     newUser.password = await bcrypt.hash(newUser.password, salt)
   }
 
-  await User.findByIdAndUpdate(req.user?._id, newUser).then(() => {
+  await User.findByIdAndUpdate(req.user._id, newUser).then(() => {
     res.status(200).json({
       ok: true,
       msg: 'User updated',
@@ -168,16 +170,16 @@ export const putUser = async (req, res) => {
 }
 
 export const deleteUser = async (req, res) => {
-  const user = await User.findByIdAndDelete(req.params.id)
-  if (user) {
-    res.status(200).json({
-      ok: true,
-      msg: 'User deleted',
+  const user = await User.findByIdAndDelete(req.user._id)
+  if (!user) {
+    res.status(404).json({
+      ok: false,
+      msg: 'User not founded',
     })
   }
-  res.status(404).json({
-    ok: false,
-    msg: 'User not founded',
+  res.status(200).json({
+    ok: true,
+    msg: 'User deleted',
   })
 }
 

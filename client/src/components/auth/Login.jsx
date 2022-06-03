@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { loginUser } from "./fetchActions";
+import { loginUser } from "../../api/auth";
 
 const Login = () => {
   useEffect(() => {
@@ -8,6 +8,7 @@ const Login = () => {
       history.push("/");
     }
   }, []);
+
   const [email, setEmail] = useState("johndoe@gmail.com");
   const [password, setPassword] = useState("johndoepassword");
   const [error, setError] = useState(false);
@@ -60,20 +61,6 @@ const Login = () => {
           </Link>
         </Link>
       </div>
-
-      {/* <p className="or">OR</p>
-
-      <div className="auth-redirect">
-        <Link to="/register">
-          <button className="button-optional">Continue with Facebook</button>
-        </Link>
-        <Link to="/register">
-          <button className="button-optional">Continue with Youtube</button>
-        </Link>
-        <Link to="/register">
-          <button className="button-optional">Continue with Github</button>
-        </Link>
-      </div> */}
     </div>
   );
 };

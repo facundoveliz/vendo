@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { logoutUser } from "../auth/fetchActions";
+import { logoutUser } from "../../api/auth";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {

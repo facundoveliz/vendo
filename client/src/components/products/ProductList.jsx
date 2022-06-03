@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "./fetchActions";
+import { getProducts } from "../../api/products";
 import { Add, Edit, Delete } from "./Windows";
 import ProductTable from "./ProductTable";
 

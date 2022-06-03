@@ -2,12 +2,11 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { postOrder } from "../orders/fetchActions";
+import { postOrder } from "../../api/orders";
 import { removeFromCart } from "../../redux/actions/cartActions";
 import CartProduct from "./CartProduct";
 
 import jwt_decode from "jwt-decode";
-import { toast } from "react-toastify";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const Cart = () => {
   const checkout = () => {
     // decodes tde token and use it to take tde id of tde current cart
     const token = localStorage.getItem("x-auth-token");
-    if (!token) return toast.warn("You need to be logged!");
+    // if (!token) return toast.warn("You need to be logged!");
     const decoded = jwt_decode(token);
 
     const orderData = {
@@ -34,18 +33,10 @@ const Cart = () => {
       // map through all the cart products and with reduce sums all into one number
       total: cart.map((product) => product.price).reduce((a, b) => a + b, 0),
     };
-    // TODO: make all promises use toast
-    toast.promise(
-      postOrder(orderData).then((res) => {
-        dispatch(removeFromCart(cart));
-        history.push("/");
-      }),
-      {
-        pending: "Sending order, please wait...",
-        success: "Thanks for shopping! Order sended.",
-        error: "There was an error 😞",
-      }
-    );
+    postOrder(orderData).then((res) => {
+      dispatch(removeFromCart(cart));
+      history.push("/");
+    });
   };
 
   return (

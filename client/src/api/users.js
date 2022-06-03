@@ -1,22 +1,21 @@
-import axiosClient from "../auth/axiosClient";
+import axiosClient from "./axiosClient";
 
 const url = `${process.env.REACT_APP_API_URL}/api/users`;
 
 export async function getUsers() {
   let res = await axiosClient.get(url);
-  return res.data;
+  return res.data.result;
 }
 
-export async function getUser(id) {
-  let res = await axiosClient.get(`${url}/${id}`);
-  return res.data;
+export async function getUser() {
+  let res = await axiosClient.get(`${url}/profile`);
+  return res.data.result;
 }
 
-// TODO: check if this works
 export async function putUser(userData) {
   await axiosClient.put(url, userData);
 }
 
-export async function deleteUser(id) {
-  await axiosClient.delete(`${url}/${id}`);
+export async function deleteUser() {
+  await axiosClient.delete(url);
 }

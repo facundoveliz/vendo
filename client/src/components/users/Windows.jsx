@@ -1,5 +1,5 @@
 import React from "react";
-import { putUser, deleteUser } from "./fetchActions";
+import { putUser, deleteUser } from "../../api/users";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

@@ -4,8 +4,6 @@ import S3 from 'aws-sdk/clients/s3'
 import fs from 'fs'
 import { Product, schema } from '../models/product'
 
-// NOTE: for some weird reason i have to call dotenv
-// here because env vars are not recognized without this
 dotenv.config()
 
 const router = express.Router()
@@ -40,96 +38,120 @@ function deleteFile(key) {
 }
 
 export const getProducts = async (req, res) => {
-  const product = await Product.find({})
+  const product = await Product.find()
   if (product) {
-    res.json(product)
-  } else {
-    res.status(404).json({ error: 'Product not found' })
+    return res.status(200).json({
+      ok: true,
+      msg: 'Product founded',
+      result: product,
+    })
   }
+  return res.status(404).json({
+    ok: false,
+    msg: 'No product founded',
+  })
 }
 
 export const postProduct = async (req, res) => {
-  schema.validate(req.body).then(async () => {
-    const { file } = req
-    // creates the new product
-    if (!file) {
-      const product = new Product({
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-      })
+  // checks for validation errors
+  schema
+    .validate(req.body)
+    .then(async () => {
+      let product
+
+      // decides how the product should be
+      // if it has an image or not
+      if (!req.file) {
+        product = new Product({
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+        })
+      } else {
+        const result = await uploadFile(req.file)
+        product = new Product({
+          name: req.body.name,
+          price: req.body.price,
+          imageUrl: result.Location,
+          imageKey: result.Key,
+          description: req.body.description,
+        })
+      }
 
       await product
         .save()
-        .catch(() => res.status(400).json({ error: 'The product could not be saved' }))
-    } else {
-      const result = await uploadFile(req.file)
-      if (!result) return res.status(404).json({ error: 'Image not found.' })
-
-      const product = new Product({
-        name: req.body.name,
-        price: req.body.price,
-        imageUrl: result.Location,
-        imageKey: result.key,
-        description: req.body.description,
-      })
-
-      await product
-        .save()
-        .then(() => res.status(200).json({ message: 'Done!' }))
-        .catch(() => res.status(400).json({ error: 'The product could not be saved' }))
-    }
-  })
+        .then(() => res
+          .status(200)
+          .json({ ok: true, msg: 'Product created', result: product }))
+    })
+    .catch((err) => res.status(400).json({
+      ok: false,
+      msg: 'Validation error',
+      result: err,
+    }))
 }
 
 export const putProduct = async (req, res) => {
-  schema.validate(req.body).then(async () => {
-    const { file } = req
-    if (!file) {
-      // if a file is not uploaded, it only updates all except the image
-      const product = await Product.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        price: req.body.price,
-        description: req.body.description,
-      })
+  // checks for validation errors
+  schema
+    .validate(req.body)
+    .then(async () => {
+      let product
 
-      if (!product) {
-        return res.status(404).json({ error: 'Product not found' })
+      // decides how the product should be
+      // if it has an image or not
+      if (!req.file) {
+        // if a file is not uploaded, it only updates all except the image
+        product = await Product.findByIdAndUpdate(req.params.id, {
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+        })
+      } else {
+        // gets the product to get the imageKey so it can delete it
+        const image = await Product.findById(req.params.id)
+        // deletes the image if it exists
+        if (image.imageKey) {
+          deleteFile(image.imageKey)
+        }
+
+        const result = await uploadFile(req.file)
+        product = await Product.findByIdAndUpdate(req.params.id, {
+          name: req.body.name,
+          price: req.body.price,
+          imageUrl: result.Location,
+          imageKey: result.Key,
+          description: req.body.description,
+        })
       }
-      return res.status(200).json({ message: 'Done!' })
-    }
-    // gets the product to get the imageKey so it can delete it
-    const image = await Product.findById(req.params.id)
-    // deletes the image if it exists
-    if (image.key) {
-      await deleteFile(image.imageKey)
-    }
-    if (!image) return res.status(404).json({ error: 'Image not found.' })
-
-    const result = await uploadFile(req.file)
-    const product = await Product.findByIdAndUpdate(req.params.id, {
-      name: req.body.name,
-      price: req.body.price,
-      imageUrl: result.Location,
-      imageKey: result.key,
-      description: req.body.description,
+      return res
+        .status(200)
+        .json({ ok: true, msg: 'Product updated', result: product })
     })
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' })
-    }
-    return res.status(200).json({ message: 'Done!' })
-  })
+    .catch((err) => res.status(400).json({
+      ok: false,
+      msg: 'Validation error',
+      result: err,
+    }))
 }
 
 export const deleteProduct = async (req, res) => {
-  const product = await Product.findByIdAndDelete(req.params.id)
+  const product = await Product.findByIdAndDelete({
+    _id: req.params.id,
+  })
   if (!product) {
-    return res.status(404).json({ error: 'Product not found.' })
+    res.status(404).json({
+      ok: false,
+      msg: 'Product not found',
+    })
   }
-  const image = await deleteFile(product.imageKey)
-  if (!image) return res.status(404).json({ error: 'Image not found.' })
-
-  return res.status(200).json({ message: 'Done!' })
+  if (product.imageKey) {
+    deleteFile(product.imageKey)
+  }
+  return res.status(200).json({
+    ok: true,
+    msg: 'Product deleted',
+  })
 }
 
 export default router

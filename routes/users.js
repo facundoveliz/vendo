@@ -14,10 +14,10 @@ import { catchErrors } from '../middleware/error'
 const router = Router()
 
 router.get('/', auth, admin, catchErrors(getUsers))
-router.get('/:id', auth, catchErrors(getUser))
+router.get('/profile', auth, catchErrors(getUser))
 router.post('/register', catchErrors(registerUser))
 router.post('/login', catchErrors(loginUser))
 router.put('/', auth, admin, catchErrors(putUser))
-router.delete('/:id', auth, admin, catchErrors(deleteUser))
+router.delete('/', auth, catchErrors(deleteUser))
 
 export default router

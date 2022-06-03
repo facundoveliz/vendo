@@ -1,10 +1,10 @@
-import axiosClient from "../auth/axiosClient";
+import axiosClient from "./axiosClient";
 
 const url = `${process.env.REACT_APP_API_URL}/api/orders`;
 
 export async function getOrders() {
   let res = await axiosClient.get(url);
-  return res.data;
+  return res.data.result;
 }
 
 export async function postOrder(orderData) {

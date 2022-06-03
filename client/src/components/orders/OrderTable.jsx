@@ -1,8 +1,6 @@
 import React from "react";
 import dateFormat from "dateformat";
 
-import { toast } from "react-toastify";
-
 const OrderTable = ({
   orders,
   setSelectedDelete,
@@ -14,7 +12,7 @@ const OrderTable = ({
     <table>
       <button
         className="table-new-button"
-        onClick={() => toast.warn("Feature not available yet.")}
+        // onClick={() => toast.warn("Feature not available yet.")}
       >
         Add New
       </button>
@@ -67,7 +65,7 @@ const OrderTable = ({
                 <img
                   src="/icons/edit.svg"
                   alt=""
-                  onClick={() => toast.warn("Feature not available yet.")}
+                  // onClick={() => toast.warn("Feature not available yet.")}
                 />
                 <img
                   src="/icons/trash.svg"

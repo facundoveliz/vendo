@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../products/fetchActions";
+import { getProducts } from "../../api/products";
 import ProductCard from "../products/ProductCard";
 
 import Loader from "react-loader-spinner";
