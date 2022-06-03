@@ -1,14 +1,22 @@
 import React from "react";
+import toast from "react-hot-toast";
 import { deleteOrder } from "../../api/orders";
 
 export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {};
 
 export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
   const handleDelete = (id) => {
-    deleteOrder(id).then((res) => {
-      getOrdersRequest();
-      setOpenDelete(false);
-    });
+    toast.promise(
+      deleteOrder(id).then((res) => {
+        getOrdersRequest();
+        setOpenDelete(false);
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Order deleted`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   return (

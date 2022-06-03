@@ -7,6 +7,7 @@ import { removeFromCart } from "../../redux/actions/cartActions";
 import CartProduct from "./CartProduct";
 
 import jwt_decode from "jwt-decode";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Cart = () => {
   const checkout = () => {
     // decodes tde token and use it to take tde id of tde current cart
     const token = localStorage.getItem("x-auth-token");
-    // if (!token) return toast.warn("You need to be logged!");
+    if (!token) return toast.error("You need to be logged!");
     const decoded = jwt_decode(token);
 
     const orderData = {
@@ -33,10 +34,17 @@ const Cart = () => {
       // map through all the cart products and with reduce sums all into one number
       total: cart.map((product) => product.price).reduce((a, b) => a + b, 0),
     };
-    postOrder(orderData).then((res) => {
-      dispatch(removeFromCart(cart));
-      history.push("/");
-    });
+    toast.promise(
+      postOrder(orderData).then((res) => {
+        dispatch(removeFromCart(cart));
+        history.push("/");
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Thanks for shopping`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   return (

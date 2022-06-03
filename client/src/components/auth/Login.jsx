@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { Link, useHistory } from "react-router-dom";
 import { loginUser } from "../../api/auth";
 
@@ -24,7 +25,11 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    loginUser(userData, history, setError);
+    toast.promise(loginUser(userData, history, setError), {
+      loading: "Loading",
+      success: (res) => `Logged successfully`,
+      error: (err) => `An error ocurred`,
+    });
   };
 
   return (

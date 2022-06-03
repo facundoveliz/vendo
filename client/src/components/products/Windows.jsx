@@ -4,6 +4,7 @@ import { postProduct, putProduct, deleteProduct } from "../../api/products";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast from "react-hot-toast";
 
 // TODO: match this with the backend and all the other ones
 const schema = yup.object().shape({
@@ -33,11 +34,18 @@ export const Add = ({ setOpenNew, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    postProduct(formData).then(() => {
-      // closes the window and get the request for the updated list
-      setOpenNew(false);
-      getProductsRequest();
-    });
+    toast.promise(
+      postProduct(formData).then(() => {
+        // closes the window and get the request for the updated list
+        setOpenNew(false);
+        getProductsRequest();
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Product created`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   // validation with react-hook-form
@@ -105,12 +113,19 @@ export const Edit = ({ setOpenEdit, selectedEdit, getProductsRequest }) => {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    putProduct(selectedEdit._id, formData).then(() => {
-      // closes the window and get the request for the updated list
-      getProductsRequest();
-      window.location.reload();
-      // setOpenEdit(false);
-    });
+    toast.promise(
+      putProduct(selectedEdit._id, formData).then(() => {
+        // closes the window and get the request for the updated list
+        getProductsRequest();
+        window.location.reload();
+        // setOpenEdit(false);
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Product updated`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   const {
@@ -180,11 +195,18 @@ export const Delete = ({
 }) => {
   const handleDelete = (id) => {
     // setLoading(true);
-    deleteProduct(id).then(() => {
-      // setLoading(false);
-      setOpenDelete(false);
-      getProductsRequest();
-    });
+    toast.promise(
+      deleteProduct(id).then(() => {
+        // setLoading(false);
+        setOpenDelete(false);
+        getProductsRequest();
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Product deleted`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   return (

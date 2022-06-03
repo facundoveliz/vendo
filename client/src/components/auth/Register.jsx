@@ -5,6 +5,7 @@ import { registerUser } from "../../api/auth";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast from "react-hot-toast";
 
 const schema = yup.object().shape({
   name: yup
@@ -44,7 +45,11 @@ const Register = () => {
       email: data.email,
       password: data.password1,
     };
-    registerUser(userData, history);
+    toast.promise(registerUser(userData, history), {
+      loading: "Loading",
+      success: (res) => `Registered successfully`,
+      error: (err) => `An error ocurred`,
+    });
   };
 
   const {

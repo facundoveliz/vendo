@@ -1,4 +1,5 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
 
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -22,27 +23,37 @@ import "./sass/main.scss";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        {/* logged routes */}
-        <LoggedRoute component={UserProfile} path="/profile" exact />
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            // textAlign: "center",
+          },
+        }}
+      />
+      <Router>
+        <Navbar />
+        <Switch>
+          {/* logged routes */}
+          <LoggedRoute component={UserProfile} path="/profile" exact />
 
-        {/* admin routes */}
-        <AdminRoute component={UserList} path="/user-list" exact />
-        <AdminRoute component={ProductList} path="/product-list" exact />
-        <AdminRoute component={OrderList} path="/order-list" exact />
+          {/* admin routes */}
+          <AdminRoute component={UserList} path="/user-list" exact />
+          <AdminRoute component={ProductList} path="/product-list" exact />
+          <AdminRoute component={OrderList} path="/order-list" exact />
 
-        {/* normal routes */}
-        <Route path="/" component={Home} exact />
-        <Route path="/cart" component={Cart} exact />
-        <Route path="/login" component={Login} exact />
-        <Route path="/register" component={Register} exact />
+          {/* normal routes */}
+          <Route path="/" component={Home} exact />
+          <Route path="/cart" component={Cart} exact />
+          <Route path="/login" component={Login} exact />
+          <Route path="/register" component={Register} exact />
 
-        {/* not found routes */}
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
+          {/* not found route */}
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 

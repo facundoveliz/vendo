@@ -1,4 +1,6 @@
 import React from "react";
+import toast from "react-hot-toast";
+
 import { Route, Redirect } from "react-router-dom";
 import { isLogged, isAdmin } from "../api/auth";
 
@@ -10,8 +12,7 @@ export const LoggedRoute = ({ component: Component, ...rest }) => {
         isLogged() ? (
           <Component {...props} />
         ) : (
-          // (toast.warn("You need to be logged!"), (<Redirect to="/login" />))
-          <Redirect to="/login" />
+          (toast.error("You need to be logged!"), (<Redirect to="/login" />))
         )
       }
     />
@@ -26,8 +27,7 @@ export const AdminRoute = ({ component: Component, ...rest }) => {
         isAdmin() ? (
           <Component {...props} />
         ) : (
-          // (toast.warn("You need to be admin!"), (<Redirect to="/" />))
-          <Redirect to="/" />
+          (toast.error("You need to be admin!"), (<Redirect to="/" />))
         )
       }
     />

@@ -8,6 +8,7 @@ import Loader from "react-loader-spinner";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast from "react-hot-toast";
 
 const schema = yup.object({
   name: yup
@@ -51,9 +52,16 @@ const Profile = () => {
   });
 
   const onSubmit = (data) => {
-    putUser(data).then((res) => {
-      window.location.reload();
-    });
+    toast.promise(
+      putUser(data).then((res) => {
+        getUserRequest();
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Profile updated`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   const getUserRequest = async () => {
@@ -71,10 +79,17 @@ const Profile = () => {
   };
 
   const handleDelete = async () => {
-    deleteUser().then(() => {
-      localStorage.removeItem("x-auth-token");
-      window.location.href = "/login";
-    });
+    toast.promise(
+      deleteUser().then(() => {
+        localStorage.removeItem("x-auth-token");
+        window.location.href = "/login";
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `Profile deleted`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { putUser, deleteUser } from "../../api/users";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import toast from "react-hot-toast";
 
 const schema = yup.object().shape({
   name: yup
@@ -19,11 +20,18 @@ const schema = yup.object().shape({
 
 export const Edit = ({ setOpenEdit, selectedEdit, getRequest }) => {
   const onSubmit = (data) => {
-    putUser(selectedEdit._id, data).then((res) => {
-      // closes the window and get the request for the updated list
-      getRequest();
-      setOpenEdit(false);
-    });
+    toast.promise(
+      putUser(selectedEdit._id, data).then((res) => {
+        // closes the window and get the request for the updated list
+        getRequest();
+        setOpenEdit(false);
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `User updated`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   // validation with react-hook-form
@@ -75,11 +83,18 @@ export const Edit = ({ setOpenEdit, selectedEdit, getRequest }) => {
 
 export const Delete = ({ setOpenDelete, selectedDelete, getRequest }) => {
   const handleDelete = (id) => {
-    deleteUser(id).then((res) => {
-      // closes the window and get the request for the updated list
-      getRequest();
-      setOpenDelete(false);
-    });
+    toast.promise(
+      deleteUser(id).then((res) => {
+        // closes the window and get the request for the updated list
+        getRequest();
+        setOpenDelete(false);
+      }),
+      {
+        loading: "Loading",
+        success: (res) => `User deleted`,
+        error: (err) => `An error ocurred`,
+      }
+    );
   };
 
   return (
