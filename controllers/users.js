@@ -1,7 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { User, schema } from '../models/user'
+import { User, schema, putSchema } from '../models/user'
 
 const router = express.Router()
 
@@ -32,9 +32,7 @@ export const getUsers = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
-  const user = await User.findOne({
-    _id: req.user._id,
-  }).select('-password')
+  const user = await User.findById(req.user._id).select('-password')
   if (!user) {
     return res.status(404).json({
       ok: false,
@@ -128,48 +126,98 @@ export const loginUser = async (req, res) => {
 }
 
 export const putUser = async (req, res) => {
-  // finds the user and saves the body to newUser for
-  // comparing them if they are the same or for email validation
-  const user = await User.findById(req.user._id)
-  const newUser = {
-    name: user.name,
-    email: user.email,
-    password: user.password,
-  }
-
-  // verifies that the name in the req is not the same as the
-  // actual and verifies that the length is higher than 1
-  if (req.body.name !== user.name && req.body.name.length >= 1) newUser.name = req.body.name
-  if (req.body.email !== user.email && req.body.name.length >= 1) {
-    // checks if the email is exists
-    const emailCheck = await User.findOne({
-      email: req.body.email,
-    })
-    // if the email exists, the func ends here
-    if (emailCheck !== null) {
-      return res.status(400).json({
-        ok: false,
-        msg: 'Invalid email or password',
+  putSchema
+    .validate(req.body)
+    .then(async () => {
+      const user = await User.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body.email,
       })
-    }
-    newUser.email = req.body.email
-  }
-  if (req.body.password.length >= 1) {
-    newUser.password = req.body.password
-    // hash the password
-    const salt = await bcrypt.genSalt(10)
-    newUser.password = await bcrypt.hash(newUser.password, salt)
-  }
 
-  await User.findByIdAndUpdate(req.user._id, newUser).then(() => {
-    res.status(200).json({
-      ok: true,
-      msg: 'User updated',
+      if (!user) {
+        return res.status(404).json({
+          ok: false,
+          msg: 'User not found',
+        })
+      }
+      return res.status(200).json({
+        ok: true,
+        msg: 'User updated',
+      })
     })
-  })
+    .catch((err) => res.status(400).json({
+      ok: false,
+      msg: 'Validation error',
+      result: err,
+    }))
+}
+
+export const putProfile = async (req, res) => {
+  schema
+    .validate(req.body)
+    .then(async () => {
+      // finds the user and saves the body to newUser for
+      // comparing them if they are the same or for email validation
+      const user = await User.findById(req.user._id)
+      const newUser = {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      }
+
+      // verifies that the name in the req is not the same as the
+      // actual and verifies that the length is higher than 1
+      if (req.body.name !== user.name && req.body.name.length >= 1) newUser.name = req.body.name
+      if (req.body.email !== user.email && req.body.name.length >= 1) {
+        // checks if the email is exists
+        const emailCheck = await User.findOne({
+          email: req.body.email,
+        })
+        // if the email exists, the func ends here
+        if (emailCheck !== null) {
+          return res.status(400).json({
+            ok: false,
+            msg: 'Invalid email or password',
+          })
+        }
+        newUser.email = req.body.email
+      }
+      if (req.body.password.length >= 1) {
+        newUser.password = req.body.password
+        // hash the password
+        const salt = await bcrypt.genSalt(10)
+        newUser.password = await bcrypt.hash(newUser.password, salt)
+      }
+
+      await User.findByIdAndUpdate(req.user._id, newUser).then(() => {
+        res.status(200).json({
+          ok: true,
+          msg: 'User updated',
+        })
+      })
+    })
+    .catch((err) => res.status(400).json({
+      ok: false,
+      msg: 'Validation error',
+      result: err,
+    }))
 }
 
 export const deleteUser = async (req, res) => {
+  const user = await User.findByIdAndDelete(req.params.id)
+  if (!user) {
+    res.status(404).json({
+      ok: false,
+      msg: 'User not founded',
+    })
+  }
+  res.status(200).json({
+    ok: true,
+    msg: 'User deleted',
+  })
+}
+
+export const deleteProfile = async (req, res) => {
   const user = await User.findByIdAndDelete(req.user._id)
   if (!user) {
     res.status(404).json({

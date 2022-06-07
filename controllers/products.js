@@ -39,16 +39,16 @@ function deleteFile(key) {
 
 export const getProducts = async (req, res) => {
   const product = await Product.find()
-  if (product) {
-    return res.status(200).json({
-      ok: true,
-      msg: 'Product founded',
-      result: product,
+  if (!product) {
+    return res.status(404).json({
+      ok: false,
+      msg: 'No products founded',
     })
   }
-  return res.status(404).json({
-    ok: false,
-    msg: 'No product founded',
+  return res.status(200).json({
+    ok: true,
+    msg: 'Products founded',
+    result: product,
   })
 }
 
@@ -59,8 +59,7 @@ export const postProduct = async (req, res) => {
     .then(async () => {
       let product
 
-      // decides how the product should be
-      // if it has an image or not
+      // decides how the product should be if it has an image or not
       if (!req.file) {
         product = new Product({
           name: req.body.name,
@@ -145,6 +144,7 @@ export const deleteProduct = async (req, res) => {
       msg: 'Product not found',
     })
   }
+  // deletes the image if it has one
   if (product.imageKey) {
     deleteFile(product.imageKey)
   }

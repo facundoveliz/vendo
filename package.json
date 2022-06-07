@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_OPTIONS='--experimental-specifier-resolution=node' node server.js",
-    "server": "NODE_OPTIONS='--experimental-specifier-resolution=node' nodemon server.js",
+    "start": "node --experimental-specifier-resolution=node server.js",
+    "server": "nodemon --experimental-specifier-resolution=node server.js",
     "dev": "concurrently \"yarn server\" \"yarn --cwd ./client client\"",
     "lint": "eslint . --ext .js --fix --ignore-pattern client"
   },
