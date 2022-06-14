@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import { Link, useHistory } from "react-router-dom";
-import { loginUser } from "../../api/auth";
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { loginUser } from '../../api/auth';
 
-const Login = () => {
-  useEffect(() => {
-    if (token) {
-      history.push("/");
-    }
-  }, []);
-
-  const [email, setEmail] = useState("johndoe@gmail.com");
-  const [password, setPassword] = useState("johndoepassword");
+function Login() {
+  const [email, setEmail] = useState('johndoe@gmail.com');
+  const [password, setPassword] = useState('johndoepassword');
   const [error, setError] = useState(false);
 
   const history = useHistory();
-
-  const token = localStorage.getItem("x-auth-token");
+  const token = localStorage.getItem('x-auth-token');
 
   const userData = {
-    email: email,
-    password: password,
+    email,
+    password,
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    toast.promise(loginUser(userData, history, setError), {
-      loading: "Loading",
-      success: (res) => `Logged successfully`,
-      error: (err) => `An error ocurred`,
-    });
+    loginUser(userData, history, setError);
   };
+
+  useEffect(() => {
+    if (token) {
+      history.push('/');
+    }
+  }, []);
 
   return (
     <div className="login">
@@ -68,6 +62,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;

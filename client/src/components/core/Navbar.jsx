@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { logoutUser } from "../../api/auth";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { logoutUser } from '../../api/auth';
 
-const Navbar = () => {
-  const token = localStorage.getItem("x-auth-token");
+function Navbar() {
+  const token = localStorage.getItem('x-auth-token');
   const cart = useSelector((state) => state.cart.cartItems);
 
   return (
@@ -12,7 +12,7 @@ const Navbar = () => {
       <ul>
         <NavLink
           to="/"
-          exact={true}
+          exact
           title="Home"
           activeClassName="navbar-selected"
         >
@@ -67,37 +67,33 @@ const Navbar = () => {
           </li>
         </NavLink>
         {!token ? (
-          <>
-            <NavLink
-              to="/login"
-              title="Login"
-              activeClassName="navbar-selected"
-            >
-              <li>
-                <img src="/icons/login.svg" alt="" />
-              </li>
-            </NavLink>
-          </>
+          <NavLink
+            to="/login"
+            title="Login"
+            activeClassName="navbar-selected"
+          >
+            <li>
+              <img src="/icons/login.svg" alt="" />
+            </li>
+          </NavLink>
         ) : (
-          <>
-            <NavLink
-              to="/login"
-              title="Logout"
-              activeClassName="navbar-selected"
-            >
-              <li>
-                <img
-                  src="/icons/logout.svg"
-                  alt=""
-                  onClick={() => logoutUser()}
-                />
-              </li>
-            </NavLink>
-          </>
+          <NavLink
+            to="/login"
+            title="Logout"
+            activeClassName="navbar-selected"
+          >
+            <li>
+              <img
+                src="/icons/logout.svg"
+                alt=""
+                onClick={() => logoutUser()}
+              />
+            </li>
+          </NavLink>
         )}
       </ul>
     </div>
   );
-};
+}
 
 export default Navbar;

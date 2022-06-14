@@ -1,41 +1,34 @@
-import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { registerUser } from "../../api/auth";
+import React, { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import toast from "react-hot-toast";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { registerUser } from '../../api/auth';
 
 const schema = yup.object().shape({
   name: yup
     .string()
-    .required("The name is a required field.")
-    .min(3, "The name should be at least 3 characters.")
-    .max(128, "The name should not have more than 128 characters."),
+    .required('The name is a required field.')
+    .min(3, 'The name should be at least 3 characters.')
+    .max(128, 'The name should not have more than 128 characters.'),
   email: yup
     .string()
-    .email("Email must be a valid email.")
-    .required("The email is a required field."),
+    .email('Email must be a valid email.')
+    .required('The email is a required field.'),
   password1: yup
     .string()
-    .required("The password is a required field.")
-    .min(8, "The password should be at least 8 characters.")
-    .max(128, "The password not have more than 128 characters."),
+    .required('The password is a required field.')
+    .min(8, 'The password should be at least 8 characters.')
+    .max(128, 'The password not have more than 128 characters.'),
   password2: yup
     .string()
-    .required("The password confirmation is a required field.")
-    .oneOf([yup.ref("password1"), null], "Passwords must match"),
+    .required('The password confirmation is a required field.')
+    .oneOf([yup.ref('password1'), null], 'Passwords must match'),
 });
 
-const Register = () => {
-  useEffect(() => {
-    if (token) {
-      history.push("/");
-    }
-  }, []);
-
-  const token = localStorage.getItem("x-auth-token");
+function Register() {
+  const token = localStorage.getItem('x-auth-token');
 
   const history = useHistory();
 
@@ -45,11 +38,7 @@ const Register = () => {
       email: data.email,
       password: data.password1,
     };
-    toast.promise(registerUser(userData, history), {
-      loading: "Loading",
-      success: (res) => `Registered successfully`,
-      error: (err) => `An error ocurred`,
-    });
+    registerUser(userData, history);
   };
 
   const {
@@ -58,8 +47,14 @@ const Register = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    reValidateMode: "onBlur",
+    reValidateMode: 'onBlur',
   });
+
+  useEffect(() => {
+    if (token) {
+      history.push('/');
+    }
+  }, []);
 
   return (
     <div className="register">
@@ -69,16 +64,16 @@ const Register = () => {
         <input
           name="name"
           placeholder="Name"
-          className={errors.name ? "error" : ""}
-          {...register("name")}
+          className={errors.name ? 'error' : ''}
+          {...register('name')}
         />
         <p className="input-validation">{errors.name?.message}</p>
 
         <input
           name="email"
           placeholder="Email"
-          className={errors.email ? "error" : ""}
-          {...register("email")}
+          className={errors.email ? 'error' : ''}
+          {...register('email')}
         />
         <p className="input-validation">{errors.email?.message}</p>
 
@@ -86,8 +81,8 @@ const Register = () => {
           name="password1"
           placeholder="Password"
           type="password"
-          className={errors.password1 ? "error" : ""}
-          {...register("password1")}
+          className={errors.password1 ? 'error' : ''}
+          {...register('password1')}
         />
         <p className="input-validation">{errors.password1?.message}</p>
 
@@ -95,8 +90,8 @@ const Register = () => {
           name="password2"
           placeholder="Confirm Password"
           type="password"
-          className={errors.password2 ? "error" : ""}
-          {...register("password2")}
+          className={errors.password2 ? 'error' : ''}
+          {...register('password2')}
         />
         <p className="input-validation">{errors.password2?.message}</p>
 
@@ -112,6 +107,6 @@ const Register = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Register;

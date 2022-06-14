@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
+import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
 
-const ProductCard = ({ product }) => {
+function ProductCard({ selectedProduct }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cartItems);
 
@@ -15,36 +15,40 @@ const ProductCard = ({ product }) => {
     dispatch(removeFromCart(product));
   };
 
-  const isInCart = (product) => {
-    return !!cart.find((item) => item._id === product._id);
-  };
+  const isInCart = (product) => !!cart.find((item) => item._id === product._id);
 
   return (
-    <div key={product._id} className="card">
+    <div key={selectedProduct._id} className="card">
       <div className="card-image-container">
         <img
           src={
-            product.imageUrl.length > 15
-              ? product.imageUrl
-              : "/uploads/products/default.jpg"
+            selectedProduct.imageUrl.length > 15
+              ? selectedProduct.imageUrl
+              : '/uploads/products/default.jpg'
           }
-          alt={product.name}
+          alt={selectedProduct.name}
         />
       </div>
-      <p>{product.name}</p>
-      <p>${product.price.toLocaleString()}</p>
-      {isInCart(product) ? (
+      <p>{selectedProduct.name}</p>
+      <p>
+        $
+        {selectedProduct.price.toLocaleString()}
+      </p>
+      {isInCart(selectedProduct) ? (
         <button
+          type="button"
           className="card-added-button"
-          onClick={() => handleRemoveFromCart(product)}
+          onClick={() => handleRemoveFromCart(selectedProduct)}
         >
           Remove from cart
         </button>
       ) : (
-        <button onClick={() => handleAddToCart(product)}>Add to cart</button>
+        <button type="submit" onClick={() => handleAddToCart(selectedProduct)}>
+          Add to cart
+        </button>
       )}
     </div>
   );
-};
+}
 
 export default ProductCard;

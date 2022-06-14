@@ -9,11 +9,15 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "dateformat": "^5.0.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-react": "^7.28.0",
     "formik": "^2.2.9",
     "is-empty": "^1.2.0",
     "js-cookie": "^3.0.0",
     "jwt-decode": "^3.1.2",
     "node-sass": "^6.0.1",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.16.1",
@@ -31,7 +35,8 @@
     "client": "export PORT=3001 && react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.jsx --fix"
   },
   "eslintConfig": {
     "extends": [

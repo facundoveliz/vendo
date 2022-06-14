@@ -1,21 +1,21 @@
-import React from "react";
-import toast from "react-hot-toast";
-import { deleteOrder } from "../../api/orders";
+import React from 'react';
+import toast from 'react-hot-toast';
+import { deleteOrder } from '../../api/orders';
 
-export const Edit = ({ setOpenEdit, selectedEdit, getOrdersRequest }) => {};
+export const Edit = () => {};
 
-export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
+export function Delete({ setOpenDelete, selectedDelete, getOrdersRequest }) {
   const handleDelete = (id) => {
     toast.promise(
-      deleteOrder(id).then((res) => {
+      deleteOrder(id).then(() => {
         getOrdersRequest();
         setOpenDelete(false);
       }),
       {
-        loading: "Loading",
-        success: (res) => `Order deleted`,
-        error: (err) => `An error ocurred`,
-      }
+        loading: 'Loading',
+        success: () => 'Order deleted',
+        error: () => 'An error ocurred',
+      },
     );
   };
 
@@ -25,35 +25,42 @@ export const Delete = ({ setOpenDelete, selectedDelete, getOrdersRequest }) => {
         <div className="delete-title">
           <h1>Delete Order</h1>
         </div>
-        <div className="delete-text"></div>
+        <div className="delete-text" />
         <div className="delete-button">
-          <button onClick={() => handleDelete(selectedDelete)}>Yes</button>
-          <button onClick={() => setOpenDelete(false)}>Cancel</button>
+          <button type="submit" onClick={() => handleDelete(selectedDelete)}>
+            Yes
+          </button>
+          <button type="button" onClick={() => setOpenDelete(false)}>
+            Cancel
+          </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export const Products = ({ setOpenProducts, selectedProducts }) => {
+export function Products({ setOpenProducts, selectedProducts }) {
   return (
     <div className="input-container">
       <div className="input">
         <div className="input-title">
           <h1>Products</h1>
-          <button onClick={() => setOpenProducts(false)}>Close</button>
+          <button type="button" onClick={() => setOpenProducts(false)}>
+            Close
+          </button>
         </div>
         <div>
-          {selectedProducts.map((product) => {
-            return (
-              <p>
-                {product.name} ${product.price.toLocaleString()}
-              </p>
-            );
-          })}
+          {selectedProducts.map((product) => (
+            <p>
+              {product.name}
+              {' '}
+              $
+              {product.price.toLocaleString()}
+            </p>
+          ))}
         </div>
-        <div className="input-input"></div>
+        <div className="input-input" />
       </div>
     </div>
   );
-};
+}

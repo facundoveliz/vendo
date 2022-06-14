@@ -1,25 +1,25 @@
-import React from "react";
-import { Toaster } from "react-hot-toast";
+import React from 'react';
+import { Toaster } from 'react-hot-toast';
 
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 
-import UserProfile from "./components/users/UserProfile";
+import UserProfile from './components/users/UserProfile';
 
-import UserList from "./components/users/UserList";
-import ProductList from "./components/products/ProductList";
-import OrderList from "./components/orders/OrderList";
+import UserList from './components/users/UserList';
+import ProductList from './components/products/ProductList';
+import OrderList from './components/orders/OrderList';
 
-import Cart from "./components/cart/Cart";
+import Cart from './components/cart/Cart';
 
-import Home from "./components/core/Home";
-import Navbar from "./components/core/Navbar";
-import NotFound from "./components/core/NotFound";
+import Home from './components/core/Home';
+import Navbar from './components/core/Navbar';
+import NotFound from './components/core/NotFound';
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { LoggedRoute, AdminRoute } from "./utils/PrivateRoutes";
+import { LoggedRoute, AdminRoute } from './utils/PrivateRoutes';
 
-import "./sass/main.scss";
+import './sass/main.scss';
 
 function App() {
   return (

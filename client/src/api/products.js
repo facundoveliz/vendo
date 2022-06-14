@@ -1,9 +1,9 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
 
 const url = `${process.env.REACT_APP_API_URL}/api/products`;
 
 export async function getProducts() {
-  let res = await axiosClient.get(url);
+  const res = await axiosClient.get(url);
   return res.data.result;
 }
 

@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { getOrders } from "../../api/orders";
-import { Edit, Delete, Products } from "./Windows";
-import Loader from "react-loader-spinner";
-import OrderTable from "./OrderTable";
+import React, { useState, useEffect } from 'react';
+import Loader from 'react-loader-spinner';
+import { getOrders } from '../../api/orders';
+import { Edit, Delete, Products } from './Windows';
+import OrderTable from './OrderTable';
 
-const OrderList = () => {
-  useEffect(() => {
-    getOrdersRequest();
-  }, []);
-
+function OrderList() {
   const [orders, setOrders] = useState([]);
 
   // if the 'open...' state is true, it will show the new/edit/delete window
@@ -18,25 +14,29 @@ const OrderList = () => {
 
   // this passes the selected order to the window
   const [selectedEdit, setSelectedEdit] = useState({
-    _id: "",
-    name: "",
-    price: "",
+    _id: '',
+    name: '',
+    price: '',
     image: null,
-    description: "",
+    description: '',
   });
 
   // this passes the id of the selected order to delete
-  const [selectedDelete, setSelectedDelete] = useState("");
-  const [selectedProducts, setSelectedProducts] = useState("");
+  const [selectedDelete, setSelectedDelete] = useState('');
+  const [selectedProducts, setSelectedProducts] = useState('');
 
   const [loading, setLoading] = useState(false);
 
   const getOrdersRequest = async () => {
     setLoading(true);
-    let res = await getOrders();
+    const res = await getOrders();
     setOrders(res);
     setLoading(false);
   };
+
+  useEffect(() => {
+    getOrdersRequest();
+  }, []);
 
   return (
     <div className="table order-list">
@@ -86,6 +86,6 @@ const OrderList = () => {
       </div>
     </div>
   );
-};
+}
 
 export default OrderList;
