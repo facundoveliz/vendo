@@ -38,17 +38,10 @@ function OrderTable({
               }}
               className="pointer"
             >
-              {/* if all the products has been deleted, it will show a string informing that,
-                  and if the products are more than one, it will show only one and will inform
-                  the number of products left that are not appearing */}
               <p className="table-see-more">
-                {/* order.products.length === 0
+                {order.products.length === 0
                   ? 'Products deleted'
-                  : order.products.length > 1
-                    ? `${order.products[0].name} and ${
-                      order.products.length - 1
-                    } more...`
-                    : `${order.products[0].name}` */}
+                  : order.products[0].name}
               </p>
             </td>
             {order.user ? (

@@ -1,49 +1,49 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
+import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
 
-function ProductCard({ selectedProduct }) {
+function ProductCard({ product }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cartItems);
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+  const handleAddToCart = (data) => {
+    dispatch(addToCart(data));
   };
 
-  const handleRemoveFromCart = (product) => {
-    dispatch(removeFromCart(product));
+  const handleRemoveFromCart = (data) => {
+    dispatch(removeFromCart(data));
   };
 
-  const isInCart = (product) => !!cart.find((item) => item._id === product._id);
+  const isInCart = (data) => !!cart.find((item) => item._id === data._id);
 
   return (
-    <div key={selectedProduct._id} className="card">
+    <div key={product._id} className="card">
       <div className="card-image-container">
         <img
           src={
-            selectedProduct.imageUrl.length > 15
-              ? selectedProduct.imageUrl
+            product.imageUrl.length > 15
+              ? product.imageUrl
               : '/uploads/products/default.jpg'
           }
-          alt={selectedProduct.name}
+          alt={product.name}
         />
       </div>
-      <p>{selectedProduct.name}</p>
+      <p>{product.name}</p>
       <p>
         $
-        {selectedProduct.price.toLocaleString()}
+        {product.price.toLocaleString()}
       </p>
-      {isInCart(selectedProduct) ? (
+      {isInCart(product) ? (
         <button
           type="button"
           className="card-added-button"
-          onClick={() => handleRemoveFromCart(selectedProduct)}
+          onClick={() => handleRemoveFromCart(product)}
         >
           Remove from cart
         </button>
       ) : (
-        <button type="submit" onClick={() => handleAddToCart(selectedProduct)}>
+        <button type="submit" onClick={() => handleAddToCart(product)}>
           Add to cart
         </button>
       )}
