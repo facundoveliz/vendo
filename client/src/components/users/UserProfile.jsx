@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
-import Loader from 'react-loader-spinner';
+import React, { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import toast from 'react-hot-toast';
 import { logoutUser } from '../../api/auth';
-import { deleteProfile, getUser, putUser } from '../../api/users';
+import { deleteProfile, getUser, putProfile } from '../../api/users';
 
 const schema = yup.object({
   name: yup
@@ -39,18 +37,18 @@ const schema = yup.object({
 });
 
 function Profile() {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
     reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const getUserRequest = async () => {
-    setLoading(true);
     const res = await getUser();
     reset({
       name: res.name,
@@ -58,22 +56,18 @@ function Profile() {
       password: '',
       passwordConfirm: '',
     });
-    if (res) {
-      setLoading(false);
-    }
   };
 
+  // FIX: it does weird stuff with getUserRequest()
   const onSubmit = (data) => {
-    toast.promise(
-      putUser(data).then(() => {
-        getUserRequest();
-      }),
-      {
-        loading: 'Loading',
-        success: () => 'Profile updated',
-        error: () => 'An error ocurred',
-      },
-    );
+    putProfile(data).then((res) => {
+      if (res.toString() === 'Invalid email or password') {
+        setError('email', {
+          message: res.toString(),
+        });
+      }
+    });
+    getUserRequest();
   };
 
   const handleDelete = async () => {
@@ -97,82 +91,72 @@ function Profile() {
   return (
     <div className="profile">
       <h1>My Profile</h1>
-      {loading ? (
-        <Loader
-          type="Oval"
-          color="#627884"
-          height={200}
-          width={200}
-          className="loading"
-        />
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="profile-container">
-          <div className="profile-data-container">
-            <div className="profile-data">
-              <label htmlFor="name" className="profile-title">
-                Name
-                <input
-                  name="name"
-                  id="name"
-                  className={errors.name ? 'error' : ''}
-                  {...register('name')}
-                />
-              </label>
-              <p className="input-validation">{errors.name?.message}</p>
-            </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="profile-container">
+        <div className="profile-data-container">
+          <div className="profile-data">
+            <label htmlFor="name" className="profile-title">
+              Name
+              <input
+                name="name"
+                id="name"
+                className={errors.name ? 'error' : ''}
+                {...register('name')}
+              />
+            </label>
+            <p className="input-validation">{errors.name?.message}</p>
+          </div>
 
-            <div className="profile-data">
-              <label htmlFor="email" className="profile-title">
-                Email
-                <input
-                  id="email"
-                  name="email"
-                  className={errors.email ? 'error' : ''}
-                  {...register('email')}
-                />
-              </label>
-              <p className="input-validation">{errors.email?.message}</p>
-            </div>
+          <div className="profile-data">
+            <label htmlFor="email" className="profile-title">
+              Email
+              <input
+                id="email"
+                name="email"
+                className={errors.email ? 'error' : ''}
+                {...register('email')}
+              />
+            </label>
+            <p className="input-validation">{errors.email?.message}</p>
+          </div>
 
-            <div className="profile-data">
-              <label htmlFor="email" className="profile-title">
-                Password
-                <input
-                  id="password"
-                  name="password"
-                  placeholder="New password"
-                  type="password"
-                  className={errors.password ? 'error' : ''}
-                  {...register('password')}
-                />
-              </label>
-              <p className="input-validation">{errors.password?.message}</p>
-
+          <div className="profile-data">
+            <label htmlFor="email" className="profile-title">
+              Password
               <input
                 id="password"
-                name="passwordConfirm"
-                placeholder="Confirm password"
+                name="password"
+                placeholder="New password"
                 type="password"
-                className={errors.passwordConfirm ? 'error' : ''}
-                {...register('passwordConfirm')}
+                className={errors.password ? 'error' : ''}
+                {...register('password')}
               />
-              <p className="input-validation">
-                {errors.passwordConfirm?.message}
-              </p>
-            </div>
+            </label>
+            <p className="input-validation">{errors.password?.message}</p>
 
-            <div className="profile-buttons">
-              <button type="button" onClick={() => handleDelete()}>
-                Delete account
-              </button>
-              <button type="button" onClick={() => logoutUser()}>
-                Logout
-              </button>
-              <button type="submit">Save</button>
-            </div>
+            <input
+              id="password"
+              name="passwordConfirm"
+              placeholder="Confirm password"
+              type="password"
+              className={errors.passwordConfirm ? 'error' : ''}
+              {...register('passwordConfirm')}
+            />
+            <p className="input-validation">
+              {errors.passwordConfirm?.message}
+            </p>
           </div>
-        </form>
-      )}
+
+          <div className="profile-buttons">
+            <button type="button" onClick={() => handleDelete()}>
+              Delete account
+            </button>
+            <button type="button" onClick={() => logoutUser()}>
+              Logout
+            </button>
+            <button type="submit">Save</button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

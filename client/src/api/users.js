@@ -17,7 +17,11 @@ export async function putUser(id, userData) {
 }
 
 export async function putProfile(userData) {
-  await axiosClient.put(url, userData);
+  const res = await axiosClient.put(url, userData);
+  if (res.toString() === 'Invalid email or password') {
+    return res;
+  }
+  return null;
 }
 
 export async function deleteUser(id) {

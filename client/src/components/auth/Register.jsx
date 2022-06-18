@@ -32,23 +32,31 @@ function Register() {
 
   const history = useHistory();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm({
+    resolver: yupResolver(schema),
+    reValidateMode: 'onBlur',
+  });
+
   const onSubmit = (data) => {
     const userData = {
       name: data.name,
       email: data.email,
       password: data.password1,
     };
-    registerUser(userData, history);
+    registerUser(userData, history).then((res) => {
+      console.log(res);
+      if (res.toString() === 'Invalid email or password') {
+        setError('email', {
+          message: 'Email already in use',
+        });
+      }
+    });
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    reValidateMode: 'onBlur',
-  });
 
   useEffect(() => {
     if (token) {

@@ -153,54 +153,45 @@ export const putUser = async (req, res) => {
 }
 
 export const putProfile = async (req, res) => {
-  schema
-    .validate(req.body)
-    .then(async () => {
-      // finds the user and saves the body to newUser for
-      // comparing them if they are the same or for email validation
-      const user = await User.findById(req.user._id)
-      const newUser = {
-        name: user.name,
-        email: user.email,
-        password: user.password,
-      }
+  // finds the user and saves the body to newUser for
+  // comparing them if they are the same or for email validation
+  const user = await User.findById(req.user._id)
+  const newUser = {
+    name: user.name,
+    email: user.email,
+    password: user.password,
+  }
 
-      // verifies that the name in the req is not the same as the
-      // actual and verifies that the length is higher than 1
-      if (req.body.name !== user.name && req.body.name.length >= 1) newUser.name = req.body.name
-      if (req.body.email !== user.email && req.body.name.length >= 1) {
-        // checks if the email is exists
-        const emailCheck = await User.findOne({
-          email: req.body.email,
-        })
-        // if the email exists, the func ends here
-        if (emailCheck !== null) {
-          return res.status(400).json({
-            ok: false,
-            msg: 'Invalid email or password',
-          })
-        }
-        newUser.email = req.body.email
-      }
-      if (req.body.password.length >= 1) {
-        newUser.password = req.body.password
-        // hash the password
-        const salt = await bcrypt.genSalt(10)
-        newUser.password = await bcrypt.hash(newUser.password, salt)
-      }
-
-      await User.findByIdAndUpdate(req.user._id, newUser).then(() => {
-        res.status(200).json({
-          ok: true,
-          msg: 'User updated',
-        })
-      })
+  // verifies that the name in the req is not the same as the
+  // actual and verifies that the length is higher than 1
+  if (req.body.name !== user.name && req.body.name.length >= 1) newUser.name = req.body.name
+  if (req.body.email !== user.email && req.body.name.length >= 1) {
+    // checks if the email is exists
+    const emailCheck = await User.findOne({
+      email: req.body.email,
     })
-    .catch((err) => res.status(400).json({
-      ok: false,
-      msg: 'Validation error',
-      result: err,
-    }))
+    // if the email exists, the func ends here
+    if (emailCheck !== null) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Invalid email or password',
+      })
+    }
+    newUser.email = req.body.email
+  }
+  if (req.body.password.length >= 1) {
+    newUser.password = req.body.password
+    // hash the password
+    const salt = await bcrypt.genSalt(10)
+    newUser.password = await bcrypt.hash(newUser.password, salt)
+  }
+
+  await User.findByIdAndUpdate(req.user._id, newUser).then(() => {
+    res.status(200).json({
+      ok: true,
+      msg: 'User updated',
+    })
+  })
 }
 
 export const deleteUser = async (req, res) => {
