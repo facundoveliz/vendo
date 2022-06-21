@@ -1,5 +1,5 @@
-import Joi from 'joi'
 import mongoose from 'mongoose'
+import * as Yup from 'yup'
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   created: {
     type: Date,
@@ -34,22 +34,26 @@ const userSchema = new mongoose.Schema({
 
 export const User = mongoose.model('User', userSchema)
 
-export function validateUserRegister(user) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).max(128).required(),
-    email: Joi.string().max(128).required(),
-    password: Joi.string().min(8).max(128).required(),
-  })
+export const schema = Yup.object().shape({
+  name: Yup.string()
+    .required('The name is a required field.')
+    .min(3, 'The name should be at least 3 characters.')
+    .max(128, 'The name should not have more than 128 characters.'),
+  email: Yup.string()
+    .required('The email is a required field.')
+    .email('Email must be a valid email.'),
+  password: Yup.string()
+    .required('The password is a required field.')
+    .min(8, 'The password should be at least 8 characters.')
+    .max(128, 'The password should not have more than 128 characters.'),
+})
 
-  return schema.validate(user)
-}
-
-export function validateUserEdit(user) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).max(8).required(),
-    email: Joi.string().max(128).required(),
-    password: Joi.string().min(8).max(128),
-  })
-
-  return schema.validate(user)
-}
+export const putSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('The name is a required field.')
+    .min(3, 'The name should be at least 3 characters.')
+    .max(128, 'The name should not have more than 128 characters.'),
+  email: Yup.string()
+    .required('The email is a required field.')
+    .email('Email must be a valid email.'),
+})

@@ -1,14 +1,12 @@
-import Joi from 'joi'
 import mongoose from 'mongoose'
+import * as Yup from 'yup'
 
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
   },
   price: {
     type: Number,
-    required: true,
   },
   imageUrl: {
     type: String,
@@ -19,18 +17,20 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
   },
 })
 
 export const Product = mongoose.model('Product', productSchema)
 
-export function validateProduct(product) {
-  const schema = Joi.object({
-    name: Joi.string().min(3).max(124).required(),
-    price: Joi.number().min(1).required(),
-    description: Joi.string().min(3).max(4096).required(),
-  })
-
-  return schema.validate(product)
-}
+export const schema = Yup.object().shape({
+  name: Yup.string()
+    .required('The name is a required field.')
+    .min(3, 'The name should be at least 3 characters.')
+    .max(128, 'The name should not have more than 128 characters.'),
+  price: Yup.number()
+    .required('The price is a required field.')
+    .min(1, 'The price should be at least 1 characters.'),
+  description: Yup.string()
+    .required('The description is a required field.')
+    .min(3, 'The description should be at least 3 characters.'),
+})

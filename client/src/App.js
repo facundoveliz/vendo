@@ -1,51 +1,59 @@
-import React from "react";
+import React from 'react';
+import { Toaster } from 'react-hot-toast';
 
-import Register from "./components/auth/Register";
-import Login from "./components/auth/Login";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 
-import UserProfile from "./components/users/UserProfile";
+import UserProfile from './components/users/UserProfile';
 
-import UserList from "./components/users/UserList";
-import ProductList from "./components/products/ProductList";
-import OrderList from "./components/orders/OrderList";
+import UserList from './components/users/UserList';
+import ProductList from './components/products/ProductList';
+import OrderList from './components/orders/OrderList';
 
-import Cart from "./components/cart/Cart";
+import Cart from './components/cart/Cart';
 
-import Home from "./components/core/Home";
-import Navbar from "./components/core/Navbar";
-import NotFound from "./components/core/NotFound";
+import Home from './components/core/Home';
+import Navbar from './components/core/Navbar';
+import NotFound from './components/core/NotFound';
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { LoggedRoute, AdminRoute } from "./utils/PrivateRoutes";
-import { ToastContainer } from "react-toastify";
+import { LoggedRoute, AdminRoute } from './utils/PrivateRoutes';
 
-import "react-toastify/dist/ReactToastify.css";
-import "./sass/main.scss";
+import './sass/main.scss';
 
 function App() {
   return (
-    <Router>
-      <ToastContainer />
-      <Navbar />
-      <Switch>
-        {/* logged routes */}
-        <LoggedRoute component={UserProfile} path="/profile" exact />
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            // textAlign: "center",
+          },
+        }}
+      />
+      <Router>
+        <Navbar />
+        <Switch>
+          {/* logged routes */}
+          <LoggedRoute component={UserProfile} path="/profile" exact />
 
-        {/* admin routes */}
-        <AdminRoute component={UserList} path="/user-list" exact />
-        <AdminRoute component={ProductList} path="/product-list" exact />
-        <AdminRoute component={OrderList} path="/order-list" exact />
+          {/* admin routes */}
+          <AdminRoute component={UserList} path="/user-list" exact />
+          <AdminRoute component={ProductList} path="/product-list" exact />
+          <AdminRoute component={OrderList} path="/order-list" exact />
 
-        {/* normal routes */}
-        <Route path="/" component={Home} exact />
-        <Route path="/cart" component={Cart} exact />
-        <Route path="/login" component={Login} exact />
-        <Route path="/register" component={Register} exact />
+          {/* normal routes */}
+          <Route path="/" component={Home} exact />
+          <Route path="/cart" component={Cart} exact />
+          <Route path="/login" component={Login} exact />
+          <Route path="/register" component={Register} exact />
 
-        {/* not found routes */}
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
+          {/* not found route */}
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 

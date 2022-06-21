@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const CartProduct = ({ product, handleRemoveFromCart }) => {
+function CartProduct({ product, handleRemoveFromCart }) {
   return (
     <div>
       <div key={product._id} className="cart-container">
@@ -10,18 +11,34 @@ const CartProduct = ({ product, handleRemoveFromCart }) => {
               src={
                 product.imageUrl.length > 15
                   ? product.imageUrl
-                  : "/uploads/products/default.jpg"
+                  : '/uploads/products/default.jpg'
               }
               alt={product.name}
             />
           </div>
           <p>{product.name}</p>
         </div>
-        <p> ${product.price.toLocaleString()}</p>
-        <button onClick={() => handleRemoveFromCart(product)}>X</button>
+        <p>
+          {' '}
+          $
+          {product.price.toLocaleString()}
+        </p>
+        <button type="button" onClick={() => handleRemoveFromCart(product)}>
+          X
+        </button>
       </div>
     </div>
   );
+}
+
+CartProduct.propTypes = {
+  product: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    imageUrl: PropTypes.string,
+  }).isRequired,
+  handleRemoveFromCart: PropTypes.func.isRequired,
 };
 
 export default CartProduct;

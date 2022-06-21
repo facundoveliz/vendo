@@ -13,7 +13,7 @@ This is an application that I made for practicing purposes. Is made with React a
 
 ### Demo
 
-You can visit the website by clicking [here](https://vendo-ecommerce.burki.club/), keep in mind that the server is in heroku, so you have to wait aprox. 10-15 seconds and then reload.
+You can visit the website by clicking [here](https://vendo-ecommerce.burki.club/).
 
 You can use this example account:
 

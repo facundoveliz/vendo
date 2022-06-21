@@ -1,10 +1,10 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants/cartConstants";
+import { ADD_TO_CART, REMOVE_FROM_CART } from '../constants/cartConstants';
 
 const initialState = {
   cartItems: [],
 };
 
-export const cartReducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case ADD_TO_CART:
       return {
@@ -18,15 +18,16 @@ export const cartReducer = (state = initialState, action) => {
       // happens when deleting only one item from cart
       if (action.payload.length >= 1) {
         return initialState;
-      } else {
-        return {
-          ...state,
-          cartItems: state.cartItems.filter(
-            (product) => product._id !== action.payload._id
-          ),
-        };
       }
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (product) => product._id !== action.payload._id,
+        ),
+      };
     default:
       return state;
   }
 };
+
+export default cartReducer;

@@ -1,23 +1,21 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
 
-import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart, removeFromCart } from '../../redux/actions/cartActions';
 
-const ProductCard = ({ product }) => {
+function ProductCard({ product }) {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cartItems);
 
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
+  const handleAddToCart = (data) => {
+    dispatch(addToCart(data));
   };
 
-  const handleRemoveFromCart = (product) => {
-    dispatch(removeFromCart(product));
+  const handleRemoveFromCart = (data) => {
+    dispatch(removeFromCart(data));
   };
 
-  const isInCart = (product) => {
-    return !!cart.find((item) => item._id === product._id);
-  };
+  const isInCart = (data) => !!cart.find((item) => item._id === data._id);
 
   return (
     <div key={product._id} className="card">
@@ -26,25 +24,31 @@ const ProductCard = ({ product }) => {
           src={
             product.imageUrl.length > 15
               ? product.imageUrl
-              : "/uploads/products/default.jpg"
+              : '/uploads/products/default.jpg'
           }
           alt={product.name}
         />
       </div>
       <p>{product.name}</p>
-      <p>${product.price.toLocaleString()}</p>
+      <p>
+        $
+        {product.price.toLocaleString()}
+      </p>
       {isInCart(product) ? (
         <button
+          type="button"
           className="card-added-button"
           onClick={() => handleRemoveFromCart(product)}
         >
           Remove from cart
         </button>
       ) : (
-        <button onClick={() => handleAddToCart(product)}>Add to cart</button>
+        <button type="submit" onClick={() => handleAddToCart(product)}>
+          Add to cart
+        </button>
       )}
     </div>
   );
-};
+}
 
 export default ProductCard;

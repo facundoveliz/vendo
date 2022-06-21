@@ -1,24 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { getProducts } from "../products/fetchActions";
-import ProductCard from "../products/ProductCard";
+import React, { useState, useEffect } from 'react';
+import Loader from 'react-loader-spinner';
+import { getProducts } from '../../api/products';
+import ProductCard from '../products/ProductCard';
 
-import Loader from "react-loader-spinner";
-
-const Home = () => {
-  useEffect(() => {
-    getProductsRequest();
-  }, []);
-
+function Home() {
   const [products, setProducts] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
   const getProductsRequest = async () => {
     setLoading(true);
-    let res = await getProducts();
+    const res = await getProducts();
     setProducts(res);
     setLoading(false);
   };
+
+  useEffect(() => {
+    getProductsRequest();
+  }, []);
 
   return (
     <div className="home">
@@ -34,14 +33,14 @@ const Home = () => {
       ) : (
         <div>
           <div className="card-container">
-            {products.map((product) => {
-              return <ProductCard product={product} />;
-            })}
+            {products.map((product) => (
+              <ProductCard product={product} />
+            ))}
           </div>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default Home;

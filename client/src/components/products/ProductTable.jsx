@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const ProductTable = ({
+function ProductTable({
   products,
   setOpenNew,
   setSelectedEdit,
@@ -8,21 +8,25 @@ const ProductTable = ({
   setOpenEdit,
   setSelectedDelete,
   setOpenDelete,
-}) => {
+}) {
   // this allows to show to image
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   const [imageViewer, setImageViewer] = useState(false);
 
   return (
     <table>
-      <button className="table-new-button" onClick={() => setOpenNew(true)}>
+      <button
+        type="submit"
+        className="table-new-button"
+        onClick={() => setOpenNew(true)}
+      >
         Add New
       </button>
       <tbody>
         {imageViewer ? (
           <div className="image-viewer">
             <img
-              src={image.length > 15 ? image : "/uploads/products/default.jpg"}
+              src={image.length > 15 ? image : '/uploads/products/default.jpg'}
               alt={image}
               onClick={() => {
                 setImageViewer(false);
@@ -37,45 +41,46 @@ const ProductTable = ({
           <th>Description</th>
           <th>Actions</th>
         </tr>
-        {products.map((product) => {
-          return (
-            <tr key={product._id}>
-              <td>{product.name}</td>
-              <td>${product.price.toLocaleString()}</td>
-              <td
+        {products.map((product) => (
+          <tr key={product._id}>
+            <td>{product.name}</td>
+            <td>
+              $
+              {product.price.toLocaleString()}
+            </td>
+            <td
+              onClick={() => {
+                setImage(product.imageUrl);
+                setImageViewer(true);
+              }}
+              className="image"
+            >
+              {product.imageKey ? product.imageKey : 'default.jpg'}
+            </td>
+            <td>{product.description}</td>
+            <td>
+              <img
+                src="/icons/edit.svg"
+                alt=""
                 onClick={() => {
-                  setImage(product.imageUrl);
-                  setImageViewer(true);
+                  setOpenEdit(true);
+                  setSelectedEdit({ ...selectedEdit, ...product });
                 }}
-                className="image"
-              >
-                {product.imageKey ? product.imageKey : "default.jpg"}
-              </td>
-              <td>{product.description}</td>
-              <td>
-                <img
-                  src="/icons/edit.svg"
-                  alt=""
-                  onClick={() => {
-                    setOpenEdit(true);
-                    setSelectedEdit({ ...selectedEdit, ...product });
-                  }}
-                />
-                <img
-                  src="/icons/trash.svg"
-                  alt=""
-                  onClick={() => {
-                    setOpenDelete(true);
-                    setSelectedDelete(product._id);
-                  }}
-                />
-              </td>
-            </tr>
-          );
-        })}
+              />
+              <img
+                src="/icons/trash.svg"
+                alt=""
+                onClick={() => {
+                  setOpenDelete(true);
+                  setSelectedDelete(product._id);
+                }}
+              />
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
-};
+}
 
 export default ProductTable;

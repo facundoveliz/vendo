@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { getProducts } from "./fetchActions";
-import { Add, Edit, Delete } from "./Windows";
-import ProductTable from "./ProductTable";
+import React, { useState, useEffect } from 'react';
+import Loader from 'react-loader-spinner';
+import { getProducts } from '../../api/products';
+import { Add, Edit, Delete } from './Windows';
+import ProductTable from './ProductTable';
 
-import Loader from "react-loader-spinner";
-
-const ProductList = () => {
-  useEffect(() => {
-    getProductsRequest();
-  }, []);
-
+function ProductList() {
   const [products, setProducts] = useState([]);
 
   // if the 'open...' state is true, it will show the new/edit/delete window
@@ -19,15 +14,15 @@ const ProductList = () => {
 
   // this passes the selected product to the window
   const [selectedEdit, setSelectedEdit] = useState({
-    _id: "",
-    name: "",
-    price: "",
+    _id: '',
+    name: '',
+    price: '',
     image: null,
-    description: "",
+    description: '',
   });
 
   // this passes the id of the selected product to delete
-  const [selectedDelete, setSelectedDelete] = useState("");
+  const [selectedDelete, setSelectedDelete] = useState('');
 
   const [loading, setLoading] = useState(false);
 
@@ -36,6 +31,10 @@ const ProductList = () => {
     setProducts(await getProducts());
     setLoading(false);
   };
+
+  useEffect(() => {
+    getProductsRequest();
+  }, []);
 
   return (
     <div className="table product-list">
@@ -82,6 +81,6 @@ const ProductList = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProductList;

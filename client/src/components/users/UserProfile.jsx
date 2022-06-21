@@ -1,161 +1,164 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import { getUser, editUser } from "./fetchActions";
-import { logoutUser } from "../auth/fetchActions";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import toast from 'react-hot-toast';
+import { logoutUser } from '../../api/auth';
+import { deleteProfile, getUser, putProfile } from '../../api/users';
 
-import jwt_decode from "jwt-decode";
-import dateFormat from "dateformat";
-import Loader from "react-loader-spinner";
-
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const schema = yup.object().shape({
+const schema = yup.object({
   name: yup
     .string()
-    .required("The name is a required field.")
-    .min(3, "The name should be at least 3 characters.")
-    .max(128, "The name should not have more than 128 characters."),
+    .min(3, 'The name should be at least 3 characters.')
+    .max(128, 'The name should not have more than 128 characters.'),
   email: yup
     .string()
-    .email("Email must be a valid email.")
-    .required("The email is a required field."),
-  password1: yup
+    .min(1, 'The email is a required field')
+    .email('Email must be a valid email.')
+    .required(),
+  password: yup
     .string()
-    .required("The password is a required field.")
-    .min(8, "The password should be at least 8 characters.")
-    .max(128, "The password not have more than 128 characters."),
-  password2: yup
+    .notRequired()
+    .matches(/.{8,}/, {
+      excludeEmptyString: true,
+      message: 'The password should be at least 8 characters.',
+    })
+    .max(128, 'The password should not have more than 128 characters.'),
+  passwordConfirm: yup
     .string()
-    .required("The password confirmation is a required field.")
-    .oneOf([yup.ref("password1"), null], "Passwords must match"),
+    .notRequired()
+    .matches(/.{8,}/, {
+      excludeEmptyString: true,
+      message: 'The password should be at least 8 characters.',
+    })
+    .max(128, 'The password should not have more than 128 characters.')
+    .oneOf([yup.ref('password'), null], 'Passwords must match.'),
 });
 
-const Profile = () => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    date: "",
+function Profile() {
+  // const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const [loading, setLoading] = useState(false);
+  const getUserRequest = async () => {
+    const res = await getUser();
+    reset({
+      name: res.name,
+      email: res.email,
+      password: '',
+      passwordConfirm: '',
+    });
+  };
 
-  const handleLogout = () => {
-    logoutUser();
-    window.location.href = "/login";
+  // FIX: it does weird stuff with getUserRequest()
+  const onSubmit = (data) => {
+    putProfile(data).then((res) => {
+      if (res.toString() === 'Invalid email or password') {
+        setError('email', {
+          message: res.toString(),
+        });
+      }
+    });
+    getUserRequest();
+  };
+
+  const handleDelete = async () => {
+    toast.promise(
+      deleteProfile().then(() => {
+        localStorage.removeItem('x-auth-token');
+        window.location.href = '/login';
+      }),
+      {
+        loading: 'Loading',
+        success: () => 'Profile deleted',
+        error: () => 'An error ocurred',
+      },
+    );
   };
 
   useEffect(() => {
     getUserRequest();
   }, []);
 
-  // decodes the token and use it to take the id of the current user
-  const token = localStorage.getItem("x-auth-token");
-  const decoded = jwt_decode(token);
-
-  const getUserRequest = async () => {
-    setLoading(true);
-    let res = await getUser(decoded._id);
-    setUser({
-      name: res.name,
-      email: res.email,
-      date: res.date,
-    });
-    setLoading(false);
-  };
-
-  const onSubmit = (data) => {
-    const userData = {
-      name: data.name,
-      email: data.email,
-      password: data.password1,
-    };
-    editUser(decoded._id, userData).then((res) => {
-      window.location.reload();
-      getUserRequest();
-    });
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    reValidateMode: "onBlur",
-  });
-
   return (
     <div className="profile">
+      <h1>My Profile</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="profile-container">
-        <h1>My Profile</h1>
-        {loading ? (
-          <Loader
-            type="Oval"
-            color="#627884"
-            height={200}
-            width={200}
-            className="loading"
-          />
-        ) : (
-          <div className="profile-data-container">
-            <div className="profile-data">
-              <p className="profile-title">Name</p>
+        <div className="profile-data-container">
+          <div className="profile-data">
+            <label htmlFor="name" className="profile-title">
+              Name
               <input
                 name="name"
-                placeholder={user.name}
-                className={errors.name ? "error" : ""}
-                {...register("name")}
+                id="name"
+                className={errors.name ? 'error' : ''}
+                {...register('name')}
               />
-              <p className="input-validation">{errors.name?.message}</p>
-            </div>
-
-            <div className="profile-data">
-              <p className="profile-title">Email</p>
-              <input
-                name="email"
-                placeholder={user.email}
-                className={errors.email ? "error" : ""}
-                {...register("email")}
-              />
-              <p className="input-validation">{errors.email?.message}</p>
-            </div>
-
-            <div className="profile-data">
-              <p className="profile-title">Password</p>
-              <input
-                placeholder="New password"
-                name="password1"
-                type="password"
-                className={errors.password1 ? "error" : ""}
-                {...register("password1")}
-              />
-              <p className="input-validation">{errors.password1?.message}</p>
-
-              <input
-                placeholder="Confirm password"
-                name="password2"
-                type="password"
-                className={errors.password2 ? "error" : ""}
-                {...register("password2")}
-              />
-              <p className="input-validation">{errors.password2?.message}</p>
-            </div>
-
-            <div className="profile-data">
-              <p>Date created</p>
-              <p>{dateFormat(user.date, "dddd, mmmm dS, yyyy")}</p>
-            </div>
-            <div className="profile-buttons">
-              <button type="submit">Save</button>
-              <button onClick={handleLogout}>Logout</button>
-            </div>
+            </label>
+            <p className="input-validation">{errors.name?.message}</p>
           </div>
-        )}
+
+          <div className="profile-data">
+            <label htmlFor="email" className="profile-title">
+              Email
+              <input
+                id="email"
+                name="email"
+                className={errors.email ? 'error' : ''}
+                {...register('email')}
+              />
+            </label>
+            <p className="input-validation">{errors.email?.message}</p>
+          </div>
+
+          <div className="profile-data">
+            <label htmlFor="email" className="profile-title">
+              Password
+              <input
+                id="password"
+                name="password"
+                placeholder="New password"
+                type="password"
+                className={errors.password ? 'error' : ''}
+                {...register('password')}
+              />
+            </label>
+            <p className="input-validation">{errors.password?.message}</p>
+
+            <input
+              id="password"
+              name="passwordConfirm"
+              placeholder="Confirm password"
+              type="password"
+              className={errors.passwordConfirm ? 'error' : ''}
+              {...register('passwordConfirm')}
+            />
+            <p className="input-validation">
+              {errors.passwordConfirm?.message}
+            </p>
+          </div>
+
+          <div className="profile-buttons">
+            <button type="button" onClick={() => handleDelete()}>
+              Delete account
+            </button>
+            <button type="button" onClick={() => logoutUser()}>
+              Logout
+            </button>
+            <button type="submit">Save</button>
+          </div>
+        </div>
       </form>
     </div>
   );
-};
+}
 
 export default Profile;

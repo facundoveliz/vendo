@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { getUsers } from "./fetchActions";
-import { Edit, Delete } from "./Windows";
-import Loader from "react-loader-spinner";
+import React, { useState, useEffect } from 'react';
+import Loader from 'react-loader-spinner';
+import { getUsers } from '../../api/users';
+import { Edit, Delete } from './Windows';
 
-import UserTable from "./UserTable";
+import UserTable from './UserTable';
 
-const UserList = () => {
-  useEffect(() => {
-    getUsersRequest();
-  }, []);
-
+function UserList() {
   const [users, setUsers] = useState([]);
 
   // if the 'open...' state is true, it will show the edit/delete window
@@ -18,9 +14,9 @@ const UserList = () => {
 
   // this passes the selected user to the window
   const [selectedEdit, setSelectedEdit] = useState({
-    _id: "",
-    name: "",
-    email: "",
+    _id: '',
+    name: '',
+    email: '',
   });
 
   // this passes the id of the selected user to delete
@@ -33,6 +29,10 @@ const UserList = () => {
     setUsers(await getUsers());
     setLoading(false);
   };
+
+  useEffect(() => {
+    getUsersRequest();
+  }, []);
 
   return (
     <div className="table">
@@ -77,6 +77,6 @@ const UserList = () => {
       </div>
     </div>
   );
-};
+}
 
 export default UserList;
