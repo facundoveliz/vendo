@@ -15,16 +15,12 @@ function ProductTable({
 
   return (
     <table>
-      <button
-        type="submit"
-        className="table-new-button"
-        onClick={() => setOpenNew(true)}
-      >
+      <button type="submit" onClick={() => setOpenNew(true)}>
         Add New
       </button>
       <tbody>
         {imageViewer ? (
-          <div className="image-viewer">
+          <div>
             <img
               src={image.length > 15 ? image : '/uploads/products/default.jpg'}
               alt={image}
@@ -53,7 +49,6 @@ function ProductTable({
                 setImage(product.imageUrl);
                 setImageViewer(true);
               }}
-              className="image"
             >
               {product.imageKey ? product.imageKey : 'default.jpg'}
             </td>

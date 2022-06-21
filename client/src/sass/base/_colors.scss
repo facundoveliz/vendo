@@ -1,16 +1,3 @@
-// $foreground1: #ffffff;
-// $foreground2: #d1d1d1;
-
-// $background1: #321f28;
-// $background2: #3b2530;
-
-// $border: rgb(66, 38, 41);
-
-// $primary: #e79e4f;
-// $secondary: #a05344;
-
-// $error: #c02d2d;
-
 $foreground1: #2b353b;
 $foreground2: #627884;
 $foreground3: #ffffff;
@@ -18,24 +5,10 @@ $foreground3: #ffffff;
 $background1: #ffffff;
 $background2: #ecf1f4;
 
-$border: #ecf1f4;
-
 $primary: #3292ec;
 $secondary: #ff7777;
 
 $error: #c02d2d;
+$success: #59d659;
 
-.dark-theme {
-  $foreground1: #ffffff;
-  $foreground2: #d1d1d1;
-
-  $background1: #321f28;
-  $background2: #3b2530;
-
-  $border: rgb(66, 38, 41);
-
-  $primary: #e79e4f;
-  $secondary: #a05344;
-
-  $error: #c02d2d;
-}
+$border: #ecf1f4;

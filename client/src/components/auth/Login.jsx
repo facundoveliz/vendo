@@ -54,17 +54,17 @@ function Login() {
   }, []);
 
   return (
-    <div className="login">
+    <div>
       <h1>Vendo.</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           defaultValue="johndoe@gmail.com"
           name="email"
           placeholder="Email"
           {...register('email')}
         />
-        <p className="input-validation">{errors.email?.message}</p>
+        <p>{errors.email?.message}</p>
 
         <input
           type="password"
@@ -73,14 +73,14 @@ function Login() {
           placeholder="Password"
           {...register('password')}
         />
-        <p className="input-validation">{errors.password?.message}</p>
+        <p>{errors.password?.message}</p>
 
-        <button type="submit" className="button-primary">
+        <button type="submit">
           Log in
         </button>
       </form>
 
-      <div className="auth-redirect">
+      <div>
         <Link to="/">
           <Link to="/register">
             <p>Sign up to Vendo</p>

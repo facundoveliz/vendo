@@ -47,8 +47,8 @@ function Cart() {
   };
 
   return (
-    <div className="cart">
-      <h1 className="cart-title">Shopping Cart</h1>
+    <div>
+      <h1>Shopping Cart</h1>
       {cart.length > 0 ? (
         <div>
           {cart.map((product) => (
@@ -57,7 +57,7 @@ function Cart() {
               handleRemoveFromCart={handleRemoveFromCart}
             />
           ))}
-          <div className="cart-checkout">
+          <div>
             <p>
               Total:
               {cart
@@ -71,7 +71,7 @@ function Cart() {
           </div>
         </div>
       ) : (
-        <p className="cart-empty">The cart is empty</p>
+        <p>The cart is empty</p>
       )}
     </div>
   );

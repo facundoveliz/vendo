@@ -37,8 +37,8 @@ function ProductList() {
   }, []);
 
   return (
-    <div className="table product-list">
-      <div className="table-title">
+    <div>
+      <div>
         <h1>Products</h1>
       </div>
       {loading ? (
@@ -47,7 +47,7 @@ function ProductList() {
           color="#627884"
           height={200}
           width={200}
-          className="loading"
+
         />
       ) : (
         <ProductTable

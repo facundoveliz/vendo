@@ -59,44 +59,41 @@ export function Add({ setOpenNew, getProductsRequest }) {
   });
 
   return (
-    <div className="input-container">
-      <div className="input">
-        <div className="input-title">
+    <div>
+      <div>
+        <div>
           <h1>Add product</h1>
           <button type="button" onClick={() => setOpenNew(false)}>
             Close
           </button>
         </div>
-        <div className="input-input">
+        <div>
           <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <input
               name="name"
               placeholder="Name"
-              className={errors.name ? 'error' : ''}
               {...register('name')}
             />
-            <p className="input-validation">{errors.name?.message}</p>
+            <p>{errors.name?.message}</p>
 
             <input
               type="number"
               name="price"
               placeholder="Price"
-              className={errors.price ? 'error' : ''}
               {...register('price')}
             />
-            <p className="input-validation">{errors.price?.message}</p>
+            <p>{errors.price?.message}</p>
 
             <input name="image" type="file" {...register('image')} />
 
             <input
               name="description"
               placeholder="Description"
-              className={errors.description ? 'error' : ''}
               {...register('description')}
             />
-            <p className="input-validation">{errors.description?.message}</p>
+            <p>{errors.description?.message}</p>
 
-            <button type="submit" className="button-primary">
+            <button type="submit">
               Send
             </button>
           </form>
@@ -144,44 +141,41 @@ export function Edit({ setOpenEdit, selectedEdit, getProductsRequest }) {
   });
 
   return (
-    <div className="input-container">
-      <div className="input">
-        <div className="input-title">
+    <div>
+      <div>
+        <div>
           <h1>Edit Product</h1>
           <button type="button" onClick={() => setOpenEdit(false)}>
             Close
           </button>
         </div>
-        <div className="input-input">
+        <div>
           <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <input
               name="name"
               placeholder="Name"
-              className={errors.name ? 'error' : ''}
               {...register('name')}
             />
-            <p className="input-validation">{errors.name?.message}</p>
+            <p>{errors.name?.message}</p>
 
             <input
               type="number"
               name="price"
               placeholder="Price"
-              className={errors.price ? 'error' : ''}
               {...register('price')}
             />
-            <p className="input-validation">{errors.price?.message}</p>
+            <p>{errors.price?.message}</p>
 
             <input name="image" type="file" {...register('image')} />
 
             <input
               name="description"
               placeholder="Description"
-              className={errors.description ? 'error' : ''}
               {...register('description')}
             />
-            <p className="input-validation">{errors.description?.message}</p>
+            <p>{errors.description?.message}</p>
 
-            <div className="input-button">
+            <div>
               <button type="submit">Save</button>
             </div>
           </form>
@@ -208,13 +202,13 @@ export function Delete({ setOpenDelete, selectedDelete, getProductsRequest }) {
   };
 
   return (
-    <div className="delete-container">
-      <div className="delete">
-        <div className="delete-title">
+    <div>
+      <div>
+        <div>
           <h1>Delete Product</h1>
         </div>
-        <div className="delete-text" />
-        <div className="delete-button">
+        <div />
+        <div>
           <button type="submit" onClick={() => handleDelete(selectedDelete)}>
             Yes
           </button>

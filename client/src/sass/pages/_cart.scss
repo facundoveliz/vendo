@@ -7,7 +7,6 @@
   .cart-title {
     text-align: center;
     margin: 25px 0;
-    font-size: 35px;
   }
   .cart-container {
     background-color: $background2;
@@ -56,11 +55,9 @@
     align-items: center;
     p {
       margin-right: 15px;
-      font-size: 20px;
     }
   }
   .cart-empty {
-    font-size: 24px;
     text-align: center;
   }
 }

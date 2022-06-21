@@ -20,7 +20,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="home">
+    <div>
       <h1>Welcome to Vendo.</h1>
       {loading ? (
         <Loader
@@ -28,11 +28,11 @@ function Home() {
           color="#627884"
           height={200}
           width={200}
-          className="loading"
+
         />
       ) : (
         <div>
-          <div className="card-container">
+          <div>
             {products.map((product) => (
               <ProductCard product={product} />
             ))}

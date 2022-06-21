@@ -18,8 +18,8 @@ function ProductCard({ product }) {
   const isInCart = (data) => !!cart.find((item) => item._id === data._id);
 
   return (
-    <div key={product._id} className="card">
-      <div className="card-image-container">
+    <div key={product._id}>
+      <div>
         <img
           src={
             product.imageUrl.length > 15
@@ -35,11 +35,7 @@ function ProductCard({ product }) {
         {product.price.toLocaleString()}
       </p>
       {isInCart(product) ? (
-        <button
-          type="button"
-          className="card-added-button"
-          onClick={() => handleRemoveFromCart(product)}
-        >
+        <button type="button" onClick={() => handleRemoveFromCart(product)}>
           Remove from cart
         </button>
       ) : (

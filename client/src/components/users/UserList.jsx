@@ -35,8 +35,8 @@ function UserList() {
   }, []);
 
   return (
-    <div className="table">
-      <div className="table-title">
+    <div>
+      <div>
         <h1>Users</h1>
       </div>
       {loading ? (
@@ -45,7 +45,7 @@ function UserList() {
           color="#627884"
           height={200}
           width={200}
-          className="loading"
+
         />
       ) : (
         <UserTable

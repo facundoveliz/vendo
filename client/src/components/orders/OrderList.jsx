@@ -39,8 +39,8 @@ function OrderList() {
   }, []);
 
   return (
-    <div className="table order-list">
-      <div className="table-title">
+    <div>
+      <div>
         <h1>Orders</h1>
       </div>
       {loading ? (
@@ -49,7 +49,7 @@ function OrderList() {
           color="#627884"
           height={200}
           width={200}
-          className="loading"
+
         />
       ) : (
         <OrderTable

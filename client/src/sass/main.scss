@@ -1,48 +1,24 @@
-// This is the 7-1 Pattern.
-
-@charset "UTF-8";
-
-// Configuration and helpers
-@import "abstracts/variables";
-@import "abstracts/functions";
-@import "abstracts/mixins";
-
-// Vendors
-@import "vendors/normalize";
-
-// Base stuff
+// base stuff
 @import "base/colors";
-@import "base/fonts";
-@import "base/helpers";
 @import "base/reset";
 @import "base/typography";
 @import "base/base";
 
-// Layout-related sections
-@import "layout/errors";
+// layout-related sections
 @import "layout/footer";
 @import "layout/forms";
 @import "layout/header";
 @import "layout/navbar";
 
-// Components
+// components
 @import "components/button";
 @import "components/card";
-@import "components/delete";
-@import "components/image-viewer";
-@import "components/loading-spinner";
 @import "components/tables";
-@import "components/toast";
 
-// Page-specific styles
-@import "pages/add-product";
+// page-specific styles
 @import "pages/cart";
 @import "pages/home";
 @import "pages/login";
 @import "pages/not-found";
-@import "pages/product-list";
 @import "pages/profile";
 @import "pages/register";
-
-// Themes
-@import "themes/default";

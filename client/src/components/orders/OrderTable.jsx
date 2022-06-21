@@ -13,7 +13,6 @@ function OrderTable({
     <table>
       <button
         type="submit"
-        className="table-new-button"
         onClick={() => toast('Feature not available yet.', {
           icon: '🤧',
         })}
@@ -36,9 +35,8 @@ function OrderTable({
                 setOpenProducts(true);
                 setSelectedProducts(order.products);
               }}
-              className="pointer"
             >
-              <p className="table-see-more">
+              <p>
                 {order.products.length === 0
                   ? 'Products deleted'
                   : order.products[0].name}

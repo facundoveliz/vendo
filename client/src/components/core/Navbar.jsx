@@ -8,7 +8,7 @@ function Navbar() {
   const cart = useSelector((state) => state.cart.cartItems);
 
   return (
-    <div className="navbar">
+    <div>
       <ul>
         <NavLink
           to="/"

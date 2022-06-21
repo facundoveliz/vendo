@@ -49,31 +49,29 @@ export function Edit({ setOpenEdit, selectedEdit, getRequest }) {
   });
 
   return (
-    <div className="input-container">
-      <div className="input">
-        <div className="input-title">
+    <div>
+      <div>
+        <div>
           <h1>Edit User</h1>
           <button type="button" onClick={() => setOpenEdit(false)}>
             Close
           </button>
         </div>
-        <div className="input-input">
+        <div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               name="name"
-              className={errors.name ? 'error' : ''}
               {...register('name')}
             />
-            <p className="input-validation">{errors.name?.message}</p>
+            <p>{errors.name?.message}</p>
 
             <input
               name="email"
-              className={errors.email ? 'error' : ''}
               {...register('email')}
             />
-            <p className="input-validation">{errors.email?.message}</p>
+            <p>{errors.email?.message}</p>
 
-            <div className="input-button">
+            <div>
               <button type="submit">Save</button>
             </div>
           </form>
@@ -100,15 +98,15 @@ export function Delete({ setOpenDelete, selectedDelete, getRequest }) {
   };
 
   return (
-    <div className="delete-container">
-      <div className="delete">
-        <div className="delete-title">
+    <div>
+      <div>
+        <div>
           <h1>Delete User</h1>
         </div>
-        <div className="delete-text">
+        <div>
           <p>Are you sure you want to delete this user?</p>
         </div>
-        <div className="delete-button">
+        <div>
           <button type="button" onClick={() => handleDelete(selectedDelete)}>
             Yes
           </button>

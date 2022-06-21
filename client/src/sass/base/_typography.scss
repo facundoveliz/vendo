@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+$font: "Inter", sans-serif;
+
+body {
+  line-height: 1.5;
+  font-family: $font;
+}
+
+p,
+li,
+input,
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font;
+  font-weight: 600;
+  color: $foreground1;
+}
+
+h1 {
+  font-size: 35px;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}

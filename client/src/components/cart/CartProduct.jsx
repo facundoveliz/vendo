@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 function CartProduct({ product, handleRemoveFromCart }) {
   return (
     <div>
-      <div key={product._id} className="cart-container">
-        <div className="cart-product-info">
-          <div className="cart-image">
+      <div key={product._id}>
+        <div>
+          <div>
             <img
               src={
                 product.imageUrl.length > 15

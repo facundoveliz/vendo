@@ -65,50 +65,46 @@ function Register() {
   }, []);
 
   return (
-    <div className="register">
+    <div>
       <h1>Vendo.</h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           name="name"
           placeholder="Name"
-          className={errors.name ? 'error' : ''}
           {...register('name')}
         />
-        <p className="input-validation">{errors.name?.message}</p>
+        <p>{errors.name?.message}</p>
 
         <input
           name="email"
           placeholder="Email"
-          className={errors.email ? 'error' : ''}
           {...register('email')}
         />
-        <p className="input-validation">{errors.email?.message}</p>
+        <p>{errors.email?.message}</p>
 
         <input
           name="password1"
           placeholder="Password"
           type="password"
-          className={errors.password1 ? 'error' : ''}
           {...register('password1')}
         />
-        <p className="input-validation">{errors.password1?.message}</p>
+        <p>{errors.password1?.message}</p>
 
         <input
           name="password2"
           placeholder="Confirm Password"
           type="password"
-          className={errors.password2 ? 'error' : ''}
           {...register('password2')}
         />
-        <p className="input-validation">{errors.password2?.message}</p>
+        <p>{errors.password2?.message}</p>
 
-        <button type="submit" className="button-primary">
+        <button type="submit">
           Sign up
         </button>
       </form>
 
-      <div className="auth-redirect">
+      <div>
         <Link to="/login">
           <p>I already have an account</p>
         </Link>

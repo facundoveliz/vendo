@@ -89,64 +89,60 @@ function Profile() {
   }, []);
 
   return (
-    <div className="profile">
+    <div>
       <h1>My Profile</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="profile-container">
-        <div className="profile-data-container">
-          <div className="profile-data">
-            <label htmlFor="name" className="profile-title">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <div>
+            <label htmlFor="name">
               Name
               <input
                 name="name"
                 id="name"
-                className={errors.name ? 'error' : ''}
                 {...register('name')}
               />
             </label>
-            <p className="input-validation">{errors.name?.message}</p>
+            <p>{errors.name?.message}</p>
           </div>
 
-          <div className="profile-data">
-            <label htmlFor="email" className="profile-title">
+          <div>
+            <label htmlFor="email">
               Email
               <input
                 id="email"
                 name="email"
-                className={errors.email ? 'error' : ''}
                 {...register('email')}
               />
             </label>
-            <p className="input-validation">{errors.email?.message}</p>
+            <p>{errors.email?.message}</p>
           </div>
 
-          <div className="profile-data">
-            <label htmlFor="email" className="profile-title">
+          <div>
+            <label htmlFor="email">
               Password
               <input
                 id="password"
                 name="password"
                 placeholder="New password"
                 type="password"
-                className={errors.password ? 'error' : ''}
                 {...register('password')}
               />
             </label>
-            <p className="input-validation">{errors.password?.message}</p>
+            <p>{errors.password?.message}</p>
 
             <input
               id="password"
               name="passwordConfirm"
               placeholder="Confirm password"
               type="password"
-              className={errors.passwordConfirm ? 'error' : ''}
               {...register('passwordConfirm')}
             />
-            <p className="input-validation">
+            <p>
               {errors.passwordConfirm?.message}
             </p>
           </div>
 
-          <div className="profile-buttons">
+          <div>
             <button type="button" onClick={() => handleDelete()}>
               Delete account
             </button>
