@@ -1,14 +1,6 @@
 .home {
   display: flex;
   flex-direction: column;
-  @media (max-width: 1160px) {
-    width: 100vw;
-  }
-  h1 {
-    text-align: center;
-    margin: 25px auto;
-    width: 60%;
-  }
   div {
     display: flex;
     @media (max-width: 1160px) {
@@ -17,9 +9,8 @@
     .card-container {
       display: grid;
       margin: 0 auto;
-
       grid-template-columns: repeat(4, 1fr);
-      @media (max-width: 1460px) {
+      @media (max-width: 1400px) {
         grid-template-columns: repeat(3, 1fr);
       }
       @media (max-width: 1080px) {

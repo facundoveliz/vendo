@@ -19,8 +19,8 @@ function ProductCard({ product }) {
 
   // FIX: check line 26 to 28
   return (
-    <div key={product._id}>
-      <div>
+    <div className="card" key={product._id}>
+      <div className="card-image-container">
         <img
           src={
             product.imageUrl.length > 15
@@ -36,11 +36,19 @@ function ProductCard({ product }) {
         {product.price.toLocaleString()}
       </p>
       {isInCart(product) ? (
-        <button type="button" onClick={() => handleRemoveFromCart(product)}>
+        <button
+          type="button"
+          className="button-secondary"
+          onClick={() => handleRemoveFromCart(product)}
+        >
           Remove from cart
         </button>
       ) : (
-        <button type="submit" onClick={() => handleAddToCart(product)}>
+        <button
+          type="button"
+          className="secondary"
+          onClick={() => handleAddToCart(product)}
+        >
           Add to cart
         </button>
       )}

@@ -84,8 +84,9 @@ function Navbar() {
             }}
             className="nav-item"
           >
-            <img src="/icons/logout.svg" alt="" />
-            <p>Logout</p>
+            <button className="button-secondary" type="button">
+              Logout
+            </button>
           </NavLink>
         )}
       </div>
