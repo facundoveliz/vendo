@@ -25,11 +25,9 @@ function App() {
   return (
     <>
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
-          style: {
-            // textAlign: "center",
-          },
+          className: 'toast',
         }}
       />
       <Router>
