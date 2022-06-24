@@ -20,26 +20,18 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <>
       <h1>Welcome to Vendo.</h1>
       {loading ? (
-        <Loader
-          type="Oval"
-          color="#627884"
-          height={200}
-          width={200}
-
-        />
+        <Loader type="Oval" color="#627884" height={200} width={200} />
       ) : (
         <div>
-          <div>
-            {products.map((product) => (
-              <ProductCard product={product} />
-            ))}
-          </div>
+          {products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </div>
       )}
-    </div>
+    </>
   );
 }
 

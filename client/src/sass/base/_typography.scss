@@ -3,21 +3,8 @@ $font: "Inter", sans-serif;
 
 body {
   line-height: 1.5;
+  font-weight: 400;
   font-family: $font;
-}
-
-p,
-li,
-input,
-select,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $font;
-  font-weight: 600;
   color: $foreground1;
 }
 

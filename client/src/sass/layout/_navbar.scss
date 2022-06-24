@@ -1,51 +1,74 @@
-.navbar {
-  height: 100%;
-  width: 60px;
-  position: fixed;
-  top: 0;
-  left: 0;
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  padding: 0 32px;
   background-color: $background2;
-  overflow: hidden;
-  ul {
-    height: 100%;
+  .nav-screen {
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    li {
-      padding: 8px;
-      border-radius: 4px;
+    .nav-item {
       display: flex;
+      flex-direction: row;
+      color: $foreground1;
+      text-decoration: none;
+      margin: 0 16px;
       img {
-        cursor: pointer;
-        height: 25px;
-        width: 25px;
-        // filter: invert(100%) sepia(0%) saturate(5128%) hue-rotate(70deg) brightness(124%) contrast(100%);
-        filter: invert(17%) sepia(9%) saturate(1003%) hue-rotate(159deg)
-          brightness(100%) contrast(92%);
-      }
-      div {
-        color: $foreground1;
-        background-color: $primary;
-        width: 18px;
-        height: 18px;
-        margin: 25px 20px;
-        position: absolute;
-        border-radius: 20px;
-        p {
-          padding: 2px 5.5px;
-          text-align: center;
-        }
+        height: 24px;
+        width: 24px;
+        margin-right: 8px;
       }
       &:hover {
-        background-color: $secondary;
+        color: $primary;
+        transition: background 0.1s ease-in, color 0.1s ease-in;
+      }
+    }
+    @media (max-width: 725px) {
+      display: none;
+    }
+  }
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $background2;
+    position: fixed;
+    padding-top: 50px;
+    top: 50px;
+    right: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    .nav-item {
+      display: flex;
+      color: $foreground1;
+      text-decoration: none;
+      margin-top: 64px;
+      img {
+        height: 24px;
+        width: 24px;
+        margin-right: 8px;
+      }
+      &:hover {
+        color: $primary;
+        transition: background 0.1s ease-in, color 0.1s ease-in;
       }
     }
   }
-}
-
-.navbar-selected {
-  li {
-    background-color: $primary;
+  .nav-hamburger {
+    display: none;
+    @media (max-width: 725px) {
+      display: flex;
+      cursor: pointer;
+      height: 32px;
+      width: 32px;
+    }
+  }
+  .nav-icon {
+    height: 22px;
+    width: 22px;
+    margin-right: 8px;
   }
 }

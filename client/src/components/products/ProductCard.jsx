@@ -17,6 +17,7 @@ function ProductCard({ product }) {
 
   const isInCart = (data) => !!cart.find((item) => item._id === data._id);
 
+  // FIX: check line 26 to 28
   return (
     <div key={product._id}>
       <div>

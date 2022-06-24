@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
 
 import { Route, Redirect } from 'react-router-dom';
@@ -30,11 +29,3 @@ export function AdminRoute({ component: Component, ...rest }) {
     />
   );
 }
-
-LoggedRoute.propTypes = {
-  component: PropTypes.element.isRequired,
-};
-
-AdminRoute.propTypes = {
-  component: PropTypes.element.isRequired,
-};

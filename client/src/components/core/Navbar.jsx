@@ -1,98 +1,95 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+import {
+  FiHome, FiShoppingCart, FiUser, FiAlignJustify,
+} from 'react-icons/fi';
+
 import { logoutUser } from '../../api/auth';
 
 function Navbar() {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
   const token = localStorage.getItem('x-auth-token');
   const cart = useSelector((state) => state.cart.cartItems);
 
+  // TODO: find a better place for these
+  // <NavLink to="/user-list" title="Users">
+  // <img src="/icons/users.svg" alt="" />
+  // </NavLink>
+  // <NavLink to="/product-list" title="Products">
+  // <img src="/icons/product.svg" alt="" />
+  // </NavLink>
+  // <NavLink to="/order-list" title="Orders">
+  // <img src="/icons/order.svg" alt="" />
+  // </NavLink>
+  useEffect(() => {
+    setShowMobileMenu();
+  }, []);
+
   return (
-    <div>
-      <ul>
+    <nav>
+      <h2>Vendo.</h2>
+      <FiAlignJustify
+        className="nav-hamburger"
+        onClick={() => setShowMobileMenu(!showMobileMenu)}
+      />
+      <div className={showMobileMenu ? 'nav-mobile' : 'nav-screen'}>
         <NavLink
           to="/"
           exact
           title="Home"
-          activeClassName="navbar-selected"
+          className="nav-item"
+          onClick={() => setShowMobileMenu(false)}
         >
-          <li>
-            <img src="/icons/home.svg" alt="" />
-          </li>
-        </NavLink>
-        <NavLink to="/cart" title="Cart" activeClassName="navbar-selected">
-          <li>
-            <img src="/icons/cart.svg" alt="" />
-            {cart.length > 0 ? (
-              <div>
-                <p>{cart.length}</p>
-              </div>
-            ) : null}
-          </li>
+          <FiHome className="nav-icon" />
+          <p>Home</p>
         </NavLink>
         <NavLink
-          to="/user-list"
-          title="Users"
-          activeClassName="navbar-selected"
+          to="/cart"
+          title="Cart"
+          className="nav-item"
+          onClick={() => setShowMobileMenu(false)}
         >
-          <li>
-            <img src="/icons/users.svg" alt="" />
-          </li>
-        </NavLink>
-        <NavLink
-          to="/product-list"
-          title="Products"
-          activeClassName="navbar-selected"
-        >
-          <li>
-            <img src="/icons/product.svg" alt="" />
-          </li>
-        </NavLink>
-        <NavLink
-          to="/order-list"
-          title="Orders"
-          activeClassName="navbar-selected"
-        >
-          <li>
-            <img src="/icons/order.svg" alt="" />
-          </li>
+          <FiShoppingCart className="nav-icon" />
+          <p>Cart</p>
+          {cart.length > 0 ? <p>{cart.length}</p> : null}
         </NavLink>
         <NavLink
           to="/profile"
           title="Profile Settings"
-          activeClassName="navbar-selected"
+          className="nav-item"
+          onClick={() => setShowMobileMenu(false)}
         >
-          <li>
-            <img src="/icons/settings.svg" alt="" />
-          </li>
+          <FiUser className="nav-icon" />
+          <p>Profile</p>
         </NavLink>
         {!token ? (
           <NavLink
             to="/login"
             title="Login"
-            activeClassName="navbar-selected"
+            className="nav-item"
+            onClick={() => setShowMobileMenu(false)}
           >
-            <li>
-              <img src="/icons/login.svg" alt="" />
-            </li>
+            <button type="button">Login</button>
           </NavLink>
         ) : (
           <NavLink
             to="/login"
             title="Logout"
-            activeClassName="navbar-selected"
+            onClick={() => {
+              logoutUser();
+              setShowMobileMenu(false);
+            }}
+            className="nav-item"
           >
-            <li>
-              <img
-                src="/icons/logout.svg"
-                alt=""
-                onClick={() => logoutUser()}
-              />
-            </li>
+            <img src="/icons/logout.svg" alt="" />
+            <p>Logout</p>
           </NavLink>
         )}
-      </ul>
-    </div>
+      </div>
+    </nav>
   );
 }
 
