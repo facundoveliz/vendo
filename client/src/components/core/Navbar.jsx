@@ -54,7 +54,7 @@ function Navbar() {
         >
           <FiShoppingCart className="nav-icon" />
           <p>Cart</p>
-          {cart.length > 0 ? <p>{cart.length}</p> : null}
+          {cart.length > 0 ? <p className="nav-cart">{cart.length}</p> : null}
         </NavLink>
         <NavLink
           to="/profile"

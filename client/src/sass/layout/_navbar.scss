@@ -66,6 +66,13 @@ nav {
       width: 32px;
     }
   }
+  .nav-cart {
+    margin-left: 6px;
+    background-color: $primary;
+    color: $foreground3;
+    padding: 0 6px;
+    border-radius: 4px;
+  }
   .nav-icon {
     height: 22px;
     width: 22px;
