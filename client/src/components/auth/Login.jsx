@@ -54,39 +54,32 @@ function Login() {
   }, []);
 
   return (
-    <div>
-      <h1>Vendo.</h1>
-
+    <div className="auth">
+      <h1>Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           defaultValue="johndoe@gmail.com"
+          className={errors.email?.message ? 'input-error' : ''}
           name="email"
           placeholder="Email"
           {...register('email')}
         />
-        <p>{errors.email?.message}</p>
 
         <input
           type="password"
           defaultValue="johndoepassword"
+          className={errors.email?.message ? 'input-error' : ''}
           name="password"
           placeholder="Password"
           {...register('password')}
         />
-        <p>{errors.password?.message}</p>
+        <p className="p-error">{errors.email?.message}</p>
 
-        <button type="submit">
-          Log in
-        </button>
-      </form>
-
-      <div>
-        <Link to="/">
-          <Link to="/register">
-            <p>Sign up to Vendo</p>
-          </Link>
+        <button type="submit">Log in</button>
+        <Link to="/register">
+          <p className="auth-redirect">Sign up to Vendo</p>
         </Link>
-      </div>
+      </form>
     </div>
   );
 }

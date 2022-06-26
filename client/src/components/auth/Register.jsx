@@ -65,50 +65,48 @@ function Register() {
   }, []);
 
   return (
-    <div>
-      <h1>Vendo.</h1>
-
+    <div className="auth">
+      <h1>Register</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           name="name"
           placeholder="Name"
+          className={errors.name?.message ? 'input-error' : ''}
           {...register('name')}
         />
-        <p>{errors.name?.message}</p>
+        <p className="p-error">{errors.name?.message}</p>
 
         <input
           name="email"
           placeholder="Email"
+          className={errors.email?.message ? 'input-error' : ''}
           {...register('email')}
         />
-        <p>{errors.email?.message}</p>
+        <p className="p-error">{errors.email?.message}</p>
 
         <input
           name="password1"
           placeholder="Password"
+          className={errors.password1?.message ? 'input-error' : ''}
           type="password"
           {...register('password1')}
         />
-        <p>{errors.password1?.message}</p>
+        <p className="p-error">{errors.password1?.message}</p>
 
         <input
           name="password2"
           placeholder="Confirm Password"
+          className={errors.password2?.message ? 'input-error' : ''}
           type="password"
           {...register('password2')}
         />
-        <p>{errors.password2?.message}</p>
+        <p className="p-error">{errors.password2?.message}</p>
 
-        <button type="submit">
-          Sign up
-        </button>
-      </form>
-
-      <div>
+        <button type="submit">Sign up</button>
         <Link to="/login">
-          <p>I already have an account</p>
+          <p className="auth-redirect">I already have an account</p>
         </Link>
-      </div>
+      </form>
     </div>
   );
 }

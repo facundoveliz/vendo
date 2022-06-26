@@ -1,10 +1,10 @@
-// base stuff
+// base
 @import "base/colors";
 @import "base/reset";
 @import "base/typography";
 @import "base/base";
 
-// layout-related sections
+// layout
 @import "layout/footer";
 @import "layout/forms";
 @import "layout/navbar";
@@ -15,10 +15,9 @@
 @import "components/toast";
 @import "components/tables";
 
-// page-specific styles
+// pages
+@import "pages/auth";
 @import "pages/cart";
 @import "pages/home";
-@import "pages/login";
 @import "pages/not-found";
 @import "pages/profile";
-@import "pages/register";

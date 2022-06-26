@@ -1,26 +1,39 @@
 form {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 680px) {
+    width: 80%;
+  }
   input {
-    background-color: $background1;
     border: 1px solid $border;
     color: $foreground1;
     border-radius: 4px;
-    margin: 15px 0 5px 0;
     padding: 10px;
+    margin: 15px 0 5px 0;
+    &:first-of-type {
+      margin-top: 0;
+    }
     &:focus {
       outline: none;
     }
   }
-  .error {
+  .input-error {
     border: 1px solid $danger;
-  }
-  .input-validation {
-    color: $danger;
   }
   button {
     margin: 15px 0 15px 0;
   }
+  p {
+    text-decoration: none;
+    color: $foreground1;
+    display: inline-block;
+  }
+  .p-error {
+    color: $danger;
+  }
 }
 
+// TODO: probably remove this
 .input-container {
   background-color: rgba(128, 128, 128, 0.596);
   height: 100vh;
