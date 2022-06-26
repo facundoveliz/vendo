@@ -47,32 +47,42 @@ function Cart() {
   };
 
   return (
-    <div>
+    <div className="cart">
       <h1>Shopping Cart</h1>
       {cart.length > 0 ? (
         <div>
-          {cart.map((product) => (
-            <CartProduct
-              product={product}
-              handleRemoveFromCart={handleRemoveFromCart}
-            />
-          ))}
-          <div>
-            <p>
-              Total:
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Item Name</th>
+                <th>Item Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((product) => (
+                <CartProduct
+                  product={product}
+                  handleRemoveFromCart={handleRemoveFromCart}
+                />
+              ))}
+            </tbody>
+          </table>
+          <div className="cart-checkout">
+            <h4>
+              Total: $
               {cart
                 .map((product) => product.price)
                 .reduce((a, b) => a + b, 0)
                 .toLocaleString()}
-            </p>
+            </h4>
             <button type="button" onClick={() => checkout()}>
               Checkout
             </button>
           </div>
         </div>
-      ) : (
-        <p>The cart is empty</p>
-      )}
+      ) : null}
     </div>
   );
 }

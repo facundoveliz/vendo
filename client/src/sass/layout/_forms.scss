@@ -11,10 +11,10 @@ form {
     }
   }
   .error {
-    border: 1px solid $error;
+    border: 1px solid $danger;
   }
   .input-validation {
-    color: $error;
+    color: $danger;
   }
   button {
     margin: 15px 0 15px 0;
@@ -65,10 +65,10 @@ form {
         width: 95%;
       }
       .error {
-        border: 1px solid $error;
+        border: 1px solid $danger;
       }
       .input-validation {
-        color: $error;
+        color: $danger;
       }
       margin-bottom: 15px;
     }
