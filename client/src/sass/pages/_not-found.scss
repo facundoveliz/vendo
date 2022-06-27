@@ -1,14 +1,14 @@
 .not-found {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
+  margin-top: 180px;
   p {
-    width: 40%;
-    margin: 20px 0;
+    width: 30%;
+    @media screen and (max-width: 500px) {
+      width: 50%;
+    }
+    margin: 8px 0 16px 0;
     text-align: center;
-  }
-  button {
   }
 }
