@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import jwt from 'jwt-decode';
 
 import {
   FiHome, FiShoppingCart, FiUser, FiAlignJustify,
@@ -12,6 +13,11 @@ function Navbar() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const token = localStorage.getItem('x-auth-token');
+  let decoded;
+  if (token) {
+    decoded = jwt(token);
+  }
+
   const cart = useSelector((state) => state.cart.cartItems);
 
   // TODO: find a better place for these
@@ -65,6 +71,17 @@ function Navbar() {
           <FiUser className="nav-icon" />
           <p>Profile</p>
         </NavLink>
+        {decoded?.isAdmin ? (
+          <NavLink
+            to="/admin"
+            title="Admin Dashboard"
+            className="nav-item"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            <FiUser className="nav-icon" />
+            <p>Dashboard</p>
+          </NavLink>
+        ) : null}
         {!token ? (
           <NavLink
             to="/login"
