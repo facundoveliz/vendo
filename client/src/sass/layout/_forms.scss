@@ -1,8 +1,8 @@
 form {
   display: flex;
   flex-direction: column;
-  @media (max-width: 680px) {
-    width: 80%;
+  label {
+    margin: 4px 0;
   }
   input {
     border: 1px solid $border;

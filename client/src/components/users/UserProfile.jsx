@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import toast from 'react-hot-toast';
-import { logoutUser } from '../../api/auth';
 import { deleteProfile, getUser, putProfile } from '../../api/users';
 
 const schema = yup.object({
@@ -37,7 +36,6 @@ const schema = yup.object({
 });
 
 function Profile() {
-  // const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -89,70 +87,65 @@ function Profile() {
   }, []);
 
   return (
-    <div>
-      <h1>My Profile</h1>
+    <div className="profile">
+      <h1>Profile</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <div>
-            <label htmlFor="name">
-              Name
-              <input
-                name="name"
-                id="name"
-                {...register('name')}
-              />
-            </label>
-            <p>{errors.name?.message}</p>
-          </div>
-
-          <div>
-            <label htmlFor="email">
-              Email
-              <input
-                id="email"
-                name="email"
-                {...register('email')}
-              />
-            </label>
-            <p>{errors.email?.message}</p>
-          </div>
-
-          <div>
-            <label htmlFor="email">
-              Password
-              <input
-                id="password"
-                name="password"
-                placeholder="New password"
-                type="password"
-                {...register('password')}
-              />
-            </label>
-            <p>{errors.password?.message}</p>
-
-            <input
-              id="password"
-              name="passwordConfirm"
-              placeholder="Confirm password"
-              type="password"
-              {...register('passwordConfirm')}
-            />
-            <p>
-              {errors.passwordConfirm?.message}
-            </p>
-          </div>
-
-          <div>
-            <button type="button" onClick={() => handleDelete()}>
-              Delete account
-            </button>
-            <button type="button" onClick={() => logoutUser()}>
-              Logout
-            </button>
-            <button type="submit">Save</button>
-          </div>
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            className={errors.name?.message ? 'input-error' : ''}
+            {...register('name')}
+          />
+          <p className="p-error">{errors.name?.message}</p>
         </div>
+
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            className={errors.email?.message ? 'input-error' : ''}
+            {...register('email')}
+          />
+          <p className="p-error">{errors.email?.message}</p>
+        </div>
+
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            placeholder="New password"
+            type="password"
+            className={errors.password?.message ? 'input-error' : ''}
+            {...register('password')}
+          />
+          <p className="p-error">{errors.password?.message}</p>
+
+          <input
+            id="password"
+            placeholder="Confirm password"
+            type="password"
+            className={errors.passwordConfirm?.message ? 'input-error' : ''}
+            {...register('passwordConfirm')}
+          />
+          <p className="p-error">{errors.passwordConfirm?.message}</p>
+        </div>
+        <button type="submit">Update profile</button>
       </form>
+
+      <div className="section profile-delete-account">
+        <h2>Delete account</h2>
+        <p>
+          Once you delete your account there is not going back, so be certain.
+        </p>
+        <button
+          type="button"
+          className="button-danger"
+          onClick={() => handleDelete()}
+        >
+          Delete account
+        </button>
+      </div>
     </div>
   );
 }

@@ -17,4 +17,8 @@ button,
     background-color: $secondary;
     color: $foreground3;
   }
+  &-danger {
+    background-color: $danger;
+    color: $foreground3;
+  }
 }

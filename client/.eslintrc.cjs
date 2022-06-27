@@ -24,5 +24,14 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': [0],
     // same as before
     'jsx-a11y/no-noninteractive-element-interactions': [0],
+    // disable nest inputs inside labels
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
 };
