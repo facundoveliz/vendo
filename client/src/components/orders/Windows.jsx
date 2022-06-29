@@ -20,13 +20,12 @@ export function Delete({ setOpenDelete, selectedDelete, getOrdersRequest }) {
   };
 
   return (
-    <div>
-      <div>
-        <div>
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
           <h1>Delete Order</h1>
         </div>
-        <div />
-        <div>
+        <div className="modal-buttons">
           <button type="submit" onClick={() => handleDelete(selectedDelete)}>
             Yes
           </button>
@@ -41,9 +40,9 @@ export function Delete({ setOpenDelete, selectedDelete, getOrdersRequest }) {
 
 export function Products({ setOpenProducts, selectedProducts }) {
   return (
-    <div>
-      <div>
-        <div>
+    <div className="input-container">
+      <div className="input">
+        <div className="input-title">
           <h1>Products</h1>
           <button type="button" onClick={() => setOpenProducts(false)}>
             Close

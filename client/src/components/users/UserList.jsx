@@ -53,11 +53,9 @@ function UserList() {
             >
               Add New
             </button>
-            <div>
-              <NavLink to="/admin">
-                <button type="button">Return</button>
-              </NavLink>
-            </div>
+            <NavLink to="/admin">
+              <button type="button">Return</button>
+            </NavLink>
           </div>
           <UserTable
             users={users}
@@ -69,24 +67,20 @@ function UserList() {
           />
         </div>
       )}
-      <div>
-        {openEdit ? (
-          <Edit
-            setOpenEdit={setOpenEdit}
-            selectedEdit={selectedEdit}
-            getRequest={getUsersRequest}
-          />
-        ) : null}
-      </div>
-      <div>
-        {openDelete ? (
-          <Delete
-            setOpenDelete={setOpenDelete}
-            selectedDelete={selectedDelete}
-            getRequest={getUsersRequest}
-          />
-        ) : null}
-      </div>
+      {openEdit ? (
+        <Edit
+          setOpenEdit={setOpenEdit}
+          selectedEdit={selectedEdit}
+          getRequest={getUsersRequest}
+        />
+      ) : null}
+      {openDelete ? (
+        <Delete
+          setOpenDelete={setOpenDelete}
+          selectedDelete={selectedDelete}
+          getRequest={getUsersRequest}
+        />
+      ) : null}
     </div>
   );
 }

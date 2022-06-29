@@ -20,25 +20,11 @@ const schema = yup.object().shape({
 
 // TODO: replace these props with redux
 export function Edit({ setOpenEdit, selectedEdit, getRequest }) {
-  const onSubmit = (data) => {
-    toast.promise(
-      putUser(selectedEdit._id, data).then(() => {
-        // closes the window and get the request for the updated list
-        getRequest();
-        setOpenEdit(false);
-      }),
-      {
-        loading: 'Loading',
-        success: () => 'User updated',
-        error: () => 'An error ocurred',
-      },
-    );
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm({
     resolver: yupResolver(schema),
     reValidateMode: 'onBlur',
@@ -48,34 +34,54 @@ export function Edit({ setOpenEdit, selectedEdit, getRequest }) {
     },
   });
 
+  const onSubmit = (data) => {
+    toast.promise(
+      putUser(selectedEdit._id, data).then((res) => {
+        // closes the window and get the request for the updated list
+        getRequest();
+        setOpenEdit(false);
+        if (res.toString() === 'Invalid email or password') {
+          setError('email', {
+            message: 'Email already in use',
+          });
+        }
+      }),
+      {
+        loading: 'Loading',
+        success: () => 'User updated',
+        error: () => 'An error ocurred',
+      },
+    );
+  };
+
   return (
-    <div>
-      <div>
-        <div>
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
           <h1>Edit User</h1>
           <button type="button" onClick={() => setOpenEdit(false)}>
             Close
           </button>
         </div>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              name="name"
-              {...register('name')}
-            />
-            <p>{errors.name?.message}</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            name="name"
+            {...register('name')}
+            className={errors.name?.message ? 'input-error' : ''}
+          />
+          <p className="modal-p-error">{errors.name?.message}</p>
 
-            <input
-              name="email"
-              {...register('email')}
-            />
-            <p>{errors.email?.message}</p>
+          <input
+            name="email"
+            {...register('email')}
+            className={errors.email?.message ? 'input-error' : ''}
+          />
+          <p className="modal-p-error">{errors.email?.message}</p>
 
-            <div>
-              <button type="submit">Save</button>
-            </div>
-          </form>
-        </div>
+          <div className="modal-button">
+            <button type="submit">Save</button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -98,9 +104,9 @@ export function Delete({ setOpenDelete, selectedDelete, getRequest }) {
   };
 
   return (
-    <div>
-      <div>
-        <div>
+    <div className="input-container">
+      <div className="input">
+        <div className="input-title">
           <h1>Delete User</h1>
         </div>
         <div>

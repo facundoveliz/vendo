@@ -49,7 +49,6 @@ function Register() {
       password: data.password1,
     };
     registerUser(userData, history).then((res) => {
-      console.log(res);
       if (res.toString() === 'Invalid email or password') {
         setError('email', {
           message: 'Email already in use',

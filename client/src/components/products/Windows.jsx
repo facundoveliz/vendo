@@ -15,18 +15,24 @@ const schema = yup.object().shape({
     .max(128, 'The name should not have more than 128 characters.'),
   price: yup
     .number()
-    .typeError('The price is a required field.')
-    .positive()
-    .integer()
-    .required(),
+    .required('The price is a required field.')
+    .min(1, 'The price should be at least 1 characters.'),
   description: yup
     .string()
-    .required('The name is a required field.')
-    .min(3, 'The description should be at least 3 characters.')
-    .max(128, 'The description not have more than 3 characters.'),
+    .required('The description is a required field.')
+    .min(3, 'The description should be at least 3 characters.'),
 });
 
 export function Add({ setOpenNew, getProductsRequest }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    reValidateMode: 'onBlur',
+  });
+
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('name', data.name);
@@ -48,7 +54,53 @@ export function Add({ setOpenNew, getProductsRequest }) {
     );
   };
 
-  // validation with react-hook-form
+  return (
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
+          <h1>Add product</h1>
+          <button type="button" onClick={() => setOpenNew(false)}>
+            Close
+          </button>
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+          <input
+            name="name"
+            placeholder="Name"
+            className={errors.name?.message ? 'modal-input-error' : ''}
+            {...register('name')}
+          />
+          <p className="modal-p-error">{errors.name?.message}</p>
+
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            className={errors.price?.message ? 'modal-input-error' : ''}
+            {...register('price')}
+          />
+          <p className="modal-p-error">{errors.price?.message}</p>
+
+          <input name="image" type="file" {...register('image')} />
+
+          <input
+            name="description"
+            placeholder="Description"
+            className={errors.description?.message ? 'modal-input-error' : ''}
+            {...register('description')}
+          />
+          <p className="modal-p-error">{errors.description?.message}</p>
+
+          <div className="modal-button">
+            <button type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export function Edit({ setOpenEdit, selectedEdit, getProductsRequest }) {
   const {
     register,
     handleSubmit,
@@ -56,54 +108,13 @@ export function Add({ setOpenNew, getProductsRequest }) {
   } = useForm({
     resolver: yupResolver(schema),
     reValidateMode: 'onBlur',
+    defaultValues: {
+      name: selectedEdit.name,
+      price: selectedEdit.price,
+      description: selectedEdit.description,
+    },
   });
 
-  return (
-    <div>
-      <div>
-        <div>
-          <h1>Add product</h1>
-          <button type="button" onClick={() => setOpenNew(false)}>
-            Close
-          </button>
-        </div>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-            <input
-              name="name"
-              placeholder="Name"
-              {...register('name')}
-            />
-            <p>{errors.name?.message}</p>
-
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              {...register('price')}
-            />
-            <p>{errors.price?.message}</p>
-
-            <input name="image" type="file" {...register('image')} />
-
-            <input
-              name="description"
-              placeholder="Description"
-              {...register('description')}
-            />
-            <p>{errors.description?.message}</p>
-
-            <button type="submit">
-              Send
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function Edit({ setOpenEdit, selectedEdit, getProductsRequest }) {
   const onSubmit = (data) => {
     const formData = new FormData();
 
@@ -126,60 +137,47 @@ export function Edit({ setOpenEdit, selectedEdit, getProductsRequest }) {
     );
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    reValidateMode: 'onBlur',
-    defaultValues: {
-      name: selectedEdit.name,
-      price: selectedEdit.price,
-      description: selectedEdit.description,
-    },
-  });
-
   return (
-    <div>
-      <div>
-        <div>
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
           <h1>Edit Product</h1>
           <button type="button" onClick={() => setOpenEdit(false)}>
             Close
           </button>
         </div>
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-            <input
-              name="name"
-              placeholder="Name"
-              {...register('name')}
-            />
-            <p>{errors.name?.message}</p>
+        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+          <input
+            name="name"
+            placeholder="Name"
+            className={errors.name?.message ? 'input-error' : ''}
+            {...register('name')}
+          />
+          <p className="modal-p-error">{errors.name?.message}</p>
 
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              {...register('price')}
-            />
-            <p>{errors.price?.message}</p>
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            className={errors.price?.message ? 'input-error' : ''}
+            {...register('price')}
+          />
+          <p className="modal-p-error">{errors.price?.message}</p>
 
-            <input name="image" type="file" {...register('image')} />
+          <input name="image" type="file" {...register('image')} />
 
-            <input
-              name="description"
-              placeholder="Description"
-              {...register('description')}
-            />
-            <p>{errors.description?.message}</p>
+          <input
+            name="description"
+            placeholder="Description"
+            className={errors.description?.message ? 'input-error' : ''}
+            {...register('description')}
+          />
+          <p className="modal-p-error">{errors.description?.message}</p>
 
-            <div>
-              <button type="submit">Save</button>
-            </div>
-          </form>
-        </div>
+          <div className="modal-button">
+            <button type="submit">Save</button>
+          </div>
+        </form>
       </div>
     </div>
   );
@@ -202,13 +200,13 @@ export function Delete({ setOpenDelete, selectedDelete, getProductsRequest }) {
   };
 
   return (
-    <div>
-      <div>
-        <div>
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
           <h1>Delete Product</h1>
         </div>
         <div />
-        <div>
+        <div className="modal-buttons">
           <button type="submit" onClick={() => handleDelete(selectedDelete)}>
             Yes
           </button>
