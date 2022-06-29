@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
+import toast from 'react-hot-toast';
+import { NavLink } from 'react-router-dom';
+
 import { getUsers } from '../../api/users';
 import { Edit, Delete } from './Windows';
 
@@ -35,27 +38,36 @@ function UserList() {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h1>Users</h1>
-      </div>
+    <div className="dashboard-wrapper">
+      <h1>Users</h1>
       {loading ? (
-        <Loader
-          type="Oval"
-          color="#627884"
-          height={200}
-          width={200}
-
-        />
+        <Loader type="Oval" color="#627884" height={200} width={200} />
       ) : (
-        <UserTable
-          users={users}
-          setSelectedDelete={setSelectedDelete}
-          setSelectedEdit={setSelectedEdit}
-          selectedEdit={selectedEdit}
-          setOpenDelete={setOpenDelete}
-          setOpenEdit={setOpenEdit}
-        />
+        <div>
+          <div className="dashboard-buttons">
+            <button
+              type="submit"
+              onClick={() => toast('Feature not available yet.', {
+                icon: '🤧',
+              })}
+            >
+              Add New
+            </button>
+            <div>
+              <NavLink to="/admin">
+                <button type="button">Return</button>
+              </NavLink>
+            </div>
+          </div>
+          <UserTable
+            users={users}
+            setSelectedDelete={setSelectedDelete}
+            setSelectedEdit={setSelectedEdit}
+            selectedEdit={selectedEdit}
+            setOpenDelete={setOpenDelete}
+            setOpenEdit={setOpenEdit}
+          />
+        </div>
       )}
       <div>
         {openEdit ? (

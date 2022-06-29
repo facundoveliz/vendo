@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 import jwt from 'jwt-decode';
 import dateFormat from 'dateformat';
 
+import { FiEdit2, FiTrash2 } from 'react-icons/fi';
+
 function UserTable({
   users,
   setSelectedDelete,
@@ -18,55 +20,49 @@ function UserTable({
   const decoded = jwt(token);
 
   return (
-    <table>
-      <tbody>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>User since</th>
-          <th>Actions</th>
-        </tr>
-        {users.map((user) => (
-          <tr key={user._id}>
-            <td>{user.name}</td>
-            <td>{user.email}</td>
-            <td>{dateFormat(user.created, 'd mmm, HH:MM')}</td>
-            <td>
-              <div>
-                <img
-                  src="/icons/edit.svg"
-                  alt=""
+    <div className="dashboard-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>User since</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user._id}>
+              <td>
+                <p>{user.name}</p>
+                <p className="dashboard-role">
+                  {user.isAdmin ? 'Admin' : 'User'}
+                </p>
+              </td>
+              <td>
+                <p>{user.email}</p>
+              </td>
+              <td>
+                <p>{dateFormat(user.created, 'mmm dd, yyyy')}</p>
+              </td>
+              <td>
+                <FiEdit2
                   onClick={() => {
                     setOpenEdit(true);
                     setSelectedEdit({ ...selectedEdit, ...user });
                   }}
-                  onKeyDown={() => {
-                    setOpenEdit(true);
-                    setSelectedEdit({ ...selectedEdit, ...user });
-                  }}
                 />
-                {user._id === decoded._id ? (
-                  <img
-                    src="/icons/trash.svg"
-                    alt=""
-                    onClick={() => toast.error("You can't delete yourself.")}
-                  />
-                ) : (
-                  <img
-                    src="/icons/trash.svg"
-                    alt=""
-                    onClick={() => {
-                      setOpenDelete(true);
-                      setSelectedDelete(user._id);
-                    }}
-                  />
-                )}
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                <FiTrash2
+                  onClick={() => (user._id === decoded._id
+                    ? toast.error("You can't delete yourself!")
+                    : (setOpenDelete(true), setSelectedDelete(user._id)))}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

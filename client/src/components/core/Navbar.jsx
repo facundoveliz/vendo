@@ -4,7 +4,11 @@ import { useSelector } from 'react-redux';
 import jwt from 'jwt-decode';
 
 import {
-  FiHome, FiShoppingCart, FiUser, FiAlignJustify,
+  FiHome,
+  FiShoppingCart,
+  FiUser,
+  FiAlignJustify,
+  FiDatabase,
 } from 'react-icons/fi';
 
 import { logoutUser } from '../../api/auth';
@@ -78,7 +82,7 @@ function Navbar() {
             className="nav-item"
             onClick={() => setShowMobileMenu(false)}
           >
-            <FiUser className="nav-icon" />
+            <FiDatabase className="nav-icon" />
             <p>Dashboard</p>
           </NavLink>
         ) : null}

@@ -4,7 +4,7 @@ nav {
   align-items: center;
   height: 64px;
   padding: 0 32px;
-  background-color: $background2;
+  background-color: $background1;
   .nav-screen {
     display: flex;
     justify-content: space-around;
@@ -33,7 +33,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: $background2;
+    background-color: $background1;
     position: fixed;
     padding-top: 50px;
     top: 50px;
@@ -71,7 +71,7 @@ nav {
     background-color: $primary;
     color: $foreground3;
     padding: 0 6px;
-    border-radius: 4px;
+    border-radius: $border-radius;
   }
   .nav-icon {
     height: 22px;

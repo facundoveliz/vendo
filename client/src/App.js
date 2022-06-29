@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 
 import UserProfile from './components/users/UserProfile';
 
+import Dashboard from './components/admin/Dashboard';
 import UserList from './components/users/UserList';
 import ProductList from './components/products/ProductList';
 import OrderList from './components/orders/OrderList';
@@ -36,16 +37,17 @@ function App() {
           {/* logged routes */}
           <LoggedRoute component={UserProfile} path="/profile" exact />
 
-          {/* admin routes */}
-          <AdminRoute component={UserList} path="/user-list" exact />
-          <AdminRoute component={ProductList} path="/product-list" exact />
-          <AdminRoute component={OrderList} path="/order-list" exact />
-
           {/* normal routes */}
           <Route path="/" component={Home} exact />
           <Route path="/cart" component={Cart} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
+
+          {/* admin routes */}
+          <AdminRoute component={Dashboard} path="/admin" exact />
+          <AdminRoute component={UserList} path="/admin/users" exact />
+          <AdminRoute component={ProductList} path="/admin/products" exact />
+          <AdminRoute component={OrderList} path="/admin/orders" exact />
 
           {/* not found route */}
           <Route component={NotFound} />

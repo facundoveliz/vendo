@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
+import toast from 'react-hot-toast';
+import { NavLink } from 'react-router-dom';
+
 import { getOrders } from '../../api/orders';
 import { Edit, Delete, Products } from './Windows';
 import OrderTable from './OrderTable';
@@ -39,27 +42,34 @@ function OrderList() {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h1>Orders</h1>
-      </div>
+    <div className="dashboard-wrapper">
+      <h1>Orders</h1>
       {loading ? (
-        <Loader
-          type="Oval"
-          color="#627884"
-          height={200}
-          width={200}
-
-        />
+        <Loader type="Oval" color="#627884" height={200} width={200} />
       ) : (
-        <OrderTable
-          orders={orders}
-          setSelectedDelete={setSelectedDelete}
-          setSelectedProducts={setSelectedProducts}
-          setSelectedEdit={setSelectedEdit}
-          setOpenDelete={setOpenDelete}
-          setOpenProducts={setOpenProducts}
-        />
+        <div>
+          <div className="dashboard-buttons">
+            <button
+              type="submit"
+              onClick={() => toast('Feature not available yet.', {
+                icon: '🤧',
+              })}
+            >
+              Add New
+            </button>
+            <NavLink to="/admin">
+              <button type="button">Return</button>
+            </NavLink>
+          </div>
+          <OrderTable
+            orders={orders}
+            setSelectedDelete={setSelectedDelete}
+            setSelectedProducts={setSelectedProducts}
+            setSelectedEdit={setSelectedEdit}
+            setOpenDelete={setOpenDelete}
+            setOpenProducts={setOpenProducts}
+          />
+        </div>
       )}
       <div>
         {openEdit ? (

@@ -1,5 +1,5 @@
 // base
-@import "base/colors";
+@import "base/variables";
 @import "base/reset";
 @import "base/typography";
 @import "base/base";
@@ -18,6 +18,8 @@
 // pages
 @import "pages/auth";
 @import "pages/cart";
+@import "pages/dashboard-table";
+@import "pages/dashboard";
 @import "pages/home";
 @import "pages/not-found";
 @import "pages/profile";

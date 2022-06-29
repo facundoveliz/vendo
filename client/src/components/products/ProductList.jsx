@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'react-loader-spinner';
+import { NavLink } from 'react-router-dom';
+
 import { getProducts } from '../../api/products';
 import { Add, Edit, Delete } from './Windows';
 import ProductTable from './ProductTable';
@@ -37,28 +39,30 @@ function ProductList() {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h1>Products</h1>
-      </div>
+    <div className="dashboard-wrapper">
+      <h1>Products</h1>
       {loading ? (
-        <Loader
-          type="Oval"
-          color="#627884"
-          height={200}
-          width={200}
-
-        />
+        <Loader type="Oval" color="#627884" height={200} width={200} />
       ) : (
-        <ProductTable
-          setOpenNew={setOpenNew}
-          setSelectedEdit={setSelectedEdit}
-          selectedEdit={selectedEdit}
-          setOpenEdit={setOpenEdit}
-          setSelectedDelete={setSelectedDelete}
-          setOpenDelete={setOpenDelete}
-          products={products}
-        />
+        <div>
+          <div className="dashboard-buttons">
+            <button type="submit" onClick={() => setOpenNew(true)}>
+              Add New
+            </button>
+            <NavLink to="/admin">
+              <button type="button">Return</button>
+            </NavLink>
+          </div>
+          <ProductTable
+            setOpenNew={setOpenNew}
+            setSelectedEdit={setSelectedEdit}
+            selectedEdit={selectedEdit}
+            setOpenEdit={setOpenEdit}
+            setSelectedDelete={setSelectedDelete}
+            setOpenDelete={setOpenDelete}
+            products={products}
+          />
+        </div>
       )}
       {openNew ? (
         <Add setOpenNew={setOpenNew} getProductsRequest={getProductsRequest} />

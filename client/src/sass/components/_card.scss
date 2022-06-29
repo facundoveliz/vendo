@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   width: 220px;
-  background-color: $background2;
+  background-color: $background1;
   margin: 40px;
   padding: 20px;
-  border-radius: 4px;
+  border-radius: $border-radius;
   .card-image-container {
     width: 100%;
     height: 200px;

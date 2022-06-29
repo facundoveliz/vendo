@@ -1,0 +1,31 @@
+.dashboard {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    padding: 30px 0;
+  }
+  .dashboard-sections {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    .dashboard-item {
+      color: $foreground1;
+      background-color: $background1;
+      padding: 24px;
+      width: 128px;
+      margin-bottom: 24px;
+      border-radius: $border-radius;
+      text-decoration: none;
+      &:hover {
+        background-color: $primary;
+        color: $foreground3;
+        transition: background 0.1s ease-in, color 0.1s ease-in;
+      }
+      svg {
+        width: 64px;
+        height: 64px;
+      }
+    }
+  }
+}
