@@ -77,7 +77,7 @@ function Login() {
 
         <button type="submit">Log in</button>
         <Link to="/register">
-          <p className="auth-redirect">Sign up to Vendo</p>
+          <p className="auth-redirect">Create an account</p>
         </Link>
       </form>
     </div>
