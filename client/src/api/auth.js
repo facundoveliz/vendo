@@ -4,20 +4,13 @@ import axiosClient from './axiosClient';
 const url = `${process.env.REACT_APP_API_URL}/api/users`;
 
 export async function registerUser(userData) {
-  const res = await axiosClient.post(`${url}/register`, userData);
-  if (res.toString() === 'Invalid email or password') {
-    return res;
-  }
+  await axiosClient.post(`${url}/register`, userData);
   window.location.href = '/login';
   return null;
 }
 
 export async function loginUser(userData) {
   const res = await axiosClient.post(`${url}/login`, userData);
-  if (res.toString() === 'Invalid email or password') {
-    return res;
-  }
-
   localStorage.setItem('x-auth-token', res.data.result);
   window.location.href = '/';
   return null;

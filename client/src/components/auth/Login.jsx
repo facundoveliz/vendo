@@ -27,7 +27,6 @@ function Login() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -38,13 +37,7 @@ function Login() {
       email: data.email,
       password: data.password,
     };
-    loginUser(userData).then((res) => {
-      if (res.toString() === 'Invalid email or password') {
-        setError('email', {
-          message: res.toString(),
-        });
-      }
-    });
+    loginUser(userData);
   };
 
   useEffect(() => {

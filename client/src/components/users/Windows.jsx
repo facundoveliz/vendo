@@ -24,7 +24,6 @@ export function Edit({ setOpenEdit, selectedEdit, getRequest }) {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm({
     resolver: yupResolver(schema),
     reValidateMode: 'onBlur',
@@ -36,15 +35,9 @@ export function Edit({ setOpenEdit, selectedEdit, getRequest }) {
 
   const onSubmit = (data) => {
     toast.promise(
-      putUser(selectedEdit._id, data).then((res) => {
-        // closes the window and get the request for the updated list
+      putUser(selectedEdit._id, data).then(() => {
         getRequest();
         setOpenEdit(false);
-        if (res.toString() === 'Invalid email or password') {
-          setError('email', {
-            message: 'Email already in use',
-          });
-        }
       }),
       {
         loading: 'Loading',

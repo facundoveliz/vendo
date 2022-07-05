@@ -59,7 +59,7 @@ export const registerUser = async (req, res) => {
       if (user) {
         return res.status(400).json({
           ok: false,
-          msg: 'Invalid email or password',
+          msg: 'Email already in use',
         })
       }
 
@@ -174,7 +174,7 @@ export const putProfile = async (req, res) => {
     if (emailCheck !== null) {
       return res.status(400).json({
         ok: false,
-        msg: 'Invalid email or password',
+        msg: 'Email already in use',
       })
     }
     newUser.email = req.body.email

@@ -26,7 +26,7 @@ function App() {
   return (
     <>
       <Toaster
-        position="bottom-right"
+        position="top-right"
         toastOptions={{
           className: 'toast',
         }}

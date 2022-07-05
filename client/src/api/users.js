@@ -17,10 +17,7 @@ export async function putUser(id, userData) {
 }
 
 export async function putProfile(userData) {
-  const res = await axiosClient.put(url, userData);
-  if (res.toString() === 'Invalid email or password') {
-    return res;
-  }
+  await axiosClient.put(url, userData);
   return null;
 }
 

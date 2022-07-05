@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -24,8 +25,11 @@ axiosClient.interceptors.response.use(
       if (error.response.status === 401) {
         window.location.href = '/login';
       }
+      if (error.response.data.msg === 'Email already in use') {
+        toast.error('Email already in use');
+      }
       if (error.response.data.msg === 'Invalid email or password') {
-        return error.response.data.msg;
+        toast.error('Invalid email or password');
       }
     }
     return console.log(error);

@@ -36,7 +36,6 @@ function Register() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm({
     resolver: yupResolver(schema),
     reValidateMode: 'onBlur',
@@ -48,13 +47,7 @@ function Register() {
       email: data.email,
       password: data.password1,
     };
-    registerUser(userData, history).then((res) => {
-      if (res.toString() === 'Invalid email or password') {
-        setError('email', {
-          message: 'Email already in use',
-        });
-      }
-    });
+    registerUser(userData);
   };
 
   useEffect(() => {

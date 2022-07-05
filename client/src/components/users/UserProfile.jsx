@@ -40,7 +40,6 @@ function Profile() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
     reset,
   } = useForm({
     resolver: yupResolver(schema),
@@ -58,13 +57,7 @@ function Profile() {
 
   // FIX: it does weird stuff with getUserRequest()
   const onSubmit = (data) => {
-    putProfile(data).then((res) => {
-      if (res.toString() === 'Invalid email or password') {
-        setError('email', {
-          message: res.toString(),
-        });
-      }
-    });
+    putProfile(data);
     getUserRequest();
   };
 
