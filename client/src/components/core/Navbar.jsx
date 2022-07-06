@@ -24,16 +24,6 @@ function Navbar() {
 
   const cart = useSelector((state) => state.cart.cartItems);
 
-  // TODO: find a better place for these
-  // <NavLink to="/user-list" title="Users">
-  // <img src="/icons/users.svg" alt="" />
-  // </NavLink>
-  // <NavLink to="/product-list" title="Products">
-  // <img src="/icons/product.svg" alt="" />
-  // </NavLink>
-  // <NavLink to="/order-list" title="Orders">
-  // <img src="/icons/order.svg" alt="" />
-  // </NavLink>
   useEffect(() => {
     setShowMobileMenu();
   }, []);
