@@ -42,12 +42,18 @@ function OrderList() {
   }, []);
 
   return (
-    <div className="dashboard-wrapper">
-      <h1>Orders</h1>
+    <>
       {loading ? (
-        <Loader type="Oval" color="#627884" height={200} width={200} />
+        <Loader
+          className="loader"
+          type="Oval"
+          color="#627884"
+          height={200}
+          width={200}
+        />
       ) : (
-        <div>
+        <div className="dashboard-wrapper">
+          <h1>Orders</h1>
           <div className="dashboard-buttons">
             <button
               type="submit"
@@ -94,7 +100,7 @@ function OrderList() {
           />
         ) : null}
       </div>
-    </div>
+    </>
   );
 }
 

@@ -38,12 +38,18 @@ function UserList() {
   }, []);
 
   return (
-    <div className="dashboard-wrapper">
-      <h1>Users</h1>
+    <>
       {loading ? (
-        <Loader type="Oval" color="#627884" height={200} width={200} />
+        <Loader
+          className="loader"
+          type="Oval"
+          color="#627884"
+          height={200}
+          width={200}
+        />
       ) : (
-        <div>
+        <div className="dashboard-wrapper">
+          <h1>Users</h1>
           <div className="dashboard-buttons">
             <button
               type="submit"
@@ -81,7 +87,7 @@ function UserList() {
           getRequest={getUsersRequest}
         />
       ) : null}
-    </div>
+    </>
   );
 }
 

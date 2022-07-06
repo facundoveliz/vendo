@@ -20,11 +20,17 @@ function Home() {
   }, []);
 
   return (
-    <div className="home">
+    <div>
       {loading ? (
-        <Loader type="Oval" color="#627884" height={200} width={200} />
+        <Loader
+          className="loader"
+          type="Oval"
+          color="#627884"
+          height={200}
+          width={200}
+        />
       ) : (
-        <div>
+        <div className="home">
           <div className="card-container">
             {products.map((product) => (
               <ProductCard key={product._id} product={product} />

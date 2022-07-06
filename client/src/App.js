@@ -1,7 +1,7 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 
