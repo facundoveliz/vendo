@@ -13,7 +13,7 @@ This is an application that I made for practicing purposes. Is made with React a
 
 ### Demo
 
-You can visit the website by clicking [here](https://vendo-ecommerce.burki.club/).
+You can visit the website by clicking [here](https://vendo-ecommerce.facundoveliz.monster/).
 
 You can use this example account:
 
