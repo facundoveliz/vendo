@@ -15,7 +15,7 @@ This is an application that I made for practicing purposes. Is made with React a
 
 You can visit the website by clicking [here](https://vendo-ecommerce.facundoveliz.monster/).
 
-You can use this example account:
+You can use this example account with admin privileges:
 
     johndoe@gmail.com:johndoepassword
 

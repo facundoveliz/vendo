@@ -51,7 +51,6 @@ function Login() {
       <h1>Login</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
-          defaultValue="johndoe@gmail.com"
           className={errors.email?.message ? 'input-error' : ''}
           name="email"
           placeholder="Email"
@@ -60,7 +59,6 @@ function Login() {
 
         <input
           type="password"
-          defaultValue="johndoepassword"
           className={errors.email?.message ? 'input-error' : ''}
           name="password"
           placeholder="Password"
