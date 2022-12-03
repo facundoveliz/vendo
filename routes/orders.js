@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import auth from '../middleware/auth'
-import admin from '../middleware/admin'
-import { deleteOrder, getOrders, postOrder } from '../controllers/orders'
-import { catchErrors } from '../middleware/error'
+import auth from '../middleware/auth.js'
+import admin from '../middleware/admin.js'
+import { deleteOrder, getOrders, postOrder } from '../controllers/orders.js'
+import { catchErrors } from '../middleware/error.js'
 
 const router = Router()
 

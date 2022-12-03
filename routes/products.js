@@ -1,15 +1,15 @@
 import multer from 'multer'
 
 import { Router } from 'express'
-import auth from '../middleware/auth'
-import admin from '../middleware/admin'
+import auth from '../middleware/auth.js'
+import admin from '../middleware/admin.js'
 import {
   deleteProduct,
   getProducts,
   postProduct,
   putProduct,
-} from '../controllers/products'
-import { catchErrors } from '../middleware/error'
+} from '../controllers/products.js'
+import { catchErrors } from '../middleware/error.js'
 
 const router = Router()
 

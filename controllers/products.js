@@ -1,8 +1,8 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import S3 from 'aws-sdk/clients/s3'
+import S3 from 'aws-sdk/clients/s3.js'
 import fs from 'fs'
-import { Product, schema } from '../models/product'
+import { Product, schema } from '../models/product.js'
 
 dotenv.config()
 
