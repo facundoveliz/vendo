@@ -2,6 +2,13 @@
   "name": "vendo",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "client": "export PORT=3001 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.jsx --fix"
+  },
   "dependencies": {
     "@hookform/resolvers": "^2.8.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -32,13 +39,6 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0"
-  },
-  "scripts": {
-    "client": "export PORT=3001 && react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.jsx --fix"
   },
   "browserslist": {
     "production": [
