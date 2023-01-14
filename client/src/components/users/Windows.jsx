@@ -97,16 +97,13 @@ export function Delete({ setOpenDelete, selectedDelete, getRequest }) {
   };
 
   return (
-    <div className="input-container">
-      <div className="input">
-        <div className="input-title">
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
           <h1>Delete User</h1>
         </div>
-        <div>
-          <p>Are you sure you want to delete this user?</p>
-        </div>
-        <div>
-          <button type="button" onClick={() => handleDelete(selectedDelete)}>
+        <div className="modal-buttons">
+          <button type="submit" onClick={() => handleDelete(selectedDelete)}>
             Yes
           </button>
           <button type="button" onClick={() => setOpenDelete(false)}>
