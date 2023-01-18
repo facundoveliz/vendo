@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  timeout: 60000,
+  timeout: 1200000,
 });
 
 axiosClient.interceptors.request.use(
