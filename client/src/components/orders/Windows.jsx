@@ -40,9 +40,9 @@ export function Delete({ setOpenDelete, selectedDelete, getOrdersRequest }) {
 
 export function Products({ setOpenProducts, selectedProducts }) {
   return (
-    <div className="input-container">
-      <div className="input">
-        <div className="input-title">
+    <div className="modal-container">
+      <div className="modal">
+        <div className="modal-title">
           <h1>Products</h1>
           <button type="button" onClick={() => setOpenProducts(false)}>
             Close
