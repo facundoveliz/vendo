@@ -1,19 +1,14 @@
 # 🗒️ Description
 
-This is an application that I made for practicing purposes. Is made with React and Sass in the front-end, Node and Express using MongoDB as database for the back-end.
+Vendo is an e-commerce solution that I developed using React. I created a dynamic and responsive user interface that provides users with an intuitive and seamless shopping experience. The application also utilizes Sass for styling, Node for server-side logic, and MongoDB for data storage.
 
-## Features
+One of the key features of this app is the admin panel, which allows for easy management of users, products, and orders. This includes the ability to perform CRUD operations on these entities, providing full control over the content of the website. Additionally, the app features a cart system, allowing users to add products to their cart and proceed to checkout. Users are able to create an account, sign in, and update their profile.
 
-- Authentication and validation system, both in the back and the front end
-- Ecommerce system for adding products to a cart and purchasing them.
-- Admin panel for visualizing, adding, editing and removing users, products and orders.
-- User and admin roles, with they respective protected routes.
-- Image uploading with AWS Buckets.
-- Profile viewing/editing
+# Demo
 
-### Demo
+https://user-images.githubusercontent.com/68577124/215882667-cb3ed269-121d-40ae-85ee-87f774883313.mp4
 
-You can visit the website by clicking [here](https://vendo-ecommerce.facundoveliz.monster/).
+You can visit the website by clicking [here](https://vendo.facundoveliz.monster/).
 
 You can use this example account with admin privileges:
 
