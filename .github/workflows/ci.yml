@@ -13,12 +13,12 @@ jobs:
 
       - name: Build Node.js
         uses: oven-sh/setup-bun@v2
-      - run: bun install
+      - run: bun install --frozen-lockfile
       - run: bun lint
 
       - name: Build React
         uses: oven-sh/setup-bun@v2
       - run: cd client
-      - run: bun install
+      - run: bun install --frozen-lockfile
       - run: bun lint
       - run: bun run build
