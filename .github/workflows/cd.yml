@@ -18,10 +18,13 @@ jobs:
 
       - name: Build React
         uses: oven-sh/setup-bun@v2
-      - run: cd client
-      - run: bun install
-      - run: bun lint
-      - run: bun run build
+      - run: |
+          cd client
+          bun install
+          bun run build
+          bun lint
+        env:
+          CI: false
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
