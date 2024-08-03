@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  server:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URI=$DATABASE_URI
+      - JWT_PRIVATE_KEY=$JWT_PRIVATE_KEY
+      - AWS_BUCKET_NAME=$AWS_BUCKET_NAME
+      - BUCKET_REGION=$BUCKET_REGION
+      - AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+      - AWS_SECRET_KEY=$AWS_SECRET_KEY
+    depends_on:
+      - mongo
+
+  client:
+    build:
+      context: ./client
+      args:
+        - REACT_APP_API_URL=http://localhost:3000
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+volumes:
+  mongo-data:
