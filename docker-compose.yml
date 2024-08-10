@@ -1,33 +1,38 @@
-version: "3"
 services:
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-
   server:
     build: .
+    container_name: $SERVER_HOST
+    image: facundoveliz/vendo-backend
+    env_file: .env
     ports:
-      - "3000:3000"
-    environment:
-      - DATABASE_URI=$DATABASE_URI
-      - JWT_PRIVATE_KEY=$JWT_PRIVATE_KEY
-      - AWS_BUCKET_NAME=$AWS_BUCKET_NAME
-      - BUCKET_REGION=$BUCKET_REGION
-      - AWS_ACCESS_KEY=$AWS_ACCESS_KEY
-      - AWS_SECRET_KEY=$AWS_SECRET_KEY
-    depends_on:
-      - mongo
+      - $SERVER_PORT:$SERVER_PORT
+    networks:
+      - vendo
 
-  client:
-    build:
-      context: ./client
-      args:
-        - REACT_APP_API_URL=$REACT_APP_API_URL
+  nginx:
+    build: ./nginx
+    env_file: .env
+    image: facundoveliz/vendo-nginx
+    container_name: $NGINX_HOST
+    restart: always
     ports:
-      - "80:80"
+      - $NGINX_PORT:$NGINX_PORT
     depends_on:
       - server
+    networks:
+      - budgie
 
-volumes:
-  mongo-data:
+  client:
+    build: ./client
+    container_name: $CLIENT_HOST
+    image: facundoveliz/vendo-frontend
+    env_file: .env
+    ports:
+      - $CLIENT_PORT:$CLIENT_PORT
+    depends_on:
+      - server
+    networks:
+      - vendo
+
+networks:
+  vendo:
