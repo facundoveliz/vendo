@@ -20,7 +20,7 @@ services:
     depends_on:
       - server
     networks:
-      - budgie
+      - vendo
 
   client:
     build: ./client
