@@ -1,6 +1,0 @@
-node_modules
-build
-.eslintignore
-.eslintrc.cjs
-README.md
-.env.example
