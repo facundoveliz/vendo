@@ -43,11 +43,3 @@ jobs:
         with:
           push: true
           tags: facundoveliz/vendo-backend:latest
-
-      - name: Build and push frontend Docker image
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: facundoveliz/vendo-frontend:latest
-          context: ./client
-          dockerfile: ./client/Dockerfile
